@@ -1,8 +1,5 @@
 ---
 // Component Imports
-const someProps = {
-	count: 0,
-};
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -14,20 +11,13 @@ const someProps = {
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<style>
-			html,
-			body {
-				font-family: system-ui;
-				margin: 0;
-			}
-			body {
-				padding: 2rem;
-			}
-		</style>
 	</head>
 	<body>
 		<main>
-			<h1 class="text-lg font-bold">Hello, Astro-React!</h1>
+			<div class="w-full h-[100vh] bg-slate-200">
+				<div></div>
+				<slot/>
+			</div>
 		</main>
 	</body>
 </html>
