@@ -1,6 +1,7 @@
 {
-  "name": "codercoin",
+  "name": "blog",
   "type": "module",
+  "author": "Codercoin",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
