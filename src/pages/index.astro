@@ -1,23 +1,25 @@
 ---
-// Component Imports
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
+import MainLayout from '@/layouts/main.layout.astro';
+const texts: string[] = [
+  'The only way to do great work is to love what you do. - Steve Jobs',
+  "In three words I can sum up everything I've learned about life: it goes on. - Robert Frost",
+  'The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt',
+  'Be the change that you wish to see in the world. - Mahatma Gandhi',
+  'The only limit to our realization of tomorrow will be our doubts of today. - Franklin D. Roosevelt',
+  "Believe you can and you're halfway there. - Theodore Roosevelt",
+  'If you cannot be a poet, be the poem. - David Carradine',
+]
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-	</head>
-	<body>
-		<main>
-			<div class="w-full h-[100vh] bg-slate-200">
-				<div></div>
-				<slot/>
-			</div>
-		</main>
-	</body>
-</html>
+<MainLayout>  
+    <div class="container mx-auto flex-1 opacity-50">
+        <ul class="flex flex-col justify-center items-center space-y-4 text-xl p-2 h-full">
+          {texts.map((text, index) => (
+            <p
+              class="border-b hover:border-purple-500 cursor-pointer hover:font-semibold"
+            >
+              {text}
+            </p>
+          ))}
+        </ul>
+      </div>
+</MainLayout>

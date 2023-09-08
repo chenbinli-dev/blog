@@ -5,9 +5,9 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Inter", ...defaultTheme.fontFamily.sans]
+                sans: ["Harmoney_Sans-Regular", ...defaultTheme.fontFamily.sans]
             }
         },
     },
-    plugins: [],
+    plugins: [require('@tailwindcss/typography')],
 }

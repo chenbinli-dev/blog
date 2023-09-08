@@ -1,0 +1,25 @@
+---
+import Link from '@/components/Link.astro';
+const menu = [
+    {
+        title:"Note",
+        url: "/note"
+    },
+    {
+        title:"Handwriting",
+        url: "/handwriting/"
+    }
+]
+---
+<nav class="flex items-center justify-between p-4 border-b">
+    <a href="/">
+      <span class="flex items-center gap-2 font-semibold text-lg italic">
+        <img src="src/assets/images/avatar.png" width="40" class="rounded-full"/> Codercoin's Book
+        </span>  
+    </a> 
+    <div class="flex gap-8">
+        {
+            menu.map(item => <Link href={item.url}>{item.title}</Link>)
+        }
+    </div>
+</nav>
