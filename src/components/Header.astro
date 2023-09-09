@@ -1,26 +1,29 @@
 ---
-import Link from '@/components/Link.astro';
-import logo from '@/assets/images/avatar.png'
+import Link from "@/components/Link.astro";
+import logo from "@/assets/images/avatar.png";
 const menu = [
-    {
-        title:"Note",
-        url: "/note"
-    },
-    {
-        title:"Handwriting",
-        url: "/handwriting/"
-    }
-]
+  {
+    title: "Note",
+    url: "/note",
+  },
+  {
+    title: "Handwriting",
+    url: "/handwriting/",
+  },
+];
 ---
-<nav class="flex items-center justify-between p-4 border-b">
+
+<header class="w-full">
+  <div
+    class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b"
+  >
     <a href="/">
       <span class="flex items-center gap-2 font-semibold text-lg italic">
-        <img src={logo.src} width="40" class="rounded-full"/> Codercoin's Book
-        </span>  
-    </a> 
-    <div class="flex gap-8">
-        {
-            menu.map(item => <Link href={item.url}>{item.title}</Link>)
-        }
-    </div>
-</nav>
+        <img src={logo.src} width="40" class="rounded-full" /> Codercoin's Book
+      </span>
+    </a>
+    <nav class="flex gap-8">
+      {menu.map((item) => <Link href={item.url}>{item.title}</Link>)}
+    </nav>
+  </div>
+</header>

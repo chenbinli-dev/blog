@@ -1,0 +1,54 @@
+---
+import { Icon } from "astro-icon";
+import Link from "./Link.astro";
+---
+
+<div
+  class="fixed right-16 bottom-0 flex flex-col items-center gap-4 mb-4 max-md:hidden"
+>
+  <Link href="https://codercoin.top/">
+    <div
+      class="relative group before:invisible before:absolute before:right-full before:-translate-x-2 before:content-['Portiflio'] before:opacity-50 before:transition-all before:duration-300 before:ease-in hover:before:visible hover:before:-translate-x-1"
+    >
+      <Icon
+        name="pixelarticons:coin"
+        size="20"
+        class="group-hover:-rotate-12 transition-all duration-300 ease-in-out"
+      />
+    </div>
+  </Link>
+  <Link href="https://github.com/codercoin98">
+    <span
+      class="relative group before:invisible before:absolute before:right-full before:-translate-x-2 before:content-['Github'] before:opacity-50 before:transition-all before:duration-300 before:ease-in hover:before:visible hover:before:-translate-x-1"
+    >
+      <Icon
+        name="tabler:brand-github"
+        size="20"
+        class="group-hover:-rotate-12 transition-all duration-300 ease-in-out"
+      />
+    </span>
+  </Link>
+  <Link href="https://twitter.com/mozlilove">
+    <span
+      class="relative group before:invisible before:absolute before:right-full before:-translate-x-2 before:content-['Twitter'] before:opacity-50 before:transition-all before:duration-300 before:ease-in hover:before:visible hover:before:-translate-x-1"
+    >
+      <Icon
+        name="tabler:brand-twitter"
+        size="20"
+        class="group-hover:-rotate-12 transition-all duration-300 ease-in-out"
+      />
+    </span>
+  </Link>
+  <Link href="https://space.bilibili.com/164577534">
+    <span
+      class="relative group before:invisible before:absolute before:right-full before:-translate-x-2 before:content-['Bilibili'] before:opacity-50 before:transition-all before:duration-300 before:ease-in hover:before:visible hover:before:-translate-x-1"
+    >
+      <Icon
+        name="ri:bilibili-line"
+        size="20"
+        class="group-hover:-rotate-12 transition-all duration-300 ease-in-out"
+      />
+    </span>
+  </Link>
+  <div class="w-1 h-10 bg-black"></div>
+</div>

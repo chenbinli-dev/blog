@@ -1,25 +1,28 @@
 ---
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
-import '@/main.css'
-import { ViewTransitions } from 'astro:transitions';
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import "@/main.css";
+import { ViewTransitions } from "astro:transitions";
+import Socials from "@/components/Socials.astro";
 ---
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<title>Codercoin's Book</title>
-		<ViewTransitions fallback='animate'/>
-	</head>
-	<body class="bg-slate-100 dark:bg-slate-950 font-sans">
-		<main>
-			<div class="max-w-[1024px] max-lg:container mx-auto h-[100vh] relative flex flex-col">
-				<Header/>
-				<slot />
-				<Footer/>
-			</div>
-		</main>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>Codercoin's Book</title>
+    <ViewTransitions fallback="animate" />
+  </head>
+  <body
+    class="relative bg-slate-100 dark:bg-slate-950 font-sans min-h-[100vh] flex flex-col"
+  >
+    <Header />
+    <main class="max-w-4xl container mx-auto h-[100vh] relative flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <Socials />
+  </body>
 </html>
