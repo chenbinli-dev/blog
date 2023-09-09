@@ -1,6 +1,8 @@
 ---
 import Link from "@/components/Link.astro";
 import logo from "@/assets/images/avatar.png";
+import ToggleTheme from "./ToggleTheme";
+import Icon from "astro-icon";
 const menu = [
   {
     title: "Note",
@@ -15,17 +17,40 @@ const menu = [
 
 <header class="w-full">
   <div
-    class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b"
+    class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500"
   >
     <a href="/">
       <div class="flex items-center gap-2">
-        <img src={logo.src} width="40" class="rounded-full" /> 
-         <span class="text-lg font-extrabold">Codercoin's</span>
-         <span class="px-1 bg-black rounded text-white text-sm hover:text-purple-500">Book</span>
+        <img src={logo.src} width="40" class="rounded-full" />
+        <span class="text-lg font-extrabold">Codercoin's</span>
+        <span
+          class="px-1 bg-black dark:bg-white dark:text-black rounded text-white text-sm hover:text-purple-500"
+          >Book</span
+        >
       </div>
     </a>
-    <nav class="flex gap-8">
-      {menu.map((item) => <Link href={item.url}>{item.title}</Link>)}
-    </nav>
+    <div class="flex items-center gap-8">
+      <nav class="flex gap-8">
+        {menu.map((item) => <Link href={item.url}>{item.title}</Link>)}
+      </nav>
+      <ToggleTheme client:only />
+    </div>
   </div>
 </header>
+<script is:inline>
+const theme = (() => {
+  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+    return localStorage.getItem("theme");
+  }
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return "dark";
+  }
+  return "light";
+})();
+if (theme === "light") {
+  document.documentElement.classList.remove("dark");
+} else {
+  document.documentElement.classList.add("dark");
+}
+window.localStorage.setItem("theme", theme);
+</script>
