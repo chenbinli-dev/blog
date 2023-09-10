@@ -1,8 +1,7 @@
 ---
-layout: /src/layouts/md.layout.astro
 title: 有时候,或许我们不需要Web Socket
 author: Codercoin
-pubDate: 2023-09-07
+pubDateTime: 2023-09-07
 tags: ['SSE','WebSocket']
 ---
 

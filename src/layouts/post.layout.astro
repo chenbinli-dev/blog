@@ -1,18 +1,12 @@
 ---
+import type { PostFrontmatter } from "@/content/_schema";
 import MainLayout from "./main.layout.astro";
-import Link from "@/components/Link.astro";
 import { Icon } from "astro-icon";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 interface Props {
-  frontmatter: {
-    title: string;
-    pubDate: string;
-    author: string;
-    minutesRead: string;
-    tags: string[];
-  };
+  frontmatter: PostFrontmatter;
 }
 const { frontmatter } = Astro.props;
 ---
@@ -42,8 +36,8 @@ const { frontmatter } = Astro.props;
       <div class="flex items-center gap-4 text-slate-500">
         <span class="flex items-center gap-2 border-b hover:border-purple-500"
           ><Icon name="tabler:clock" size="18" />
-          {frontmatter.pubDate.slice(0, 10)} # {
-            dayjs(frontmatter.pubDate.slice(0, 10)).fromNow()
+          {dayjs(frontmatter.pubDateTime).format("YYYY-MM-DD")} # {
+            dayjs(frontmatter.pubDateTime).fromNow()
           }</span
         >
         <span class="flex items-center gap-2 border-b hover:border-purple-500"
@@ -53,7 +47,7 @@ const { frontmatter } = Astro.props;
         >
         <span class="flex items-center gap-2 border-b hover:border-purple-500"
           ><Icon name="tabler:eye" size="18" /> You need {
-            frontmatter.minutesRead
+            frontmatter?.minutesRead
           }</span
         >
       </div>

@@ -1,8 +1,7 @@
 ---
-layout: /src/layouts/md.layout.astro
 title: About Base64
 author: Codercoin
-pubDate: 2023-09-07
+pubDateTime: 2023-09-07
 tags: ['Base64', 'Note']
 ---
 

@@ -4,6 +4,10 @@ import Footer from "@/components/Footer.astro";
 import "@/main.css";
 import { ViewTransitions } from "astro:transitions";
 import Socials from "@/components/Socials.astro";
+interface Props {
+  pageTitle?: string
+}
+const { pageTitle = "Codercoin'book" } = Astro.props;
 ---
 
 <html lang="en">
@@ -12,7 +16,7 @@ import Socials from "@/components/Socials.astro";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>Codercoin's Book</title>
+    <title>{pageTitle}</title>
     <ViewTransitions fallback="animate" />
   </head>
   <body

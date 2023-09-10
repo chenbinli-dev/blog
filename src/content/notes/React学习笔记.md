@@ -1,8 +1,7 @@
 ---
-layout: /src/layouts/md.layout.astro
 title: React Learning Note
 author: Codercoin
-pubDate: 2023-09-07
+pubDateTime: 2023-09-07
 tags: ['React', 'Learning Note']
 ---
 
