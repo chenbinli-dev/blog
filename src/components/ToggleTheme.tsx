@@ -65,7 +65,7 @@ const ToggleTheme = () => {
       className="hover:scale-110 cursor-pointer"
       onClick={handleSwitchTheme}
     >
-      <Icon icon={isDark ? moonIcon : sunIcon} fontSize={18} />
+      <Icon icon={isDark ? moonIcon : sunIcon} fontSize={20} />
     </button>
   );
 };
