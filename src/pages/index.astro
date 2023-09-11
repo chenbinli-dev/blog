@@ -25,9 +25,13 @@ const latestHandwritings = getLatestItem(handwritings, 2)
       </div>
       <ul class="flex flex-col justify-center space-y-4 h-full">
         {
-          latestNotes.map(({ data }) => (
+          latestNotes.map(({ data, slug }) => (
             <div class="space-y-2">
-              <a class="text-pink-500 italic border-b-2 border-dashed border-transparent hover:border-pink-500 cursor-pointer">
+              <a
+                href={'notes/' + slug}
+                title={data.title}
+                class="text-pink-500 italic border-b-2 border-dashed border-transparent hover:border-pink-500 cursor-pointer"
+              >
                 {data.title}
               </a>
               <div class="flex items-center gap-2 text-sm opacity-50">
@@ -49,9 +53,13 @@ const latestHandwritings = getLatestItem(handwritings, 2)
       </div>
       <ul class="flex flex-col justify-center space-y-4 h-full">
         {
-          latestHandwritings.map(({ data }) => (
+          latestHandwritings.map(({ data, slug }) => (
             <div class="space-y-2">
-              <a class="text-pink-500 italic border-b-2 border-dashed border-transparent hover:border-pink-500 cursor-pointer">
+              <a
+                href={'handwritings/' + slug}
+                title={data.title}
+                class="text-pink-500 italic border-b-2 border-dashed border-transparent hover:border-pink-500 cursor-pointer"
+              >
                 {data.title}
               </a>
               <div class="flex items-center gap-2 text-sm opacity-50">
