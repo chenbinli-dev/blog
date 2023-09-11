@@ -27,14 +27,14 @@ const latestHandwritings = getLatestItem(handwritings, 2)
         {
           latestNotes.map(({ data }) => (
             <div class="space-y-2">
-              <a class="text-purple-500 italic border-b border-dashed hover:border-purple-500 cursor-pointer">
+              <a class="text-purple-500 italic border-b border-dashed border-transparent hover:border-purple-500 cursor-pointer">
                 {data.title}
               </a>
-              <div class="flex items-center gap-2 text-sm">
+              <div class="flex items-center gap-2 text-sm opacity-50">
                 <Icon name="tabler:calendar" size="18" />
                 <span>{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>
               </div>
-              <p class="text-sm">Intro: {data.description || 'no description'}</p>
+              <p class="text-base">{data.description || 'no description'}</p>
             </div>
           ))
         }
@@ -51,14 +51,14 @@ const latestHandwritings = getLatestItem(handwritings, 2)
         {
           latestHandwritings.map(({ data }) => (
             <div class="space-y-2">
-              <a class="text-purple-500 italic border-b border-dashed hover:border-purple-500 cursor-pointer">
+              <a class="text-purple-500 italic border-b border-dashed border-transparent hover:border-purple-500 cursor-pointer">
                 {data.title}
               </a>
-              <div class="flex items-center gap-2 text-sm">
+              <div class="flex items-center gap-2 text-sm opacity-50">
                 <Icon name="tabler:calendar" size="18" />
                 <span>{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>
               </div>
-              <p class="text-sm">Intro: {data.description || 'no description'}</p>
+              <p class="text-base">{data.description || 'no description'}</p>
             </div>
           ))
         }
