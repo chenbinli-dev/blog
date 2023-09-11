@@ -1,5 +1,5 @@
-import type { CollectionEntry } from "astro:content";
-import type { CollectionsKeys } from "@/content/config.ts";
+import type { CollectionEntry } from 'astro:content'
+import type { CollectionsKeys } from '@/content/config.ts'
 /**
  * Get latest item of collection
  * @param collection
@@ -7,16 +7,14 @@ import type { CollectionsKeys } from "@/content/config.ts";
  * @returns
  */
 export function getLatestItem(
-  collection: CollectionEntry<"notes">[],
+  collection: CollectionEntry<'notes' | 'handwritings'>[],
   num: number
 ) {
-  if (num >= collection.length) return collection;
+  if (num >= collection.length) return collection
   collection.sort(
-    (a, b) =>
-      new Date(a.data.pubDateTime).getTime() -
-      new Date(b.data.pubDateTime).getTime()
-  );
-  return collection.slice(0, num);
+    (a, b) => new Date(a.data.pubDateTime).getTime() - new Date(b.data.pubDateTime).getTime()
+  )
+  return collection.slice(0, num)
 }
 /**
  * Sortings collection
@@ -26,19 +24,13 @@ export function getLatestItem(
  */
 export function getOrderCollection<T extends CollectionsKeys>(
   collection: CollectionEntry<T>[],
-  order: "asc" | "desc" = "desc"
+  order: 'asc' | 'desc' = 'desc'
 ): CollectionEntry<T>[] {
   collection.sort((a, b) => {
-    if (order === "asc") {
-      return (
-        new Date(a.data.pubDateTime).getTime() -
-        new Date(b.data.pubDateTime).getTime()
-      );
+    if (order === 'asc') {
+      return new Date(a.data.pubDateTime).getTime() - new Date(b.data.pubDateTime).getTime()
     }
-    return (
-      new Date(b.data.pubDateTime).getTime() -
-      new Date(a.data.pubDateTime).getTime()
-    );
-  });
-  return collection;
+    return new Date(b.data.pubDateTime).getTime() - new Date(a.data.pubDateTime).getTime()
+  })
+  return collection
 }
