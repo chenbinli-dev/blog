@@ -16,7 +16,7 @@ const { frontmatter } = Astro.props;
     <div class="pt-4 txet-lg">
       <button
         id="goback"
-        class="flex items-center gap-4 border-b hover:border-purple-500 active:text-purple-500 active:border-transparent"
+        class="flex items-center gap-4 border-b-2 border-dashed border-transparent hover:border-pink-500 active:text-pink-500 active:border-transparent"
         onclick="
         history.back()
         "
@@ -30,22 +30,22 @@ const { frontmatter } = Astro.props;
       </button>
     </div>
     <div class="space-y-4 pb-8">
-      <div class="text-3xl font-semibold text-purple-500 italic">
+      <div class="text-3xl font-semibold dark:text-pink-500 italic">
         {frontmatter.title}
       </div>
       <div class="flex items-center gap-4 text-slate-500">
-        <span class="flex items-center gap-2 border-b hover:border-purple-500"
+        <span class="flex items-center gap-2 border-b hover:border-pink-500"
           ><Icon name="tabler:clock" size="18" />
           {dayjs(frontmatter.pubDateTime).format("YYYY-MM-DD")} # {
             dayjs(frontmatter.pubDateTime).fromNow()
           }</span
         >
-        <span class="flex items-center gap-2 border-b hover:border-purple-500"
+        <span class="flex items-center gap-2 border-b hover:border-pink-500"
           ><Icon name="tabler:user" size="18" /> Written by {
             frontmatter.author
           }</span
         >
-        <span class="flex items-center gap-2 border-b hover:border-purple-500"
+        <span class="flex items-center gap-2 border-b hover:border-pink-500"
           ><Icon name="tabler:eye" size="18" /> You need {
             frontmatter?.minutesRead
           }</span
@@ -54,7 +54,7 @@ const { frontmatter } = Astro.props;
       <div class="flex gap-4">
         {
           frontmatter.tags.map((tag) => (
-            <span class="flex items-center gap-2 bg-slate-400 rounded py-1 px-2 text-sm hover:bg-purple-500 hover:text-white cursor-pointer">
+            <span class="flex items-center gap-2 bg-slate-400 rounded py-1 px-2 text-sm hover:bg-pink-500 hover:text-white cursor-pointer">
               <Icon name="tabler:tag" size="18" />
               {tag}
             </span>
