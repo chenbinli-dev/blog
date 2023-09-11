@@ -3,6 +3,7 @@ title: About Base64
 author: Codercoin
 pubDateTime: 2023-09-07
 tags: ['Base64', 'Note']
+description: 了解Base64和Base58的原理和区别
 ---
 
 ## Base64 编码原理

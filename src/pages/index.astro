@@ -1,35 +1,68 @@
 ---
-import MainLayout from "@/layouts/main.layout.astro";
-const texts: string[] = [
-  "The only way to do great work is to love what you do. - Steve Jobs",
-  "In three words I can sum up everything I've learned about life: it goes on. - Robert Frost",
-  "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
-  "Be the change that you wish to see in the world. - Mahatma Gandhi",
-  "The only limit to our realization of tomorrow will be our doubts of today. - Franklin D. Roosevelt",
-  "Believe you can and you're halfway there. - Theodore Roosevelt",
-  "If you cannot be a poet, be the poem. - David Carradine",
-];
-import { getCollection } from "astro:content";
-import { getLatestItem } from "@/utils/collection";
-const notes = await getCollection("notes");
-const latestNotes = getLatestItem(notes,2);
+import MainLayout from '@/layouts/main.layout.astro'
+import { getCollection } from 'astro:content'
+import { getLatestItem } from '@/utils/collection'
+import Icon from 'astro-icon'
+import dayjs from 'dayjs'
+const notes = await getCollection('notes')
+const handwritings = await getCollection('handwritings')
+const latestNotes = getLatestItem(notes, 2)
+const latestHandwritings = getLatestItem(handwritings, 2)
 ---
 
 <MainLayout>
-  <div class="container mx-auto flex-1 opacity-50">
-    <ul
-      class="flex flex-col justify-center items-center space-y-4 text-xl p-2 h-full"
-    >
-      {
-        texts.map((text, index) => (
-          <p class="border-b hover:border-purple-500 cursor-pointer hover:font-semibold">
-            {text}
-          </p>
-        ))
-      }
-    </ul>
-    <ul>
-      {latestNotes.map((note) => <div>{note.data.title}</div>)}
-    </ul>
+  <div class="container mx-auto flex-1 space-y-16 text-lg">
+    <p class="gap-2 px-4 py-16 italic">
+      Hi! It's codercoin's blog , which i prefer to call it as my e-Book.You can find some notes and
+      handwritings about front-end development in here. Have a good time.😊
+    </p>
+    <div class="px-4 space-y-4">
+      <div
+        class="font-semibold text-xl flex items-center gap-2 border-b pb-2 dark:border-slate-500"
+      >
+        <Icon name="tabler:writing" size="24" />
+         Latest Notes
+      </div>
+      <ul class="flex flex-col justify-center space-y-4 h-full">
+        {
+          latestNotes.map(({ data }) => (
+            <div class="space-y-2">
+              <a class="text-purple-500 italic border-b border-dashed hover:border-purple-500 cursor-pointer">
+                {data.title}
+              </a>
+              <div class="flex items-center gap-2 text-sm">
+                <Icon name="tabler:calendar" size="18" />
+                <span>{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>
+              </div>
+              <p class="text-sm">Intro: {data.description || 'no description'}</p>
+            </div>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="px-4 space-y-4">
+      <div
+        class="font-semibold text-xl flex items-center gap-2 border-b pb-2 dark:border-slate-500"
+      >
+        <Icon name="tabler:code" size="24" />
+         Latest Handwritings
+      </div>
+      <ul class="flex flex-col justify-center space-y-4 h-full">
+        {
+          latestHandwritings.map(({ data }) => (
+            <div class="space-y-2">
+              <a class="text-purple-500 italic border-b border-dashed hover:border-purple-500 cursor-pointer">
+                {data.title}
+              </a>
+              <div class="flex items-center gap-2 text-sm">
+                <Icon name="tabler:calendar" size="18" />
+                <span>{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>
+              </div>
+              <p class="text-sm">Intro: {data.description || 'no description'}</p>
+            </div>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </MainLayout>
