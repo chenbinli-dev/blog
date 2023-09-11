@@ -1,22 +1,21 @@
 ---
-import logo from '@/assets/images/avatar.png'
-import ToggleTheme from './ToggleTheme'
-import SearchButton from './SearchButton.tsx'
+import { getCollection } from "astro:content";
+import type { SearchItem } from "./SearchPanel";
+import logo from "@/assets/images/avatar.png";
+import ToggleTheme from "./ToggleTheme";
+import SearchButton from "./SearchButton.tsx";
 const menu = [
   {
-    title: 'Note',
-    url: '/notes',
+    title: "Note",
+    url: "/notes",
   },
   {
-    title: 'Handwriting',
-    url: '/handwritings',
+    title: "Handwriting",
+    url: "/handwritings",
   },
-]
-const pathname = new URL(Astro.request.url).pathname
-import { getCollection } from 'astro:content'
-import type { SearchItem } from './SearchPanel'
-const notes = await getCollection('notes')
-const handwritings = await getCollection('handwritings')
+];
+const notes = await getCollection("notes");
+const handwritings = await getCollection("handwritings");
 const searchContentList: SearchItem[] = [...notes, ...handwritings].map(
   ({ data, collection, slug }) => ({
     title: data.title,
@@ -25,7 +24,8 @@ const searchContentList: SearchItem[] = [...notes, ...handwritings].map(
     slug,
     data,
   })
-)
+);
+const pathname = new URL(Astro.request.url).pathname;
 ---
 
 <header class="w-full">
@@ -35,8 +35,11 @@ const searchContentList: SearchItem[] = [...notes, ...handwritings].map(
     <a href="/">
       <div class="flex items-center gap-2">
         <img src={logo.src} width="40" class="rounded-full" />
-        <span class="text-lg font-extrabold hover:text-pink-500">Codercoin's</span>
-        <span class="px-1 bg-pink-500 dark:text-black rounded text-white text-sm hover:-rotate-12"
+        <span class="text-lg font-extrabold hover:text-pink-500"
+          >Codercoin's</span
+        >
+        <span
+          class="px-1 bg-pink-500 dark:text-black rounded text-white text-sm hover:-rotate-12"
           >Book</span
         >
       </div>
@@ -48,8 +51,10 @@ const searchContentList: SearchItem[] = [...notes, ...handwritings].map(
           menu.map((item) => (
             <a
               href={item.url}
-              class={`border-b-2 border-transparent border-dashed hover:border-pink-500 hover:text-pink-500 ${
-                pathname === item.url ? 'border-pink-500' : undefined
+              class={`hover:border-pink-500 hover:text-pink-500 ${
+                pathname === item.url
+                  ? "underline underline-offset-4 decoration-wavy decoration-pink-500"
+                  : undefined
               }`}
             >
               {item.title}
