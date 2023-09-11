@@ -1,6 +1,7 @@
 ---
 import logo from '@/assets/images/avatar.png'
 import ToggleTheme from './ToggleTheme'
+import SearchButton from './SearchButton.tsx'
 const menu = [
   {
     title: 'Note',
@@ -12,11 +13,24 @@ const menu = [
   },
 ]
 const pathname = new URL(Astro.request.url).pathname
+import { getCollection } from 'astro:content'
+import type { SearchItem } from './SearchPanel'
+const notes = await getCollection('notes')
+const handwritings = await getCollection('handwritings')
+const searchContentList: SearchItem[] = [...notes, ...handwritings].map(
+  ({ data, collection, slug }) => ({
+    title: data.title,
+    description: data.description,
+    collection,
+    slug,
+    data,
+  })
+)
 ---
 
 <header class="w-full">
   <div
-    class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500"
+    class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500 h-16"
   >
     <a href="/">
       <div class="flex items-center gap-2">
@@ -28,6 +42,7 @@ const pathname = new URL(Astro.request.url).pathname
       </div>
     </a>
     <div class="flex items-center gap-8">
+      <SearchButton searchContentList={searchContentList} client:only />
       <nav class="flex gap-8">
         {
           menu.map((item) => (
@@ -46,4 +61,3 @@ const pathname = new URL(Astro.request.url).pathname
     </div>
   </div>
 </header>
-

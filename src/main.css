@@ -4,6 +4,16 @@
   font-weight: normal;
   font-style: normal;
 }
+.none {
+  display: none;
+}
+.show {
+  display: block;
+}
+.highlight {
+  color: #ec4899;
+  font-weight: 600;
+}
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
