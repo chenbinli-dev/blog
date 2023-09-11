@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z } from 'astro:content'
 
 export const postSchema = z
   .object({
@@ -6,8 +6,9 @@ export const postSchema = z
     pubDateTime: z.date(),
     title: z.string(),
     postSlug: z.string().optional(),
-    tags: z.array(z.string()).default(["others"]),
+    tags: z.array(z.string()).default(['others']),
     minutesRead: z.string().optional(),
+    description: z.string().optional(),
   })
-  .strict();
-export type PostFrontmatter = z.infer<typeof postSchema>;
+  .strict()
+export type PostFrontmatter = z.infer<typeof postSchema>
