@@ -1,0 +1,20 @@
+---
+import MainLayout from '@/layouts/main.layout.astro';
+import Icon from 'astro-icon';
+---
+
+<MainLayout>
+  <>
+    <div
+      class="basis-full flex flex-col justify-center items-center p-10 space-y-2"
+    >
+      <div
+        class="flex gap-4 items-center justify-center text-4xl font-semibold"
+      >
+        <Icon name="tabler:mood-sad" size="50" />
+        <span>404</span>
+      </div>
+      <div class="text-center italic">Page not found</div>
+    </div>
+  </>
+</MainLayout>
