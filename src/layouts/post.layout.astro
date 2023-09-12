@@ -1,9 +1,9 @@
 ---
-import type { PostFrontmatter } from "@/content/_schema";
-import MainLayout from "./main.layout.astro";
-import { Icon } from "astro-icon";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import type { PostFrontmatter } from '@/content/_schema';
+import MainLayout from './main.layout.astro';
+import { Icon } from 'astro-icon';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 interface Props {
   frontmatter: PostFrontmatter;
@@ -36,7 +36,7 @@ const { frontmatter } = Astro.props;
       <div class="flex items-center gap-4 text-slate-500">
         <span class="flex items-center gap-2 border-b hover:border-pink-500"
           ><Icon name="tabler:clock" size="18" />
-          {dayjs(frontmatter.pubDateTime).format("YYYY-MM-DD")} # {
+          {dayjs(frontmatter.pubDateTime).format('YYYY-MM-DD')} # {
             dayjs(frontmatter.pubDateTime).fromNow()
           }</span
         >

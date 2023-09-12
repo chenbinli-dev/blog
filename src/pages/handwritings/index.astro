@@ -1,13 +1,13 @@
 ---
-import Link from "@/components/Link.astro";
-import MainLayout from "@/layouts/main.layout.astro";
-import { getOrderCollection } from "@/utils/collection";
-import { Icon } from "astro-icon";
-import { getCollection } from "astro:content";
-import dayjs from "dayjs";
+import Link from '@/components/Link.astro';
+import MainLayout from '@/layouts/main.layout.astro';
+import { getOrderCollection } from '@/utils/collection';
+import { Icon } from 'astro-icon';
+import { getCollection } from 'astro:content';
+import dayjs from 'dayjs';
 
-const handwritings = await getCollection("handwritings");
-const orderNotes = getOrderCollection<"handwritings">(handwritings);
+const handwritings = await getCollection('handwritings');
+const orderNotes = getOrderCollection<'handwritings'>(handwritings);
 const pageTitle = "Codercoin's writings";
 ---
 
@@ -28,9 +28,9 @@ const pageTitle = "Codercoin's writings";
               </span>
             ))}
           </div>
-          <Link href={"/handwritings/" + slug}>{data.title}</Link>
+          <Link href={'/handwritings/' + slug}>{data.title}</Link>
           <span class="opacity-50">
-            {dayjs(data.pubDateTime).format("YYYY-MM-DD")}
+            {dayjs(data.pubDateTime).format('YYYY-MM-DD')}
           </span>
         </li>
       ))

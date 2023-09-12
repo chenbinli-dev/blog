@@ -1,11 +1,11 @@
-import { Icon } from "@iconify/react";
-import sunIcon from "@iconify/icons-tabler/sun";
-import moonIcon from "@iconify/icons-tabler/moon";
-import { useEffect, useState } from "react";
+import { Icon } from '@iconify/react';
+import sunIcon from '@iconify/icons-tabler/sun';
+import moonIcon from '@iconify/icons-tabler/moon';
+import { useEffect, useState } from 'react';
 
 const ToggleTheme = () => {
   const [isDark, setIsDark] = useState(
-    localStorage.getItem("theme") === "dark"
+    localStorage.getItem('theme') === 'dark'
   );
   // Change theme
   const handleSwitchTheme = (e: React.MouseEvent) => {
@@ -24,26 +24,26 @@ const ToggleTheme = () => {
     //@ts-ignore
     const transition = document.startViewTransition(() => {
       const root = document.documentElement;
-      isDark = root.classList.contains("dark");
+      isDark = root.classList.contains('dark');
       setIsDark(!isDark);
-      root.classList.remove(isDark ? "dark" : "light");
-      root.classList.add(isDark ? "light" : "dark");
+      root.classList.remove(isDark ? 'dark' : 'light');
+      root.classList.add(isDark ? 'light' : 'dark');
     });
     transition.ready.then(() => {
       const clipPath = [
         `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`
       ];
       document.documentElement.animate(
         {
-          clipPath: isDark ? [...clipPath].reverse() : clipPath,
+          clipPath: isDark ? [...clipPath].reverse() : clipPath
         },
         {
           duration: 300,
-          easing: "ease-in",
+          easing: 'ease-in',
           pseudoElement: isDark
-            ? "::view-transition-old(root)"
-            : "::view-transition-new(root)",
+            ? '::view-transition-old(root)'
+            : '::view-transition-new(root)'
         }
       );
     });
@@ -53,16 +53,18 @@ const ToggleTheme = () => {
     // if current browser doesn't support the view transition api
     if (!document.startViewTransition) {
       if (isDark) {
-        document.documentElement.classList.add("dark");
+        document.documentElement.classList.add('dark');
       } else {
-        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.remove('dark');
       }
     }
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }, [isDark]);
   return (
     <button
-      className="hover:scale-110 cursor-pointer"
+      name="theme-switch"
+      aria-label="Switch Theme"
+      className="cursor-pointer hover:scale-110"
       onClick={handleSwitchTheme}
     >
       <Icon icon={isDark ? moonIcon : sunIcon} fontSize={20} />

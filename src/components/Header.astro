@@ -1,28 +1,28 @@
 ---
-import { getCollection } from "astro:content";
-import type { SearchItem } from "./SearchPanel";
-import logo from "@/assets/images/avatar.png";
-import ToggleTheme from "./ToggleTheme";
-import SearchButton from "./SearchButton.tsx";
+import { getCollection } from 'astro:content';
+import type { SearchItem } from './SearchPanel';
+import logo from '@/assets/images/avatar.png';
+import ToggleTheme from './ToggleTheme';
+import SearchButton from './SearchButton.tsx';
 const menu = [
   {
-    title: "Note",
-    url: "/notes",
+    title: 'Note',
+    url: '/notes'
   },
   {
-    title: "Handwriting",
-    url: "/handwritings",
-  },
+    title: 'Handwriting',
+    url: '/handwritings'
+  }
 ];
-const notes = await getCollection("notes");
-const handwritings = await getCollection("handwritings");
+const notes = await getCollection('notes');
+const handwritings = await getCollection('handwritings');
 const searchContentList: SearchItem[] = [...notes, ...handwritings].map(
   ({ data, collection, slug }) => ({
     title: data.title,
     description: data.description,
     collection,
     slug,
-    data,
+    data
   })
 );
 const pathname = new URL(Astro.request.url).pathname;
@@ -32,9 +32,15 @@ const pathname = new URL(Astro.request.url).pathname;
   <div
     class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500 h-16"
   >
-    <a href="/">
+    <a href="/" aria-label="Go home">
       <div class="flex items-center gap-2">
-        <img src={logo.src} width="40" class="rounded-full" />
+        <img
+          src={logo.src}
+          width="40"
+          alt="codercoin_logo"
+          height="40"
+          class="rounded-full"
+        />
         <span class="text-lg font-extrabold hover:text-pink-500"
           >Codercoin's</span
         >
@@ -51,9 +57,9 @@ const pathname = new URL(Astro.request.url).pathname;
           menu.map((item) => (
             <a
               href={item.url}
-              class={`hover:border-pink-500 hover:text-pink-500 ${
-                pathname === item.url
-                  ? "underline underline-offset-4 decoration-wavy decoration-pink-500"
+              class={`hover:text-pink-500 ${
+                pathname.includes(item.url)
+                  ? 'underline underline-offset-4 decoration-wavy decoration-pink-500'
                   : undefined
               }`}
             >

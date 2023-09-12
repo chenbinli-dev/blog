@@ -1,11 +1,11 @@
 ---
-import { getCollection } from "astro:content";
-import PostLayout from "@/layouts/post.layout.astro";
+import { getCollection } from 'astro:content';
+import PostLayout from '@/layouts/post.layout.astro';
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("handwritings");
+  const blogEntries = await getCollection('handwritings');
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry }
   }));
 }
 const { entry } = Astro.props;
