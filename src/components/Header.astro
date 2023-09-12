@@ -4,6 +4,7 @@ import type { SearchItem } from './SearchPanel';
 import logo from '@/assets/images/avatar.png';
 import ToggleTheme from './ToggleTheme';
 import SearchButton from './SearchButton.tsx';
+import Icon from 'astro-icon';
 const menu = [
   {
     title: 'Note',
@@ -68,6 +69,13 @@ const pathname = new URL(Astro.request.url).pathname;
           ))
         }
       </nav>
+      <a
+        href={`${Astro.site}/rss.xml`}
+        aria-label="rss"
+        class="cursor-pointer hover:scale-110 hover:text-pink-500"
+      >
+        <Icon name="tabler:rss" size="18" />
+      </a>
       <ToggleTheme client:only />
     </div>
   </div>
