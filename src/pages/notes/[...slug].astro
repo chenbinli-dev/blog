@@ -8,10 +8,11 @@ export async function getStaticPaths() {
     props: { entry }
   }));
 }
+const { slug } = Astro.params;
 const { entry } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await entry.render();
 ---
 
-<PostLayout frontmatter={remarkPluginFrontmatter}>
+<PostLayout frontmatter={remarkPluginFrontmatter} slug={slug} collection={entry.collection}>
   <Content />
 </PostLayout>

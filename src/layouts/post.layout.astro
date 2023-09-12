@@ -4,11 +4,18 @@ import MainLayout from './main.layout.astro';
 import { Icon } from 'astro-icon';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { getCollection } from 'astro:content';
 dayjs.extend(relativeTime);
 interface Props {
   frontmatter: PostFrontmatter;
+  collection: 'notes' | 'handwritings';
+  slug?: string;
 }
-const { frontmatter } = Astro.props;
+const { frontmatter, collection, slug } = Astro.props;
+const content = await getCollection(collection);
+const currentIndex = content.findIndex((item) => item.slug === slug);
+const previous = content[currentIndex - 1]?.slug;
+const next = content[currentIndex + 1]?.slug;
 ---
 
 <MainLayout>
@@ -65,5 +72,25 @@ const { frontmatter } = Astro.props;
     <article class="prose lg:prose-xl prose-slate max-w-none dark:prose-invert">
       <slot />
     </article>
+    <div class="flex gap-4 font-semibold">
+      <a
+        href={`/${collection}/${previous}`}
+        class={`flex-1 flex items-center gap-8 py-4 rounded border-dashed border-2 border-transparent hover:text-pink-500 hover:border-pink-500 cursor-pointer ${
+          !previous && 'pointer-events-none cursor-none'
+        }`}
+      >
+        <Icon name="tabler:chevron-left" size="20" />
+        {previous || 'No more'}
+      </a>
+      <a
+        href={`/${collection}/${next}`}
+        class={`flex-1 flex justify-end items-center gap-8 py-4 rounded border-dashed border-2 border-transparent hover:text-pink-500 hover:border-pink-500 cursor-pointer ${
+          !next && 'pointer-events-none cursor-none'
+        }`}
+      >
+        {next || 'No more'}
+        <Icon name="tabler:chevron-right" size="20" />
+      </a>
+    </div>
   </div>
 </MainLayout>
