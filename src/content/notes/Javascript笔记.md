@@ -39,15 +39,15 @@ tags: ['Javascript', 'Note']
 
 ```javascript
 async function fn1() {
-  console.log('1')
-  await fn2()
-  console.log('3')
+  console.log('1');
+  await fn2();
+  console.log('3');
 }
 async function fn2() {
-  console.log('2')
+  console.log('2');
 }
-fn1()
-console.log('4')
+fn1();
+console.log('4');
 //结果： 1 2 4 3
 //Description: 先执行fn1,打印1，遇见await,先执行fn2,打印2，阻塞后面代码执行，回到外部继续执行同步代码，打印4，同步代码执行结束，查看微任务队列，发现存在微任务，调用，打印3
 ```
@@ -56,25 +56,25 @@ console.log('4')
 
 ```javascript
 async function async1() {
-  console.log('async1 start')
-  await async2()
-  console.log('async1 end')
+  console.log('async1 start');
+  await async2();
+  console.log('async1 end');
 }
 async function async2() {
-  console.log('async2')
+  console.log('async2');
 }
-console.log('script start')
+console.log('script start');
 setTimeout(function () {
-  console.log('settimeout')
-})
-async1()
+  console.log('settimeout');
+});
+async1();
 new Promise(function (resolve) {
-  console.log('promise1')
-  resolve()
+  console.log('promise1');
+  resolve();
 }).then(function () {
-  console.log('promise2')
-})
-console.log('script end')
+  console.log('promise2');
+});
+console.log('script end');
 //打印顺序：script start -> async1 start -> async2 -> promise1 -> script end -> async1 end -> promise2 -> settimeout
 //Description: 首先执行同步代码，打印script start，接着遇见setTimeout,加入宏任务队列，再执行async1,打印async1 start，遇见await,后面的回调函数加入微任务队列等待执行，执行async2，打印async2，async2执行结束回到外部继续同步代码执行，遇见new Promise，打印promise1，遇见then,将then的回调函数加入微任务队列，继续执行同步代码，打印script end；同步代码执行结束，查看微任务队列（先进先出），第一个微任务console.log('async1 end')执行，第二个微任务console.log('promise2')执行；微任务执行结束，查看宏任务队列，发现回调函数console.log('settimeout')，执行。
 ```
@@ -105,42 +105,42 @@ console.log('script end')
 
 ```javascript
 async function async1() {
-  console.log('async1 start')
-  await async2()
-  console.log('async1 end')
+  console.log('async1 start');
+  await async2();
+  console.log('async1 end');
 }
 
 async function async2() {
-  console.log('async2')
+  console.log('async2');
 }
 
-console.log('script start')
+console.log('script start');
 
 setTimeout(function () {
-  console.log('setTimeout0')
-}, 0)
+  console.log('setTimeout0');
+}, 0);
 
 setTimeout(function () {
-  console.log('setTimeout2')
-}, 300)
+  console.log('setTimeout2');
+}, 300);
 
-setImmediate(() => console.log('setImmediate'))
+setImmediate(() => console.log('setImmediate'));
 
-process.nextTick(() => console.log('nextTick1'))
+process.nextTick(() => console.log('nextTick1'));
 
-async1()
+async1();
 
-process.nextTick(() => console.log('nextTick2'))
+process.nextTick(() => console.log('nextTick2'));
 
 new Promise(function (resolve) {
-  console.log('promise1')
-  resolve()
-  console.log('promise2')
+  console.log('promise1');
+  resolve();
+  console.log('promise2');
 }).then(function () {
-  console.log('promise3')
-})
+  console.log('promise3');
+});
 
-console.log('script end')
+console.log('script end');
 //打印顺序： script start -> async1 start -> async2 -> promise1 -> promise2 -> script end -> nextTick1 -> nextTick2 -> async1 end ->promise3 -> setTimeout0 -> setImmediate -> setTimeout2
 // Description: 执行同步代码，打印script start，遇见第一个setTimeout,回调函数加入timer queue,遇见第二个setTimeout,300ms后回调函数加入timer queue,遇见setImmediate,加入 check queue, 遇见第一个process.nextTick,加入 next tick queue, 接着是只async1,打印async1 start，遇见await,console.log('async1 end')加入other microtask queue ,执行async2,打印async2；async1执行完毕，遇见第二个process.nextTick,加入next tick queue，遇见new Promise,打印console.log('promise1')和 console.log('promise2')，注意resolve不会阻塞后面函数的执行；resolve后遇见then，加入other microtask queue,继续同步代码执行，打印script end。同步代码执行结束，查看微任务，按照微任务队列的执行顺序，首先看next tick queue,执行其中的回调函数打印nextTick1和nextTick2，再执行other microtask queue中的回调，打印async1 end和promise3；微任务执行完毕，查看宏任务。首先是timer queue中回调函数执行，打印setTimeout0，再看check queue中函数，执行setImmediate。宏任务执行完毕，继续事件循环，300ms后console.log('setTimeout2')加入timer queue ,被执行，打印setTimeout2。
 ```
@@ -149,12 +149,12 @@ console.log('script end')
 
 ```javascript
 setTimeout(() => {
-  console.log('setTimeout')
-}, 0)
+  console.log('setTimeout');
+}, 0);
 
 setImmediate(() => {
-  console.log('setImmediate')
-})
+  console.log('setImmediate');
+});
 ```
 
 以上代码的执行结果可能会有两种：一个是`setTimeout`先执行，一个是`setImmediate`先执行。原因是：当给`setTimeout`设置`0ms`触发时，实际上会被强制修改为`1ms`,那么执行代码时，遇见`setTimeout`会在时间到后加入到 timer queue,遇见`setImmediate`会被加入到 check queue。同步代码执行完，进入事件循环，在此时检查当前时间是否已经过了`1ms`，是则`setImmediate`的回调函数已经加入到 timer queue,执行，接着再执行`setImmediate`,否则此时 timer queue 为空，进入 check queue 执行，进入下一个循环后，`setImmediate`才加入被执行。
@@ -180,27 +180,28 @@ setImmediate(() => {
 ```javascript
 // 1.自定义字符
 function generateRandomString(length) {
-  let result = ''
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let result = '';
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
   for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length)
-    result += characters.charAt(randomIndex)
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
   }
 
-  return result
+  return result;
 }
-const randomString = generateRandomString(10) // 生成长度为 10 的随机字符串
-console.log(randomString)
+const randomString = generateRandomString(10); // 生成长度为 10 的随机字符串
+console.log(randomString);
 
 // 2.使用toString(),该方法生成的字符串最大长度为11位
 function generateRandomString(length) {
   return length > 11
     ? Math.random().toString(36).substring(2)
-    : Math.random().toString(36).substring(2, length)
+    : Math.random().toString(36).substring(2, length);
 }
-const randomString = generateRandomString(10) // 生成长度为 10 的随机字符串
-console.log(randomString)
+const randomString = generateRandomString(10); // 生成长度为 10 的随机字符串
+console.log(randomString);
 ```
 
 第二种：使用`window.crypto`，请注意该接口的兼容性。
@@ -210,56 +211,57 @@ console.log(randomString)
 ```javascript
 // 1. window.crypto.getRandomValues
 function generateRandomString(length) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  const charactersLength = characters.length
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
 
-  let result = ''
-  const randomValues = new Uint32Array(length)
-  crypto.getRandomValues(randomValues)
+  let result = '';
+  const randomValues = new Uint32Array(length);
+  crypto.getRandomValues(randomValues);
 
   for (let i = 0; i < length; i++) {
-    result += characters.charAt(randomValues[i] % charactersLength)
+    result += characters.charAt(randomValues[i] % charactersLength);
   }
 
-  return result
+  return result;
 }
 
-const randomString = generateRandomString(10) // 生成长度为 10 的随机字符串
-console.log(randomString)
+const randomString = generateRandomString(10); // 生成长度为 10 的随机字符串
+console.log(randomString);
 // 2. window.crypto.randomUUID 该方法通过密码学安全的随机数生成器生成随机的长度为36位字符的第四版UUID字符串
 // exmaple: "36b8f84d-df4e-4d49-b662-bcde71a8764f"
 function generateRandomString(length) {
-  if (length > 36) return
-  return window.crypto.randomUUID(), split('-').substring(0, length)
+  if (length > 36) return;
+  return window.crypto.randomUUID(), split('-').substring(0, length);
 }
 
-const randomString = generateRandomString(10) // 生成长度为 10 的随机字符串
-console.log(randomString)
+const randomString = generateRandomString(10); // 生成长度为 10 的随机字符串
+console.log(randomString);
 ```
 
 第三种：使用第三方库，例如 `uuid`,`crypto-random-string`,`randomstring`等。
 
 ```javascript
 // uuid
-import { v4 as uuidv4 } from 'uuid'
-console.log(uuidv4()) //example: 8212a78a-7f92-48bc-8a80-84188fba97f9
+import { v4 as uuidv4 } from 'uuid';
+console.log(uuidv4()); //example: 8212a78a-7f92-48bc-8a80-84188fba97f9
 
 // crypto-random-string
-import cryptoRandomString from 'crypto-random-string'
-cryptoRandomString({ length: 10 })
+import cryptoRandomString from 'crypto-random-string';
+cryptoRandomString({ length: 10 });
 //=> '2cf05d94db'
-cryptoRandomString({ length: 10, type: 'base64' })
+cryptoRandomString({ length: 10, type: 'base64' });
 //=> 'YMiMbaQl6I'
-cryptoRandomString({ length: 10, type: 'url-safe' })
+cryptoRandomString({ length: 10, type: 'url-safe' });
 //=> 'YN-tqc8pOw'
-cryptoRandomString({ length: 10, type: 'numeric' })
+cryptoRandomString({ length: 10, type: 'numeric' });
 //=> '8314659141'
-cryptoRandomString({ length: 6, type: 'distinguishable' })
+cryptoRandomString({ length: 6, type: 'distinguishable' });
 //=> 'CDEHKM'
-cryptoRandomString({ length: 10, type: 'ascii-printable' })
+cryptoRandomString({ length: 10, type: 'ascii-printable' });
 //=> '`#Rt8$IK>B'
-cryptoRandomString({ length: 10, type: 'alphanumeric' })
+cryptoRandomString({ length: 10, type: 'alphanumeric' });
 //=> 'DMuKL8YtE7'
-cryptoRandomString({ length: 10, characters: 'abc' })
+cryptoRandomString({ length: 10, characters: 'abc' });
 //=> 'abaaccabac'
 ```

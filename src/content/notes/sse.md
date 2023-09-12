@@ -2,7 +2,7 @@
 title: 有时候,或许我们不需要Web Socket
 author: Codercoin
 pubDateTime: 2023-09-07
-tags: ['SSE','WebSocket']
+tags: ['SSE', 'WebSocket']
 ---
 
 > 有时候，或许我们不需要 Web Socket
@@ -31,16 +31,16 @@ tags: ['SSE','WebSocket']
 ## 前端（react）
 
 ```tsx
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 function App() {
-  const [messages, setMessages] = useState<string[]>([])
+  const [messages, setMessages] = useState<string[]>([]);
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:8686/sse/stream')
+    const eventSource = new EventSource('http://localhost:8686/sse/stream');
     eventSource.onmessage = ({ data }) => {
-      setMessages((state) => [...state, JSON.parse(data).msg])
-    }
-  }, [])
+      setMessages((state) => [...state, JSON.parse(data).msg]);
+    };
+  }, []);
   return (
     <div className="container">
       <ul>
@@ -51,10 +51,10 @@ function App() {
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
 ## 效果

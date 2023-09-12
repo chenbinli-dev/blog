@@ -10,8 +10,8 @@ tags: ['React', 'Learning Note']
 javascript 的语法扩展/JavaScript XML
 
 ```jsx
-const id = 'domID'
-const context = 'this is context'
+const id = 'domID';
+const context = 'this is context';
 const vdom = (
   <div>
     <h1 className="xxx" id={id}>
@@ -19,8 +19,8 @@ const vdom = (
     </h1>
     <span style={{ color: 'red', fontSize: '20px' }}></span>
   </div>
-)
-ReactDOM.render(vdom, getElementById('xxx'))
+);
+ReactDOM.render(vdom, getElementById('xxx'));
 ```
 
 ![image-20220110130625384](C:\Users\10157\AppData\Roaming\Typora\typora-user-images\image-20220110130625384.png)
@@ -79,7 +79,7 @@ getFullName() {
 JSX 的本质其实是`React.createElement(component,props,...children)`的语法糖
 
 ```js
-createElement(type, config, children)
+createElement(type, config, children);
 //type:创建元素的类型，标签元素使用对应标签名，组件元素使用组件名
 //config:所有JSX中的属性都在config中以对象的属性和值的形式保存
 //children:存放标签内容，以数组的形式
@@ -168,12 +168,12 @@ class ChildCpn extends Component {
        } */
   //默认为以上，因此constructor方法可以删除
   render() {
-    const { name, age } = this.props
+    const { name, age } = this.props;
     return (
       <h2>
         类子组件展示数据：{name},{age}
       </h2>
-    )
+    );
   }
 }
 //父组件
@@ -183,7 +183,7 @@ export default class FatherCpn extends Component {
       <div>
         <ChildCpn name="li" age="18"></ChildCpn>
       </div>
-    )
+    );
   }
 }
 ```
@@ -194,12 +194,12 @@ export default class FatherCpn extends Component {
 //子组件
 function ChildCpn(props) {
   //父组件通过props将数据传递给子组件
-  const { name, age } = props
+  const { name, age } = props;
   return (
     <h2>
       函数子组件展示数据：{name},{age}
     </h2>
-  )
+  );
 }
 //父组件
 export default class FatherCpn extends Component {
@@ -208,7 +208,7 @@ export default class FatherCpn extends Component {
       <div>
         <ChildCpn name="li" age="18"></ChildCpn>
       </div>
-    )
+    );
   }
 }
 ```
@@ -219,27 +219,27 @@ export default class FatherCpn extends Component {
 
 ```js
 //使用该库来验证属性
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 //子组件
 function ChildCpn(props) {
   //父组件通过props将数据传递给子组件
-  const { name, age, books } = props
+  const { name, age, books } = props;
   return (
     <h2>
       函数子组件展示数据：{name},{age},
       {books.map((item) => {
-        return <li>{item}</li>
+        return <li>{item}</li>;
       })}
     </h2>
-  )
+  );
 }
 //验证属性，不是对应的数据类型的数据会在控制台输出警告
 ChildCpn.propTypes = {
   name: PropTypes.string.isRequired,
   age: PropTypes.number,
-  books: PropTypes.array,
-}
+  books: PropTypes.array
+};
 ```
 
 ## 4.跨组件通信
@@ -247,11 +247,11 @@ ChildCpn.propTypes = {
 React 提供了一个 API 用于实现跨组件通信，而不需要层层依次传递。
 
 ```js
-const myContext = React.createContext(defaultValue)
+const myContext = React.createContext(defaultValue);
 //创建一个共享的Context对象,一个组件如果订阅了context,那么该组件会从离自身最近的匹配的Provider中获取当前context值。defaultValue是组件在顶层查找中没有找到对应的Provider而使用的默认值。
-Context.Provider
+Context.Provider;
 //每个Context对象返回一个Provider React组件，Provider接收一个value属性，传递给消费组件；一个Provider可以和多个消费组件有对应关系。
-Class.contextType
+Class.contextType;
 //挂载在class上的contextType属性会被重赋值为一个由React.createContext()创建的Context对象，可以使用this.context来使用Context上的值且在任何生命周期中都能访问。
 ```
 
@@ -322,12 +322,12 @@ componentDidUpdate() {
 ```js
 this.state = {
   num1: 100,
-  num2: 200,
-}
+  num2: 200
+};
 
 this.setState({
-  num1: 200,
-})
+  num1: 200
+});
 //React将setState传入的对象和this.state使用Object.assign({},{ num1:200},this.state)进行了属性合并并返回一个新的对象，num2不会被覆盖和丢失。
 ```
 
@@ -335,30 +335,30 @@ this.setState({
 
 ```js
 this.setState({
-  num1: this.state + 1,
-})
+  num1: this.state + 1
+});
 this.setState({
-  num1: this.state + 1,
-})
+  num1: this.state + 1
+});
 this.setState({
-  num1: this.state + 1,
-})
+  num1: this.state + 1
+});
 //连续调用多次相同的setState并不会在结果上累加，React会将相同的更新合并，因此num1始终都只加上1
 this.setState((prevState, props) => {
   return {
-    num1: prevState.num1 + 1,
-  }
-})
+    num1: prevState.num1 + 1
+  };
+});
 this.setState((prevState, props) => {
   return {
-    num1: prevState.num1 + 1,
-  }
-})
+    num1: prevState.num1 + 1
+  };
+});
 this.setState((prevState, props) => {
   return {
-    num1: prevState.num1 + 1,
-  }
-})
+    num1: prevState.num1 + 1
+  };
+});
 //传入函数实现多次相同调用累加结果，结果加上3
 ```
 
@@ -425,11 +425,11 @@ class App extends PureComponent {
 如何不让未更新的函数子组件调用`render`函数来达到性能优化？
 
 ```js
-import { memo } from 'react'
+import { memo } from 'react';
 const MemoFooter = memo(function Footer() {
-  console.log('Footer render函数被调用')
-  return <h2>我是底部</h2>
-})
+  console.log('Footer render函数被调用');
+  return <h2>我是底部</h2>;
+});
 //使用memo来优化函数式组件
 ```
 
@@ -449,26 +449,26 @@ const MemoFooter = memo(function Footer() {
 function enhanceComponent(WarppedComponent) {
   class NewComponent extends PureComponent {
     render() {
-      return <WarppedComponent />
+      return <WarppedComponent />;
     }
   }
-  return NewComponent
+  return NewComponent;
 }
 ```
 
 组件名是可以省略的——在 ES6 中，类表达式的类名是可以省略的。
 
 ```js
-const a = class Person {}
+const a = class Person {};
 
-const a = class {}
+const a = class {};
 //类似于函数的定义
 ```
 
 组件名在组件内部是可以修改的，方便在开发者工具中查看：
 
 ```js
-AComponent.displayName = 'BComponent'
+AComponent.displayName = 'BComponent';
 ```
 
 ### 2.高阶组件的应用
@@ -478,8 +478,8 @@ AComponent.displayName = 'BComponent'
 ```js
 function enhanceProps(WarppedComponent) {
   return (props) => {
-    return <WarppedComponent {...props} gender="男" />
-  }
+    return <WarppedComponent {...props} gender="男" />;
+  };
 }
 ```
 
@@ -488,12 +488,12 @@ function enhanceProps(WarppedComponent) {
 ```js
 function withAuth(WrappedCompnent) {
   return (props) => {
-    const { isLogin } = props
+    const { isLogin } = props;
     if (isLogin) {
-      return <WrappedCompnent {...props} />
+      return <WrappedCompnent {...props} />;
     }
-    return <LoginPage />
-  }
+    return <LoginPage />;
+  };
 }
 ```
 
@@ -503,16 +503,19 @@ function withAuth(WrappedCompnent) {
 function withRenderTime(WarppedComponent) {
   return class extends PureComponent {
     UNSAFE_componentWillMount() {
-      this.beginTime = Date.now()
+      this.beginTime = Date.now();
     }
     componentDidMount() {
-      this.endTime = Date.now()
-      console.log(`${WarppedComponent.name}的渲染时间为：`, this.endTime - this.beginTime)
+      this.endTime = Date.now();
+      console.log(
+        `${WarppedComponent.name}的渲染时间为：`,
+        this.endTime - this.beginTime
+      );
     }
     render() {
-      return <WarppedComponent {...this.props} />
+      return <WarppedComponent {...this.props} />;
     }
-  }
+  };
 }
 ```
 
@@ -539,7 +542,7 @@ Hooks 解决了 this 的指向问题，HOC 的嵌套复杂度的问题。
 Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。
 
 ```js
-ReactDOM.createPortal(child, container)
+ReactDOM.createPortal(child, container);
 ```
 
 第一个参数（`child`）是任何可渲染的 React 子元素]，例如一个元素，字符串或 fragment。第二个参数（`container`）是一个 DOM 元素。
@@ -565,7 +568,7 @@ render() {
 `StrictMode` 是一个用来突出显示应用程序中潜在问题的工具。与 `Fragment` 一样，`StrictMode` 不会渲染任何可见的 UI。它为其后代元素触发额外的检查和警告。严格模式检查仅在开发模式下运行；_它们不会影响生产构建_。
 
 ```js
-import React from 'react'
+import React from 'react';
 
 function ExampleApplication() {
   return (
@@ -579,7 +582,7 @@ function ExampleApplication() {
       </React.StrictMode>
       <Footer />
     </div>
-  )
+  );
 }
 ```
 
@@ -624,7 +627,7 @@ style 接受一个采用小驼峰命名的对 javascript 对象，而不是 CSS 
 将每个 css 文件看作是一个模块，命名为 xxx.module.css，在使用的时候导入。如下，style.module.css 中有.title 类选择器。
 
 ```js
-import style from './style.module.css'
+import style from './style.module.css';
 ```
 
 ```jsx
@@ -723,7 +726,9 @@ React 提供的过渡动画库。
 .title-exit-active {
   opacity: 0;
   transform: scale(0.6);
-  transition: opacity 300ms, transfirm 300ms;
+  transition:
+    opacity 300ms,
+    transfirm 300ms;
 }
 
 .title-exit-done {
@@ -834,18 +839,18 @@ Redux 除了和 React 一起用外，还支持其它界面库。它体小精悍�
 
 ```js
 //store由redux创建
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import store from './store'
-import { Provider } from 'react-redux'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import store from './store';
+import { Provider } from 'react-redux';
+import App from './App';
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <App />
   </Provider>
-)
+);
 ```
 
 #### 2.connect()
@@ -867,20 +872,20 @@ const mapStateToProps = (state) => {
   return {
     counter: state.counter,
     banners: state.banners,
-    recommends: state.recommends,
-  }
-}
+    recommends: state.recommends
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     increment() {
-      dispatch(addAction(10))
+      dispatch(addAction(10));
     },
     decrement() {
-      dispatch(subAction(5))
-    },
-  }
-}
-connect(mapStateToProps, mapDispatchToProps)(Home)
+      dispatch(subAction(5));
+    }
+  };
+};
+connect(mapStateToProps, mapDispatchToProps)(Home);
 ```
 
 ```js
@@ -895,12 +900,12 @@ function connect(mapStateToProps, mapDispatchToProps) {
             {...mapStateToProps(this.context.getState())}
             {...mapDispatchToProps(this.context.dispatch)}
           />
-        )
+        );
       }
     }
-    EnhanceComponent.contextType = storeContext
-    return EnhanceComponent
-  }
+    EnhanceComponent.contextType = storeContext;
+    return EnhanceComponent;
+  };
 }
 ```
 
@@ -952,17 +957,17 @@ redux-thunk 的一般解决方案：
 //redux-thunk中定义的Action函数
 export const getMultidataAction = (dispatch) => {
   axios({
-    url: 'http://123.207.32.32:8000/home/multidata',
+    url: 'http://123.207.32.32:8000/home/multidata'
   })
     .then((res) => {
-      console.log(res.data.data.recommend)
-      dispatch(changeBannersAction(res.data.data.banner.list))
-      dispatch(changeRecommendsAction(res.data.data.recommend.list))
+      console.log(res.data.data.recommend);
+      dispatch(changeBannersAction(res.data.data.banner.list));
+      dispatch(changeRecommendsAction(res.data.data.recommend.list));
     })
     .catch((err) => {
-      console.log(err)
-    })
-}
+      console.log(err);
+    });
+};
 ```
 
 ```js
@@ -970,10 +975,10 @@ export const getMultidataAction = (dispatch) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getMultidata() {
-      dispatch(getMultidataAction)
-    },
-  }
-}
+      dispatch(getMultidataAction);
+    }
+  };
+};
 ```
 
 ```js
@@ -990,45 +995,48 @@ const mapDispatchToProps = (dispatch) => {
 Redux-saga 的引入和启用：
 
 ```js
-import createSagaMidware from 'redux-saga'
+import createSagaMidware from 'redux-saga';
 
 //创建redux-saga中间件
-const sagaMidware = createSagaMidware()
+const sagaMidware = createSagaMidware();
 //redux中应用saga中间件
-const storeEnhancer = applyMiddleware(sagaMidware)
-const store = createStore(reducer, storeEnhancer)
+const storeEnhancer = applyMiddleware(sagaMidware);
+const store = createStore(reducer, storeEnhancer);
 //redux-saga启用
-sagaMidware.run(saga)
+sagaMidware.run(saga);
 ```
 
 使用 sagas 进行异步逻辑操作：
 
 ```js
-import axios from 'axios'
-import { takeEvery, put, all } from 'redux-saga/effects'
-import { FETCH_ABOUT_MULTIDATA } from './home/constants'
-import { changeBannersAction, changeRecommendsAction } from './home/actionCreators'
+import axios from 'axios';
+import { takeEvery, put, all } from 'redux-saga/effects';
+import { FETCH_ABOUT_MULTIDATA } from './home/constants';
+import {
+  changeBannersAction,
+  changeRecommendsAction
+} from './home/actionCreators';
 
 function* fetchAboutMultidata(action) {
-  const res = yield axios.get('http://123.207.32.32:8000/home/multidata')
-  const banners = res.data.data.banner.list
-  const recommends = res.data.data.recommend.list
+  const res = yield axios.get('http://123.207.32.32:8000/home/multidata');
+  const banners = res.data.data.banner.list;
+  const recommends = res.data.data.recommend.list;
   // yield put(changeBannersAction(banners))
   // yield put(changeRecommendsAction(recommends))
   yield all([
     yield put(changeBannersAction(banners)),
-    yield put(changeRecommendsAction(recommends)),
-  ])
+    yield put(changeRecommendsAction(recommends))
+  ]);
 }
 
 //定义一个生成器函数来监听对应类型的action
 function* Mysaga() {
   //yield takeLatest 依次只能监听一个action
   //yield takeEvery 每个action都会被执行
-  yield takeEvery(FETCH_ABOUT_MULTIDATA, fetchAboutMultidata)
+  yield takeEvery(FETCH_ABOUT_MULTIDATA, fetchAboutMultidata);
 }
 
-export default Mysaga
+export default Mysaga;
 ```
 
 JavaScript 补充：generator 函数
@@ -1124,14 +1132,14 @@ import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
 v6 版本将 v5 的`<Redirect/>`替换成`<Navigate/>`并在类组件中使用，在函数式组件中推荐使用`<useNavigate/>`。
 
 ```jsx
-import React, { PureComponent } from 'react'
-import { Navigate } from 'react-router-dom'
+import React, { PureComponent } from 'react';
+import { Navigate } from 'react-router-dom';
 export default class Category extends PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      isLogin: false,
-    }
+      isLogin: false
+    };
   }
 
   render() {
@@ -1147,7 +1155,7 @@ export default class Category extends PureComponent {
       </div>
     ) : (
       <Navigate to="/" replace={true} />
-    )
+    );
   }
 }
 ```
@@ -1187,10 +1195,10 @@ export default class Category extends PureComponent {
 动态路由的参数只能在函数式组件中使用 React-router 提供的 Hooks 来获取。
 
 ```jsx
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 export default function Detail() {
-  const { id } = useParams()
-  return <div>{id}</div>
+  const { id } = useParams();
+  return <div>{id}</div>;
 }
 ```
 
@@ -1216,15 +1224,15 @@ export default function Detail() {
 ```js
 //detail.js
 //使用字符串形式时
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom';
 //useSearchParams钩子返回searchParams和setSearchParams函数
 //通过searchParams.get(key)来获取search的参数，setSearchParams({key:value})来改变路由
-let [searchParams] = useSearchParams()
-const id = searchParams.get('id')
+let [searchParams] = useSearchParams();
+const id = searchParams.get('id');
 
 //使用对象形式时,id=5
-import { useLocation } from 'react-router-dom'
-console.log(useLocation()) //{pathname: '/detail2', search: '?id=5', hash: '', state: null, key: 't6ls32bo'}
+import { useLocation } from 'react-router-dom';
+console.log(useLocation()); //{pathname: '/detail2', search: '?id=5', hash: '', state: null, key: 't6ls32bo'}
 ```
 
 三，使用 state。
@@ -1235,36 +1243,36 @@ const info = {name:'coder',age:20}
 ```
 
 ```js
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 export default function Detail3() {
-  const { name, age } = useLocation().state
+  const { name, age } = useLocation().state;
   return (
     <div>
       name:{name},age:{age}
     </div>
-  )
+  );
 }
 ```
 
 ### 6.useRoutes
 
-The `useRoutes` hook is the functional equivalent of ``<Routes>``, but it uses JavaScript objects instead of `<Route>` elements to define your routes. These objects have the same properties as normal `<Route>` elements, but they don't require JSX.
+The `useRoutes` hook is the functional equivalent of `<Routes>`, but it uses JavaScript objects instead of `<Route>` elements to define your routes. These objects have the same properties as normal `<Route>` elements, but they don't require JSX.
 
 The return value of `useRoutes` is either a valid React element you can use to render the route tree, or `null` if nothing matched.
 
 `userRoutes`是 React-router v6 版本用来替代 v5 版本的`react-router-config`库的一个钩子函数，它接受一个数组，返回一个 React 元素并渲染到路由树中。
 
 ```js
-import { useRoutes } from 'react-router-dom'
-import Home from '../pages/home'
-import NoMatch from '../pages/noMatch'
-import { Profile, UserInfo } from '../pages/profile'
+import { useRoutes } from 'react-router-dom';
+import Home from '../pages/home';
+import NoMatch from '../pages/noMatch';
+import { Profile, UserInfo } from '../pages/profile';
 
 const MyRoutes = () => {
   const routes = useRoutes([
     {
       path: '/',
-      element: <Home />,
+      element: <Home />
     },
     {
       path: '/profile',
@@ -1272,26 +1280,26 @@ const MyRoutes = () => {
       children: [
         {
           path: 'userInfo',
-          element: <UserInfo />,
-        },
-      ],
+          element: <UserInfo />
+        }
+      ]
     },
     //NotFound
     {
       path: '*',
-      element: <NoMatch />,
-    },
-  ])
-  return routes
-}
+      element: <NoMatch />
+    }
+  ]);
+  return routes;
+};
 
-export default MyRoutes
+export default MyRoutes;
 ```
 
 ```jsx
-import MyRoutes from './router'
+import MyRoutes from './router';
 function APP() {
-  return <Router>{MyRoutes()}</Router>
+  return <Router>{MyRoutes()}</Router>;
 }
 ```
 
@@ -1322,24 +1330,24 @@ Hooks 的使用场景几乎可以覆盖所有能使用类组件的地方，它�
 `setstate`函数可以直接传入 state，也可以传入一个函数来获取前一次的 state，类似于类组件中的`this.setState`，可以避免合并操作。
 
 ```js
-const [state, setstate] = useState(initialState)
-const [state, setstate] = useState(() => initialState)
+const [state, setstate] = useState(initialState);
+const [state, setstate] = useState(() => initialState);
 
-const [state, setstate] = useState(0)
-console.log(state) //0
-setstate(state + 1)
-setstate(state + 1)
-setstate(state + 1)
-console.log(state) //1
-setstate((prevState) => prevState + 1)
-setstate((prevState) => prevState + 1)
-setstate((prevState) => prevState + 1)
-console.log(state) //3
+const [state, setstate] = useState(0);
+console.log(state); //0
+setstate(state + 1);
+setstate(state + 1);
+setstate(state + 1);
+console.log(state); //1
+setstate((prevState) => prevState + 1);
+setstate((prevState) => prevState + 1);
+setstate((prevState) => prevState + 1);
+console.log(state); //3
 
-const [state, setstate] = useState(['a', 'b', 'c'])
-console.log(state) //['a','b','c']
-setstate([...state, 'd'])
-console.log(state) //['a','b','c','d']
+const [state, setstate] = useState(['a', 'b', 'c']);
+console.log(state); //['a','b','c']
+setstate([...state, 'd']);
+console.log(state); //['a','b','c','d']
 ```
 
 ## 4.Hooks——useEffect()
@@ -1354,17 +1362,17 @@ console.log(state) //['a','b','c','d']
 
 ```js
 useEffect(() => {
-  console.log('修改DOM', counter)
-}, [counter])
+  console.log('修改DOM', counter);
+}, [counter]);
 //第二个参数传入的是空数组的话，则该useEffect只会在第一次渲染时执行一次
 //第二个参数实际上只做性能优化
 useEffect(() => {
-  console.log('订阅事件')
-}, [])
+  console.log('订阅事件');
+}, []);
 
 useEffect(() => {
-  console.log('网络请求')
-}, [])
+  console.log('网络请求');
+}, []);
 ```
 
 ### 5.Hooks——useContext()
@@ -1382,16 +1390,16 @@ export const userContext = createContext()
 ```
 
 ```js
-import React, { useContext } from 'react'
-import { userContext } from '../App'
+import React, { useContext } from 'react';
+import { userContext } from '../App';
 export default function UseContextDemo() {
-  const { name, age } = useContext(userContext)
+  const { name, age } = useContext(userContext);
   return (
     <div>
       <h2>useContext的使用</h2>
       name:{name},age:{age}
     </div>
-  )
+  );
 }
 ```
 
@@ -1404,27 +1412,27 @@ export default function UseContextDemo() {
 返回值为一个数组，第一个元素是 state，第二个元素是`dispatch`函数
 
 ```js
-import React, { useReducer } from 'react'
+import React, { useReducer } from 'react';
 
 function reducer(state, action) {
   switch (action.type) {
     case 'increment':
-      return { ...state, counter: state.counter + 1 }
+      return { ...state, counter: state.counter + 1 };
     case 'decrement':
-      return { ...state, counter: state.counter - 1 }
+      return { ...state, counter: state.counter - 1 };
     default:
-      return state
+      return state;
   }
 }
 export default function UseReducerDemo() {
-  const [counter, dispatch] = useReducer(reducer, { counter: 0 })
+  const [counter, dispatch] = useReducer(reducer, { counter: 0 });
   return (
     <div>
       <h2>当前计数：{counter.counter}</h2>
       <button onClick={(e) => dispatch({ type: 'increment' })}>+1</button>
       <button onClick={(e) => dispatch({ type: 'decrement' })}>-1</button>
     </div>
-  )
+  );
 }
 ```
 
@@ -1439,9 +1447,9 @@ export default function UseReducerDemo() {
 ```js
 //依赖counter，counter变化时执行新的回调函数,正常执行
 const increment2 = useCallback(() => {
-  console.log('increment2 执行')
-  setCounter(counter + 1)
-}, [counter])
+  console.log('increment2 执行');
+  setCounter(counter + 1);
+}, [counter]);
 ```
 
 什么时候使用`useCallback`才能做到性能优化？
@@ -1457,35 +1465,35 @@ const increment2 = useCallback(() => {
 **`useMemo`维护的是返回值**
 
 ```jsx
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react';
 function ComputeSum(num) {
-  console.log('重新计算')
-  let total = 0
+  console.log('重新计算');
+  let total = 0;
   for (let i = 1; i <= num; i++) {
-    total += i
+    total += i;
   }
-  return total
+  return total;
 }
 /**
  show发生改变，UseMemoComplexDemo重新渲染，counter未改变，因此返回ComputeSum还是同一个，不用重新执行
 */
 export default function UseMemoComplexDemo() {
-  console.log('UseMemoComplexDemo渲染')
-  const [counter, setCounter] = useState(10)
-  const [show, setShow] = useState(true)
+  console.log('UseMemoComplexDemo渲染');
+  const [counter, setCounter] = useState(10);
+  const [show, setShow] = useState(true);
   // const total = ComputeSum(counter)
 
   //counter发生改变时才返回新的ComputeSum
   const total = useMemo(() => {
-    return ComputeSum(counter)
-  }, [counter])
+    return ComputeSum(counter);
+  }, [counter]);
   return (
     <div>
       <h2>Total:{total}</h2>
       <button onClick={(e) => setCounter(counter + 1)}>+1</button>
       <button onClick={(e) => setShow(!show)}>切换</button>
     </div>
-  )
+  );
 }
 ```
 
@@ -1510,7 +1518,7 @@ titleRef.current === <h2/>
 
 ```js
 //10保存在整个组件的生命周期中
-const refData = useRef(10)
+const refData = useRef(10);
 ```
 
 ### 10.Hooks——useLayoutEffect()
@@ -1536,46 +1544,46 @@ const refData = useRef(10)
 
 ```jsx
 //forwardRef的使用
-import React, { forwardRef, useRef } from 'react'
+import React, { forwardRef, useRef } from 'react';
 const ChildCpn = forwardRef((props, ref) => {
-  return <input ref={ref} type="text" />
-})
+  return <input ref={ref} type="text" />;
+});
 export default function ForwardRefDemo() {
-  const cpnRef = useRef()
+  const cpnRef = useRef();
   return (
     <div>
       <ChildCpn ref={cpnRef} />
       <button onClick={(e) => cpnRef.current.focus()}>聚焦</button>
     </div>
-  )
+  );
 }
 ```
 
 ```jsx
 //useImperativeHandle的使用
-import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 const ChildCpn = forwardRef((props, ref) => {
-  const inputRef = useRef()
+  const inputRef = useRef();
   useImperativeHandle(
     ref,
     () => ({
       focus: () => {
-        inputRef.current.focus()
-      },
+        inputRef.current.focus();
+      }
     }),
     [inputRef]
-  )
+  );
 
-  return <input ref={inputRef} type="text" />
-})
+  return <input ref={inputRef} type="text" />;
+});
 export default function UseImperativeHandleDemo() {
-  const inputRef = useRef()
+  const inputRef = useRef();
   return (
     <div>
       <ChildCpn ref={inputRef} />
       <button onClick={(e) => inputRef.current.focus()}>聚焦</button>
     </div>
-  )
+  );
 }
 ```
 
@@ -1585,19 +1593,19 @@ export default function UseImperativeHandleDemo() {
 
 自定义 Hook 方便开发者自己抽取代码，提高代码的复用性，减少组件内部不必要的代码逻辑，并帮助开发者完成很多复杂的逻辑处理。
 
-*自定义的 Hook 命名需要以 use 开头**
+\*自定义的 Hook 命名需要以 use 开头\*\*
 
 ```jsx
 //例如在自定义的Hook中使用useContext
-import { useContext } from 'react'
-import { tokenContext, userContext } from '../App'
+import { useContext } from 'react';
+import { tokenContext, userContext } from '../App';
 function useUserContext() {
-  const user = useContext(userContext)
-  const token = useContext(tokenContext)
+  const user = useContext(userContext);
+  const token = useContext(tokenContext);
 
-  return [user, token]
+  return [user, token];
 }
-export default useUserContext
+export default useUserContext;
 ```
 
 ## 数据的不可变性
@@ -1605,13 +1613,13 @@ export default useUserContext
 ```js
 const obj1 = {
   name: 'obj1',
-  age: 20,
-}
-const obj2 = obj1
+  age: 20
+};
+const obj2 = obj1;
 
-obj2.name = 'obj2'
+obj2.name = 'obj2';
 
-console.log(obj1.name) //obj2
+console.log(obj1.name); //obj2
 ```
 
 在 JavaScript 中，对象是引用类型，对象名只是一个指向该对象内存的一个地址指针，所以 在对对象进行赋值的时候仅仅是将该地址指针赋值给其他变量，当其中一个引用发生变化的时候，实际上修改的是所有引用的同一个对象。
@@ -1631,26 +1639,26 @@ ImmutableJs 采用了新的算法（持久化数据结构）来保证尽量地�
 ### 1.Map()
 
 ```js
-const { Map } = require('immutable')
+const { Map } = require('immutable');
 const obj1 = {
   name: 'obj1',
-  age: 20,
-}
-const IMobj = Map(obj1)
-IMobj.set('name', 'obj2')
-cosole.log(obj1.name) //'obj1'
-cosole.log(IMobj.name) //'obj2'
+  age: 20
+};
+const IMobj = Map(obj1);
+IMobj.set('name', 'obj2');
+cosole.log(obj1.name); //'obj1'
+cosole.log(IMobj.name); //'obj2'
 ```
 
 ### 2.List()
 
 ```js
-const { List } = require('immutable')
-const list1 = ['a', 'b', 'c']
-const IMlist = List(obj1)
-IMlist.set(0, 'd')
-cosole.log(list1[0]) //'a'
-cosole.log(IMlist[0]) //'d'
+const { List } = require('immutable');
+const list1 = ['a', 'b', 'c'];
+const IMlist = List(obj1);
+IMlist.set(0, 'd');
+cosole.log(list1[0]); //'a'
+cosole.log(IMlist[0]); //'d'
 ```
 
 ### 3.fromJS()
@@ -1658,19 +1666,19 @@ cosole.log(IMlist[0]) //'d'
 Map 和 List 只会做浅层映射，对于嵌套的对象和数组无法转换成响应的 Immutable 对象或数组，而 fromJS 对象和数组深度转换为不可变映射和列表。
 
 ```js
-const { fromJS } = require('immutable')
+const { fromJS } = require('immutable');
 const obj1 = {
   name: 'obj1',
   age: 20,
   friend: {
     name: 'obj3',
-    age: 30,
-  },
-}
-const IMobj = fromJS(obj1)
-IMobj.set('friend', {})
-cosole.log(obj1.friend) //{name:'obj3',age:30}
-cosole.log(IMobj.friend) //{}
+    age: 30
+  }
+};
+const IMobj = fromJS(obj1);
+IMobj.set('friend', {});
+cosole.log(obj1.friend); //{name:'obj3',age:30}
+cosole.log(IMobj.friend); //{}
 ```
 
 ## React SSR/CSR

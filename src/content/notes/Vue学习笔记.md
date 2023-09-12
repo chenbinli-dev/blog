@@ -129,13 +129,13 @@ push() pop() shift() unshift() splice() sort() reverse()
 使用索引修改数组元素不是响应式的：
 
 ```js
-arr[0] = 'xxx'
+arr[0] = 'xxx';
 ```
 
 Vue 提供了 set 方法，可以通过索引修改并响应式地更新页面
 
 ```javascript
-Vue.set(arr, index, xxx)
+Vue.set(arr, index, xxx);
 ```
 
 ## DAY3
@@ -152,14 +152,14 @@ Vue.set(arr, index, xxx)
 const app = new Vue({
   el: '#app',
   data: {
-    message: xxx,
+    message: xxx
   },
   filters: {
     messageFilter() {
       //对message进行处理
-    },
-  },
-})
+    }
+  }
+});
 ```
 
 ### 2.Javascript 中高阶函数的使用
@@ -305,7 +305,7 @@ components:{
 const app = new Vue({
   el: '#app',
   data: {
-    movies: ['泰坦尼克号', '海王', '蜘蛛侠', '变形金刚'],
+    movies: ['泰坦尼克号', '海王', '蜘蛛侠', '变形金刚']
   },
   methods: {},
   components: {
@@ -313,7 +313,7 @@ const app = new Vue({
     cmp: {
       template: '#moviesList',
       data() {
-        return xxx
+        return xxx;
       }, //子组件的data必须是函数
       /*
              使用props实现父组件向子组件传递数据,相当于组件的自定义属性
@@ -328,13 +328,13 @@ const app = new Vue({
           type: Array, //数据类型
           //当type为Array or Object,default必须为函数，否则为字符串或数值
           default() {
-            return []
-          },
-        },
-      }, //也可以使用['childlist'],但是一般都是使用对象
-    },
-  },
-})
+            return [];
+          }
+        }
+      } //也可以使用['childlist'],但是一般都是使用对象
+    }
+  }
+});
 ```
 
 子组件通过$emit(自定义方法)向父组件传递数据:
@@ -345,7 +345,9 @@ const app = new Vue({
 </div>
 <template id="btnList">
   <ul>
-    <button v-for="item in btns" @click="childClick(item)">{{item.name}}</button>
+    <button v-for="item in btns" @click="childClick(item)">
+      {{item.name}}
+    </button>
   </ul>
 </template>
 ```
@@ -356,8 +358,8 @@ const app = new Vue({
   data: {},
   methods: {
     dealChildEvent(item) {
-      console.log(item)
-    },
+      console.log(item);
+    }
   },
   components: {
     //注册子组件
@@ -369,19 +371,19 @@ const app = new Vue({
             { id: 1, name: '第一个按钮' },
             { id: 2, name: '第二个按钮' },
             { id: 3, name: '第三个按钮' },
-            { id: 4, name: '第四个按钮' },
-          ],
-        }
+            { id: 4, name: '第四个按钮' }
+          ]
+        };
       },
       methods: {
         //自定义事件，将子组件数据通过$emit(事件名，具体数据)发送给父组件
         childClick(item) {
-          this.$emit('childevent', item)
-        },
-      },
-    },
-  },
-})
+          this.$emit('childevent', item);
+        }
+      }
+    }
+  }
+});
 ```
 
 ### 4.注意事项
@@ -454,30 +456,30 @@ watch:{
 const app = new Vue({
   el: '#app',
   data: {
-    name: 'this is father component',
+    name: 'this is father component'
   },
   methods: {
     getChild() {
       // console.log(this.$children[0].name);
-      console.log(this.$refs.child.name)
-    },
+      console.log(this.$refs.child.name);
+    }
   },
   components: {
     childc: {
       template: '#child',
       data() {
         return {
-          name: 'this is child component',
-        }
+          name: 'this is child component'
+        };
       },
       methods: {
         getFather() {
-          console.log(this.$parent.name)
-        },
-      },
-    },
-  },
-})
+          console.log(this.$parent.name);
+        }
+      }
+    }
+  }
+});
 ```
 
 ### 4.插槽的认识和使用(slot)
@@ -502,7 +504,8 @@ const app = new Vue({
 <template>
   <slot>这是一个插槽，只能定义在模版中，我是默认值（也可以不设置）</slot>
 </template>
-a)先在模版中留下插槽 b)在调用组件时，组件标签之间的内容会自动替换<slot></slot>之间的内容
+a)先在模版中留下插槽 b)在调用组件时，组件标签之间的内容会自动替换<slot
+></slot>之间的内容
 ```
 
 注意！
@@ -581,13 +584,9 @@ webpack 是前端模块打包工具，依赖 node.js 环境，注重模块管理
 如何使用 webapck?
 
 ```md
-1.首先安装node.js作为环境，再安装npm（Node packages manager）;
-2.再安装webpack --->npm install webpack -g
-2.安装webpack脚手架--->npm install webpack-cli -g
-//实际项目开发中需要局部安装webpack
-1.在项目根目录下使用终端执行命令:--->npm install webpack@xx.xx.x --save-dev,这个命令是局部安装webpack并作为开发依赖
-2.npm init，这个命令会初始化，生成一个package.json文件
-3.创建webpack.config.js对webpack打包进行配置
+1.首先安装node.js作为环境，再安装npm（Node packages manager）; 2.再安装webpack --->npm install webpack -g 2.安装webpack脚手架--->npm install webpack-cli -g
+//实际项目开发中需要局部安装webpack 1.在项目根目录下使用终端执行命令:--->npm install webpack@xx.xx.x --save-dev,这个命令是局部安装webpack并作为开发依赖
+2.npm init，这个命令会初始化，生成一个package.json文件3.创建webpack.config.js对webpack打包进行配置
 ```
 
 package.json:
@@ -615,16 +614,16 @@ package.json:
 webpack.config.js：
 
 ```javascript
-const path = require('path') //导入node的path包
+const path = require('path'); //导入node的path包
 //webpack打包配置
 module.exports = {
   entry: path.join(__dirname, 'src') + '/main.js', //入口
   output: {
     path: path.join(__dirname, 'dist'), //出口路径，绝对地址,通过__dirname获取路径
-    filename: 'bundle.js', //打包后的文件名
+    filename: 'bundle.js' //打包后的文件名
   }, //出口
-  mode: 'development', //webpack4.0后需要制定mode
-}
+  mode: 'development' //webpack4.0后需要制定mode
+};
 ```
 
 执行命令 npm run dev
@@ -742,13 +741,13 @@ history.relpace()和history.pushState()的不同在于他不能返回，仅仅�
 
 ```javascript
 //路由配置相关信息
-import vueRouter from 'vue-router'
-import Vue from 'vue'
+import vueRouter from 'vue-router';
+import Vue from 'vue';
 //导入组件
-import Home from '../components/Home'
-import About from '../components/About'
+import Home from '../components/Home';
+import About from '../components/About';
 //通过vue.use插件安装路由插件（注册路由组件）
-Vue.use(vueRouter)
+Vue.use(vueRouter);
 
 //2.创建vue-router对象
 const router = new vueRouter({
@@ -758,31 +757,31 @@ const router = new vueRouter({
       //默认路由,第一次打开的页面
       path: '',
       //重定向
-      redirect: '/home',
+      redirect: '/home'
     },
     {
       path: '/home',
-      component: Home,
+      component: Home
     },
     {
       path: '/about',
-      component: About,
-    },
+      component: About
+    }
   ],
   mode: 'history', //路径改变默认是使用URL的Hash
-  linkActiveClass: 'active', //活跃状态是class为active,默认是vue-router-active
-})
+  linkActiveClass: 'active' //活跃状态是class为active,默认是vue-router-active
+});
 
 //导出router对象到vue实例
-export default router
+export default router;
 ```
 
 导出 router 对象后，在 vue 实例中挂载
 
 ```js
 new Vue({
-  router,
-})
+  router
+});
 ```
 
 通过`<router-link>`标签来导航，通过`<router-view>`标签来显示对应路由映射的内容。
@@ -803,15 +802,15 @@ replace 属性,没有值，取消返回的功能
 
 ```javascript
 const User = {
-  template: '<div>User</div>',
-}
+  template: '<div>User</div>'
+};
 
 const router = new VueRouter({
   routes: [
     // 动态路径参数 以冒号开头
-    { path: '/user/:id', component: User },
-  ],
-})
+    { path: '/user/:id', component: User }
+  ]
+});
 ```
 
 现在呢，像 `/user/foo` 和 `/user/bar` 都将映射到相同的路由。
@@ -820,8 +819,8 @@ const router = new VueRouter({
 
 ```javascript
 const User = {
-  template: '<div>User {{ $route.params.id }}</div>',
-}
+  template: '<div>User {{ $route.params.id }}</div>'
+};
 ```
 
 ### 2.$route和$router 区别
@@ -859,18 +858,18 @@ const router = new VueRouter({
           // 当 /user/:id/profile 匹配成功，
           // UserProfile 会被渲染在 User 的 <router-view> 中
           path: 'profile',
-          component: UserProfile,
+          component: UserProfile
         },
         {
           // 当 /user/:id/posts 匹配成功
           // UserPosts 会被渲染在 User 的 <router-view> 中
           path: 'posts',
-          component: UserPosts,
-        },
-      ],
-    },
-  ],
-})
+          component: UserPosts
+        }
+      ]
+    }
+  ]
+});
 ```
 
 你会发现，`children` 配置就是像 `routes` 配置一样的路由配置数组，所以呢，你可以嵌套多层路由。
@@ -888,7 +887,7 @@ a)动态路由（`params`方式）--适合单个参数
 ```js
 {
   {
-    $route.params.param
+    $route.params.param;
   }
 }
 ```
@@ -904,7 +903,7 @@ URL 默认格式：scheme://host:port/path?query#fragment
 ```javascript
 {
   {
-    $router.query.xxx
+    $router.query.xxx;
   }
 }
 ```
@@ -917,12 +916,12 @@ URL 默认格式：scheme://host:port/path?query#fragment
 //前置钩子，在路由激活之前调用
 router.beforeEach((to, from, next) => {
   //do something before router active
-  next() //必不可少，如果缺少，路由渲染将无法继续进行
-})
+  next(); //必不可少，如果缺少，路由渲染将无法继续进行
+});
 //后置钩子
 router.afterEach((to, from) => {
   // ...
-})
+});
 ```
 
 除了全局导航守卫，还有路由内守卫，组件内守卫。
@@ -956,8 +955,8 @@ new Vue({
   // state
   data() {
     return {
-      count: 0,
-    }
+      count: 0
+    };
   },
   // view
   template: `
@@ -966,10 +965,10 @@ new Vue({
   // actions
   methods: {
     increment() {
-      this.count++
-    },
-  },
-})
+      this.count++;
+    }
+  }
+});
 ```
 
 这个状态自管理应用包含以下几个部分：
@@ -1000,25 +999,25 @@ new Vue({
 安装完`Vuex`插件后如何使用它？
 
 ```js
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 //安装vuex插件
-Vue.use(Vuex)
+Vue.use(Vuex);
 //创建Store对象
 const store = new Vuex.Store({
   state: {
     //状态集
-    count: 0,
+    count: 0
   },
   mutations: {
     //变更集
     increment(state) {
-      state.count++
-    },
-  },
-})
+      state.count++;
+    }
+  }
+});
 //导出Store对象
-export default store
+export default store;
 ```
 
 和 router 一样，为了让`Vue`组件调用`vuex`的方法必须将 Store 对象注入到`Vue`实例中的 store 属性中，也可以直接使用 ES6 语法直接写入：
@@ -1026,8 +1025,8 @@ export default store
 ```js
 new Vue({
   el: '#app',
-  store,
-})
+  store
+});
 ```
 
 这样，在组件中就可以通过以下方法进行操作：
@@ -1084,7 +1083,7 @@ store.commit({
 
 2.通过 mutation 新增状态需要使用`vue.set(obj,key,value)`方法才是响应式更新
 
- **mutation**中的类型常量  
+**mutation**中的类型常量
 
 这时很常见的做法，将常量来代替 mutation 事件类型：
 
@@ -1129,7 +1128,7 @@ getter 的第一个参数默认是 state,可以接受其他的 getter 作为第�
 getter 会暴露为 store.getters 对象，可以通过属性形式访问
 
 ```javascript
-store.getters.xxxxx
+store.getters.xxxxx;
 ```
 
 2.通过方法访问
@@ -1235,11 +1234,11 @@ const firstModule = {
   getters: {
     doSomeThing(state, getters, rootState) {
       //do
-    },
+    }
   },
   mutations: {},
-  actions: {},
-}
+  actions: {}
+};
 ```
 
 ## DAY11
@@ -1304,24 +1303,24 @@ axios.patch(url[, data[, config]])
 axios
   .all([
     axios({
-      url: '/getSwiper.php',
+      url: '/getSwiper.php'
     }),
     axios({
       url: '/getNewsDetail.php',
       params: {
-        newsid: 1,
-      },
-    }),
+        newsid: 1
+      }
+    })
   ])
   .then(
     // result => {
     // console.log(result);}
     //将返回的结果通过方法拆分开
     axios.spread((res1, res2) => {
-      console.log(res1)
-      console.log(res2)
+      console.log(res1);
+      console.log(res2);
     })
-  )
+  );
 ```
 
 ### 5.axios 的实例
@@ -1331,15 +1330,15 @@ axios
 ```js
 const axiosChild = axios.create({
   baseURL: 'https://www.lichenbin.top',
-  timeout: 5000,
-})
+  timeout: 5000
+});
 //使用方法和axios()相同
 axiosChild({
   url: 'xxxx',
-  method: 'POST',
+  method: 'POST'
 }).then((res) => {
   //do it
-})
+});
 ```
 
 `axios(config)`的 config 对象那些属性？
@@ -1418,6 +1417,6 @@ instance.interceptors.responce.use(...)
 ```js
 const myInterceptor = axios.interceptors.request.use(function () {
   /*...*/
-})
-axios.interceptors.request.eject(myInterceptor)
+});
+axios.interceptors.request.eject(myInterceptor);
 ```
