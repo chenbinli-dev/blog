@@ -3,6 +3,7 @@ title: Implement of Object.assign()
 author: Codercoin
 pubDateTime: 2023-09-07
 tags: ['Javascript', 'Handwriting', 'Object']
+description: One of Common interview questions
 ---
 
 ```js
