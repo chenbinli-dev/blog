@@ -7,16 +7,14 @@ import type { CollectionsKeys } from '@/content/config.ts';
  * @returns
  */
 export function getLatestItem(
-  collection: CollectionEntry<'notes' | 'handwritings'>[],
+  collection: CollectionEntry<CollectionsKeys>[],
   num: number
 ) {
-  if (num >= collection.length) return collection;
-  collection.sort(
-    (a, b) =>
-      new Date(a.data.pubDateTime).getTime() -
-      new Date(b.data.pubDateTime).getTime()
+  if (num > collection.length) return collection;
+  const sortedCollection = [...collection].sort(
+    (a, b) => b.data.pubDateTime.getTime() - a.data.pubDateTime.getTime()
   );
-  return collection.slice(0, num);
+  return sortedCollection.slice(0, num);
 }
 /**
  * Sortings collection
@@ -24,21 +22,15 @@ export function getLatestItem(
  * @param order
  * @returns
  */
-export function getOrderCollection<T extends CollectionsKeys>(
-  collection: CollectionEntry<T>[],
+export function getOrderCollection(
+  collection: CollectionEntry<CollectionsKeys>[],
   order: 'asc' | 'desc' = 'desc'
-): CollectionEntry<T>[] {
-  collection.sort((a, b) => {
+) {
+  const sortedCollection = [...collection].sort((a, b) => {
     if (order === 'asc') {
-      return (
-        new Date(a.data.pubDateTime).getTime() -
-        new Date(b.data.pubDateTime).getTime()
-      );
+      return a.data.pubDateTime.getTime() - b.data.pubDateTime.getTime();
     }
-    return (
-      new Date(b.data.pubDateTime).getTime() -
-      new Date(a.data.pubDateTime).getTime()
-    );
+    return b.data.pubDateTime.getTime() - a.data.pubDateTime.getTime();
   });
-  return collection;
+  return sortedCollection;
 }

@@ -5,9 +5,9 @@ import { getLatestItem } from '@/utils/collection';
 import Icon from 'astro-icon';
 import dayjs from 'dayjs';
 const notes = await getCollection('notes');
+const latestNotes = getLatestItem(notes, 4);
 const handwritings = await getCollection('handwritings');
-const latestNotes = getLatestItem(notes, 2);
-const latestHandwritings = getLatestItem(handwritings, 2);
+const latestHandwritings = getLatestItem(handwritings, 4);
 ---
 
 <MainLayout>
