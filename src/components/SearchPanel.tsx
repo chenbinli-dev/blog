@@ -63,13 +63,17 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
     <div
       ref={modalContainerRef}
       id="modal-container"
-      className={`fixed left-0 top-0 z-10 h-full w-full overflow-auto bg-black bg-opacity-40 ${
-        show ? 'block' : 'hidden'
+      className={`fixed left-0 top-0 z-10 h-full w-full overflow-auto bg-black bg-opacity-40 dark:bg-opacity-10 ${
+        show ? 'visible' : 'invisible'
       }`}
     >
       <div
         id="modal"
-        className="container mx-auto mt-16 max-w-4xl space-y-4 rounded bg-white p-4"
+        className={`container mx-auto mt-16 max-w-4xl space-y-4 rounded bg-white p-4 duration-300 dark:bg-slate-700 ${
+          show
+            ? 'animate-in slide-in-from-bottom'
+            : 'animate-out slide-out-to-top fade-out-0'
+        }`}
       >
         <div className="flex items-center gap-2 rounded border-2 border-pink-500 p-2">
           <Icon icon={searchIcon} fontSize={20} />
@@ -77,7 +81,7 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
             ref={searchInputRef}
             name="search-input"
             type="text"
-            className="w-full border-none outline-none focus:outline-none"
+            className="w-full border-none bg-transparent outline-none focus:outline-none dark:text-white"
             value={input}
             onChange={handleInput}
             placeholder="Please enter two characters at least."

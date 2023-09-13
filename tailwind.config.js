@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: ['./src/**/*.{astro,tsx,jsx}'],
   darkMode: 'class',
@@ -9,5 +9,5 @@ module.exports = {
       }
     }
   },
-  plugins: [require('@tailwindcss/typography')]
-};
+  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')]
+}
