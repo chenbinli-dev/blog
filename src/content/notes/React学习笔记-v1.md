@@ -1,5 +1,5 @@
 ---
-title: React Learning Note
+title: React Learning Note Version 1.0
 author: Codercoin
 pubDateTime: 2023-09-07
 tags: ['React', 'Learning Note']
@@ -23,13 +23,11 @@ const vdom = (
 ReactDOM.render(vdom, getElementById('xxx'));
 ```
 
-![image-20220110130625384](C:\Users\10157\AppData\Roaming\Typora\typora-user-images\image-20220110130625384.png)
-
 ### 1.JSX 中的注释
 
 ```jsx
 render() {
-    {/*这里是注释*/}
+{/_这里是注释_/}
 }
 ```
 
@@ -37,14 +35,14 @@ render() {
 
 ```jsx
 this.state = {
-    //{}中调用是可见的数据类型
-     a : 'xxx',
-     b = 19,
-     c = ['1','2']
-    //{}中调用是不可见的数据类型
-     d:null
-     e:undefined
-     f:ture
+//{}中调用是可见的数据类型
+a : 'xxx',
+b = 19,
+c = ['1','2']
+//{}中调用是不可见的数据类型
+d:null
+e:undefined
+f:ture
 }
 ```
 
@@ -52,69 +50,71 @@ this.state = {
 
 ```jsx
 this.state = {
-    firstName:'li',
-    lastName:'chenbin',
-    isLogin:ture
+firstName:'li',
+lastName:'chenbin',
+isLogin:ture
 }
 
 render() {
-    const {firstName,lastName} = this.state
-    return (
-        {/*运算符表达式*/}
-        <h2>{firstName +''+lastName}</h2>
-        <h2>{20*50}</h2>
-         {/*三元表达式*/}
-        <h2>{this.state.isLogin ? 'welcome':'please to login'}</h2>
-         {/*函数调用*/}
-        <h2>{this.getFullName()}</h2>
-    )
+const {firstName,lastName} = this.state
+return (
+{/_运算符表达式_/}
+
+<h2>{firstName +''+lastName}</h2>
+<h2>{20*50}</h2>
+{/*三元表达式*/}
+<h2>{this.state.isLogin ? 'welcome':'please to login'}</h2>
+{/*函数调用\*/}
+<h2>{this.getFullName()}</h2>
+)
 }
 getFullName() {
-    return this.state.firstName +''+this.state.lastName
+return this.state.firstName +''+this.state.lastName
 }
 ```
 
 ## JSX 本质
 
-JSX 的本质其实是`React.createElement(component,props,...children)`的语法糖
+JSX 的本质其实是**React.createElement(component,props,...children)**的语法糖
 
-```js
+**js
 createElement(type, config, children);
 //type:创建元素的类型，标签元素使用对应标签名，组件元素使用组件名
 //config:所有JSX中的属性都在config中以对象的属性和值的形式保存
 //children:存放标签内容，以数组的形式
-```
+**
 
-`React.createElement`最终创建出一个 ReactElement 对象，该对象组成一个 Javascript 对象树，这就是虚拟 DOM。再通过`ReactDOM.render`映射到真实 DOM。
+**React.createElement**最终创建出一个 ReactElement 对象，该对象组成一个 Javascript 对象树，这就是虚拟 DOM。再通过**ReactDOM.render**映射到真实 DOM。
 
 ## React 组件化
 
 ### 1.类组件和函数式组件的区别
 
-类组件要考虑`this`,有内部状态
+类组件要考虑**this**,有内部状态
 
-函数组件没有`this`,没有内部状态，没有生命周期
+函数组件没有**this**,没有内部状态，没有生命周期
 
 ```jsx
 //类组件
 export default class App extend React.Component{
-    render() {
-        return (
-        <h2>这是一个类组件</h2>
-        )
-    }
+render() {
+return (
+
+<h2>这是一个类组件</h2>
+)
+}
 }
 //函数式组件
 export default function App() {
-    return (
-    <h2>这是一个函数式组件</h2>
-    )
+return (
+<h2>这是一个函数式组件</h2>
+)
 }
 ```
 
 ## 2.render()函数的返回值
 
-`render()`被调用时，它会检查`this.props`和`this.state`的变化并返回以下类型：
+**render()**被调用时，它会检查**this.props**和**this.state**的变化并返回以下类型：
 
 - React 元素（通过 JSX 创建）
 
@@ -130,11 +130,9 @@ export default function App() {
 
 一个抽象的概念，分为很多个阶段：装载阶段（Mount），更新阶段（Update），卸载阶段（Unmount）。
 
-![image-20220404093315451](C:\Users\10157\AppData\Roaming\Typora\typora-user-images\image-20220404093315451.png)
-
 ### Constructor()
 
-如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。`constructor`通常只做两件事：通过给`this.state`赋值对象来初始化内部的`state`;为事件绑定实例(`this`)。
+如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数。**constructor**通常只做两件事：通过给**this.state**赋值对象来初始化内部的**state**;为事件绑定实例(**this**)。
 
 ### componentDidMount()
 
@@ -142,7 +140,7 @@ export default function App() {
 
 - 依赖于 DOM 的操作
 - 发送网络请求最好的地方
-- 可以在此处添加一些订阅（会在`componentWillUnmount`取消订阅）
+- 可以在此处添加一些订阅（会在**componentWillUnmount**取消订阅）
 
 ### componentDidUpdate()
 
@@ -150,7 +148,7 @@ export default function App() {
 
 ### componentWillUnmount()
 
-在组件卸载及销毁之前调用。在此方法中执行必要的清理操作，例如清除 timer，取消网络请求或清除在`componentDidMount()`中创建的订阅等。
+在组件卸载及销毁之前调用。在此方法中执行必要的清理操作，例如清除 timer，取消网络请求或清除在**componentDidMount()**中创建的订阅等。
 
 ## 组件间的通信
 
@@ -159,38 +157,40 @@ export default function App() {
 ```js
 //子组件
 class ChildCpn extends Component {
-  //父组件通过props将数据传递给子组件
-  /*    constructor(props) {
-           //使用super将props保存至父类，子类就可以使用
-           super(props)
-           
+//父组件通过props将数据传递给子组件
+/_ constructor(props) {
+//使用super将props保存至父类，子类就可以使用
+super(props)
+
            不使用super()保存依旧可以在render()中使用props,因为React默认将props保存至父类
        } */
-  //默认为以上，因此constructor方法可以删除
-  render() {
-    const { name, age } = this.props;
-    return (
-      <h2>
-        类子组件展示数据：{name},{age}
-      </h2>
-    );
-  }
+
+//默认为以上，因此constructor方法可以删除
+render() {
+const { name, age } = this.props;
+return (
+
+<h2>
+类子组件展示数据：{name},{age}
+</h2>
+);
+}
 }
 //父组件
 export default class FatherCpn extends Component {
-  render() {
-    return (
-      <div>
-        <ChildCpn name="li" age="18"></ChildCpn>
-      </div>
-    );
-  }
+render() {
+return (
+<div>
+<ChildCpn name="li" age="18"></ChildCpn>
+</div>
+);
+}
 }
 ```
 
 ## 2.函数式组件的父组件和子组件-父传子
 
-```js
+```javascript
 //子组件
 function ChildCpn(props) {
   //父组件通过props将数据传递给子组件
@@ -215,7 +215,7 @@ export default class FatherCpn extends Component {
 
 ## 3.属性验证
 
-父组件传递给子组件的数据可以是`string`类型，也可以是`number,array,boolean,object,function,symbol`等原生 JS 类型，因此在复杂的大型项目中我们需要使用 Flow 或 Typesctipt 来进行类型检查。React 也提供了类型检查的方法，包含在`prop-types`库中。`PropTypes` 提供一系列验证器，可用于确保组件接收到的数据类型是有效的。在本例中, 我们使用了 `PropTypes.string`。当传入的 `prop` 值类型不正确时，JavaScript 控制台将会显示警告。出于性能方面的考虑，`propTypes` 仅在开发模式下进行检查。
+父组件传递给子组件的数据可以是**string**类型，也可以是**number,array,boolean,object,function,symbol**等原生 JS 类型，因此在复杂的大型项目中我们需要使用 Flow 或 Typesctipt 来进行类型检查。React 也提供了类型检查的方法，包含在**prop-types**库中。**PropTypes** 提供一系列验证器，可用于确保组件接收到的数据类型是有效的。在本例中, 我们使用了 **PropTypes.string**。当传入的 **prop** 值类型不正确时，JavaScript 控制台将会显示警告。出于性能方面的考虑，**propTypes** 仅在开发模式下进行检查。
 
 ```js
 //使用该库来验证属性
@@ -246,78 +246,78 @@ ChildCpn.propTypes = {
 
 React 提供了一个 API 用于实现跨组件通信，而不需要层层依次传递。
 
-```js
+**js
 const myContext = React.createContext(defaultValue);
 //创建一个共享的Context对象,一个组件如果订阅了context,那么该组件会从离自身最近的匹配的Provider中获取当前context值。defaultValue是组件在顶层查找中没有找到对应的Provider而使用的默认值。
 Context.Provider;
 //每个Context对象返回一个Provider React组件，Provider接收一个value属性，传递给消费组件；一个Provider可以和多个消费组件有对应关系。
 Class.contextType;
 //挂载在class上的contextType属性会被重赋值为一个由React.createContext()创建的Context对象，可以使用this.context来使用Context上的值且在任何生命周期中都能访问。
-```
+**
 
 ## setState 详解
 
-### 1.为什么使用`setState`
+### 1.为什么使用**setState**
 
-在 React 中不能直接修改`state`中的数据，直接修改因不能响应式地让界面发生更新，必须使用`setState()`方法对`state`中数据修改。
+在 React 中不能直接修改**state**中的数据，直接修改因不能响应式地让界面发生更新，必须使用**setState()**方法对**state**中数据修改。
 
-### 2.为什么类组件中能使用`setState`
+### 2.为什么类组件中能使用**setState**
 
-`setState()`在类组件中为什么能被使用？因为每个类组件继承`Component`，而`setState()`在`Component`中被定义。
+**setState()**在类组件中为什么能被使用？因为每个类组件继承**Component**，而**setState()**在**Component**中被定义。
 
-### 3.`setState`是异步更新
+### 3.**setState**是异步更新
 
-在`setState()`中更新数据后不能立即获得最新的更新后结果，因为该方法是异步的。为什么`setState()`要设计成异步操作？
+在**setState()**中更新数据后不能立即获得最新的更新后结果，因为该方法是异步的。为什么**setState()**要设计成异步操作？
 
-- `setState`设计成异步，可以显著提升性能。——每次调用`setState()`进行一次更新操作，则意味着`render`函数会被频繁地调用，界面重新渲染，导致效率低。使用异步操作，先获取多个更新，再批量更新。
-- 保持`state`和`props`的一致性。——如果同步更新了`state`,但还未执行`render`函数，那么`state`和`props`不能保持同步。
+- **setState**设计成异步，可以显著提升性能。——每次调用**setState()**进行一次更新操作，则意味着**render**函数会被频繁地调用，界面重新渲染，导致效率低。使用异步操作，先获取多个更新，再批量更新。
+- 保持**state**和**props**的一致性。——如果同步更新了**state**,但还未执行**render**函数，那么**state**和**props**不能保持同步。
 
 ### 4.如何获取异步更新后的数据
 
-```js
+**js
 //方式1.使用回调函数,setState()第二个参数接受一个回调函数
 this.setState({
-    message:'after message'
+message:'after message'
 },() => {
-    console.log(this.state.message)
+console.log(this.state.message)
 })
 //方式2.在生命周期中获取
 componentDidUpdate() {
-     console.log(this.state.message)
+console.log(this.state.message)
 }
 //方式2优先于方式1
-```
+**
 
-### 5.将`setState`变为同步操作
+### 5.将**setState**变为同步操作
 
-```js
+**js
 //方式一：将setState放入到定时器中
 setTimeOut(() => {
-    this.setState({
-    message:'after message'
+this.setState({
+message:'after message'
 })
-    console.log(this.state.message)
+console.log(this.state.message)
 },0)
 //方式二，将setState放入到原生DOM事件中
 componentDidUpdate() {
-    document.getElementById('btn').addEventListener("click",e => {
-          this.setState({
-    message:'after message'
+document.getElementById('btn').addEventListener("click",e => {
+this.setState({
+message:'after message'
 })
-    console.log(this.state.message)
-    })
+console.log(this.state.message)
+})
 }
-```
+**
 
-### 6.`setState`一定是异步吗
+### 6.**setState**一定是异步吗
 
-`setState`不一定是异步的。
+**setState**不一定是异步的。
 
-在 React 的组件生命周期中和合成事件中，`setState`是异步的。
+在 React 的组件生命周期中和合成事件中，**setState**是异步的。
 
-在 setTimeOut 和原生 DOM 事件中，`setState`是同步的。
+在 setTimeOut 和原生 DOM 事件中，**setState**是同步的。
 
-### 7.`setState`中的数据合并
+### 7.**setState**中的数据合并
 
 ```js
 this.state = {
@@ -331,7 +331,7 @@ this.setState({
 //React将setState传入的对象和this.state使用Object.assign({},{ num1:200},this.state)进行了属性合并并返回一个新的对象，num2不会被覆盖和丢失。
 ```
 
-### 8.`setState`的自身合并
+### 8.**setState**的自身合并
 
 ```js
 this.setState({
@@ -374,15 +374,15 @@ React 更新流程：
 
 ## 1.keys 的优化
 
-子结点遍历比较，不一样则产生一个`mutation`。而在列表遍历中，正确使用`key`可以提升 diff 性能。
+子结点遍历比较，不一样则产生一个**mutation**。而在列表遍历中，正确使用**key**可以提升 diff 性能。
 
-对一个`<ul>`列表进行更新：
+对一个**ul**列表进行更新：
 
-方式一，在最后位置插入数据，这种情况`key`意义不大。
+方式一，在最后位置插入数据，这种情况**key**意义不大。
 
-方式二，在前面插入数据，这种情况下所有的`<li>`都需要进行修改。
+方式二，在前面插入数据，这种情况下所有的**li**都需要进行修改。
 
-当子元素拥有`key`时，React 使用`key`来匹配原有树上的子结点和最新树上的子结点，像在前面插入一个元素就可以通过`key`来匹配相同子结点，并进行位移，再新增元素。
+当子元素拥有**key**时，React 使用**key**来匹配原有树上的子结点和最新树上的子结点，像在前面插入一个元素就可以通过**key**来匹配相同子结点，并进行位移，再新增元素。
 
 - key 应该是唯一的
 - 不能使用随机数
@@ -394,35 +394,35 @@ React 更新流程：
 
 ![image-20220408175702816](C:\Users\10157\AppData\Roaming\Typora\typora-user-images\image-20220408175702816.png)
 
-点击按钮，父组件`App`数据更新，子组件`render`函数被再次调用。
+点击按钮，父组件**App**数据更新，子组件**render**函数被再次调用。
 
 ![image-20220408175903839](C:\Users\10157\AppData\Roaming\Typora\typora-user-images\image-20220408175903839.png)
 
-如何不让未更新的类子组件调用`render`函数来达到性能优化？
+如何不让未更新的类子组件调用**render**函数来达到性能优化？
 
 方式一:
 
 ```js
 shouldComponentUpdate(nextProps,nextState) {
-    //此处可以对props/state进行判断来决定是否需要更新该组件
-    //不建议在此处进行深层比较，影响性能
-    return false
+//此处可以对props/state进行判断来决定是否需要更新该组件
+//不建议在此处进行深层比较，影响性能
+return false
 }
 //该方法返回一个布尔值，false表示阻断render函数,ture表示不阻断render函数
-```
+**
 
 方式二：
 
-```js
+**js
 class App extends PureComponent {
-    render() {
-        return (...)
-    }
+render() {
+return (...)
+}
 }
 //继承PureComponent的组件会自动判断是否需要更新
 ```
 
-如何不让未更新的函数子组件调用`render`函数来达到性能优化？
+如何不让未更新的函数子组件调用**render**函数来达到性能优化？
 
 ```js
 import { memo } from 'react';
@@ -473,7 +473,7 @@ AComponent.displayName = 'BComponent';
 
 ### 2.高阶组件的应用
 
-劫持`props`:
+劫持**props**:
 
 ```js
 function enhanceProps(WarppedComponent) {
@@ -501,21 +501,21 @@ function withAuth(WrappedCompnent) {
 
 ```js
 function withRenderTime(WarppedComponent) {
-  return class extends PureComponent {
-    UNSAFE_componentWillMount() {
-      this.beginTime = Date.now();
-    }
-    componentDidMount() {
-      this.endTime = Date.now();
-      console.log(
-        `${WarppedComponent.name}的渲染时间为：`,
-        this.endTime - this.beginTime
-      );
-    }
-    render() {
-      return <WarppedComponent {...this.props} />;
-    }
-  };
+return class extends PureComponent {
+UNSAFE_componentWillMount() {
+this.beginTime = Date.now();
+}
+componentDidMount() {
+this.endTime = Date.now();
+console.log(
+**${WarppedComponent.name}的渲染时间为：**,
+this.endTime - this.beginTime
+);
+}
+render() {
+return <WarppedComponent {...this.props} />;
+}
+};
 }
 ```
 
@@ -531,7 +531,7 @@ Mixin 可能会相互依赖，相互耦合，不利于代码维护；不用的 M
 
 大量使用 HOC 会产生非常多的嵌套，不利于调试。
 
-HOC 劫持`props`在不遵守约定的情况下可能造成冲突。
+HOC 劫持**props**在不遵守约定的情况下可能造成冲突。
 
 ### 5.Hooks 是更好的方案
 
@@ -545,7 +545,7 @@ Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节�
 ReactDOM.createPortal(child, container);
 ```
 
-第一个参数（`child`）是任何可渲染的 React 子元素]，例如一个元素，字符串或 fragment。第二个参数（`container`）是一个 DOM 元素。
+第一个参数（**child**）是任何可渲染的 React 子元素]，例如一个元素，字符串或 fragment。第二个参数（**container**）是一个 DOM 元素。
 
 ## Fragments 的使用
 
@@ -553,19 +553,19 @@ React 中的一个常见模式是一个组件返回多个元素。Fragments 允�
 
 ```js
 render() {
-  return (
-    <React.Fragment>
-      <ChildA />
-      <ChildB />
-      <ChildC />
-    </React.Fragment>
-  );
+return (
+<React.Fragment>
+<ChildA />
+<ChildB />
+<ChildC />
+</React.Fragment>
+);
 }
 ```
 
 ## 严格模式 StrictMode
 
-`StrictMode` 是一个用来突出显示应用程序中潜在问题的工具。与 `Fragment` 一样，`StrictMode` 不会渲染任何可见的 UI。它为其后代元素触发额外的检查和警告。严格模式检查仅在开发模式下运行；_它们不会影响生产构建_。
+**StrictMode** 是一个用来突出显示应用程序中潜在问题的工具。与 **Fragment** 一样，**StrictMode** 不会渲染任何可见的 UI。它为其后代元素触发额外的检查和警告。严格模式检查仅在开发模式下运行；_它们不会影响生产构建_。
 
 ```js
 import React from 'react';
@@ -586,9 +586,9 @@ function ExampleApplication() {
 }
 ```
 
-在上述的示例中，不会对 `Header` 和 `Footer` 组件运行严格模式检查。但是，`ComponentOne` 和 `ComponentTwo` 以及它们的所有后代元素都将进行检查。
+在上述的示例中，不会对 **Header** 和 **Footer** 组件运行严格模式检查。但是，**ComponentOne** 和 **ComponentTwo** 以及它们的所有后代元素都将进行检查。
 
-`StrictMode` 目前有助于：
+**StrictMode** 目前有助于：
 
 - 识别不安全的生命周期
 - 关于使用过时字符串 ref API 的警告
@@ -654,50 +654,50 @@ React 提供的过渡动画库。
 
 ### 1.CSSTransition
 
-`CSSTransition appear`在, `enter` 和`exit`过渡状态期间应用一对类名。应用第一个类，然后应用第二个`*-active`类以激活 CSS 过渡。转换后，应用匹配的`*-done`类名来保持转换状态。
+**CSSTransition appear**在, **enter** 和**exit**过渡状态期间应用一对类名。应用第一个类，然后应用第二个**\*-active**类以激活 CSS 过渡。转换后，应用匹配的**\*-done**类名来保持转换状态。
 
-`in`接受接受一个布尔值来控制显示和隐藏。
+**in**接受接受一个布尔值来控制显示和隐藏。
 
-`className`自定义类名，被自动应用到 CSSTransition 的类名中。
+**className**自定义类名，被自动应用到 CSSTransition 的类名中。
 
-在组件出现、进入、退出或完成过渡时应用于组件的动画类名。可以提供一个名称，每个阶段都会加上后缀，例如`classNames="fade"`应用如下：
+在组件出现、进入、退出或完成过渡时应用于组件的动画类名。可以提供一个名称，每个阶段都会加上后缀，例如**classNames="fade"**应用如下：
 
-- `fade-appear`, `fade-appear-active`,`fade-appear-done`
-- `fade-enter`, `fade-enter-active`,`fade-enter-done`
-- `fade-exit`, `fade-exit-active`,`fade-exit-done`
+- **fade-appear**, **fade-appear-active**,**fade-appear-done**
+- **fade-enter**, **fade-enter-active**,**fade-enter-done**
+- **fade-exit**, **fade-exit-active**,**fade-exit-done**
 
-`timeout`来控制 class 添加的时间而不是动画的持续时间。
+**timeout**来控制 class 添加的时间而不是动画的持续时间。
 
-`unmountOnExit`接受一个布尔值，控制动画退出后是否卸载组件。
+**unmountOnExit**接受一个布尔值，控制动画退出后是否卸载组件。
 
-`appear`来控制出现时的动画，例如刷新页面后依旧显示动画
+**appear**来控制出现时的动画，例如刷新页面后依旧显示动画
 
 生命周期函数如下：
 
 ```jsx
- render () {
-        const { isShow } = this.state
-        return (
-            <div>
-                <CSSTransition
-                    in={isShow}
-                    classNames='title'
-                    timeout={300}
-                    unmountOnExit={true}
-                    appear
-                    onEnter={e => console.log('开始进入')}
-                    onEntering={e => console.log('正在进入')}
-                    onEntered={e => console.log('进入结束')}
-                    onExit={e => console.log('开始退出')}
-                    onExiting={e => console.log('正在退出')}
-                    onExited={e => console.log('退出结束')}
-                >
-                    <h2>CSStransitionDemo</h2>
-                </CSSTransition>
-                <button onClick={e => this.change()}>切换</button>
-            </div>
-        )
-    }
+render () {
+const { isShow } = this.state
+return (
+
+<div>
+<CSSTransition
+in={isShow}
+classNames='title'
+timeout={300}
+unmountOnExit={true}
+appear
+onEnter={e => console.log('开始进入')}
+onEntering={e => console.log('正在进入')}
+onEntered={e => console.log('进入结束')}
+onExit={e => console.log('开始退出')}
+onExiting={e => console.log('正在退出')}
+onExited={e => console.log('退出结束')} >
+<h2>CSStransitionDemo</h2>
+</CSSTransition>
+<button onClick={e => this.change()}>切换</button>
+</div>
+)
+}
 ```
 
 ```css
@@ -741,19 +741,21 @@ React 提供的过渡动画库。
 用于切换两个组件。
 
 ```jsx
- render () {
-        const { isOn } = this.state
-        return (
-            <div>
-                <SwitchTransition mode='out-in'>
-                    <CSSTransition key={isOn ? 'on' : 'off'} classNames='btn' timeout={1000}>
-                        <button onClick={e => this.setState({ isOn: !isOn })}>{isOn ? 'on' : 'off'}</button>
-                    </CSSTransition>
-                </SwitchTransition>
+render () {
+const { isOn } = this.state
+return (
+
+<div>
+<SwitchTransition mode='out-in'>
+<CSSTransition key={isOn ? 'on' : 'off'} classNames='btn' timeout={1000}>
+<button onClick={e => this.setState({ isOn: !isOn })}>{isOn ? 'on' : 'off'}</button>
+</CSSTransition>
+</SwitchTransition>
 
             </div>
         )
     }
+
 ```
 
 ### 3.TransitionGroup
@@ -761,25 +763,26 @@ React 提供的过渡动画库。
 一般用于列表的动画。
 
 ```jsx
- render () {
-        return (
-            <TransitionGroup>
-                {
-                    this.state.names.map((item, index) => {
-                        return (
-                            <CSSTransition
+render () {
+return (
+<TransitionGroup>
+{
+this.state.names.map((item, index) => {
+return (
+<CSSTransition
                                 key={index}
                                 classNames='listItem'
                                 timeout={5000}>
-                                <div>{item}</div>
-                            </CSSTransition>
-                        )
-                    })
-                }
-                <button onClick={e => this.addNames()}>添加name</button>
-            </TransitionGroup>
-        )
-    }
+
+<div>{item}</div>
+</CSSTransition>
+)
+})
+}
+<button onClick={e => this.addNames()}>添加name</button>
+</TransitionGroup>
+)
+}
 ```
 
 ## Redux
@@ -790,22 +793,22 @@ Redux 除了和 React 一起用外，还支持其它界面库。它体小精悍�
 
 ### 1.基本概念
 
-`state`描述应用的状态，例如：
+**state**描述应用的状态，例如：
 
 ```js
 {
-  todos: [{
-    text: 'Eat food',
-    completed: true
-  }, {
-    text: 'Exercise',
-    completed: false
-  }],
-  visibilityFilter: 'SHOW_COMPLETED'
+todos: [{
+text: 'Eat food',
+completed: true
+}, {
+text: 'Exercise',
+completed: false
+}],
+visibilityFilter: 'SHOW_COMPLETED'
 }
 ```
 
-`action`是一个普通的 JavaScript 对象，用来描述更新`state`.。例如：
+**action**是一个普通的 JavaScript 对象，用来描述更新**state**.。例如：
 
 ```js
 { type: 'ADD_TODO', text: 'Go to swimming pool' }
@@ -813,13 +816,13 @@ Redux 除了和 React 一起用外，还支持其它界面库。它体小精悍�
 { type: 'SET_VISIBILITY_FILTER', filter: 'SHOW_ALL' }
 ```
 
-`reducer`是为了将`state`和`action`联系起来，它是一个纯函数（确定输入，确定输出，不会因为环境和条件改变而改变输出结果，并且在调用时没有副作用——修改其他变量）,接收`state`和`action`作为参数并返回新的`state`，这就是`reducer`。
+**reducer**是为了将**state**和**action**联系起来，它是一个纯函数（确定输入，确定输出，不会因为环境和条件改变而改变输出结果，并且在调用时没有副作用——修改其他变量）,接收**state**和**action**作为参数并返回新的**state**，这就是**reducer**。
 
 ### 2.Redux 的三大原则
 
-- 单一数据源——这个应用程序的`state`被存储在棵 object tree 中，并且这个 obejct tree 只存储在一个 sore 中
-- `state`是只读的——唯一修改`state`的方法一定是触发`action`，这样保证所有的修改都被集中化处理，并按严格顺序执行，因此不需要担心 race condition(竞态)
-- 使用纯函数来执行修改——`reducer`可以被拆分成多个小的`reducers`来分别处理 object tree 中的各个部分，但每个`reducers`必须是纯函数。
+- 单一数据源——这个应用程序的**state**被存储在棵 object tree 中，并且这个 obejct tree 只存储在一个 sore 中
+- **state**是只读的——唯一修改**state**的方法一定是触发**action**，这样保证所有的修改都被集中化处理，并按严格顺序执行，因此不需要担心 race condition(竞态)
+- 使用纯函数来执行修改——**reducer**可以被拆分成多个小的**reducers**来分别处理 object tree 中的各个部分，但每个**reducers**必须是纯函数。
 
 ### 3.理解 Redux 的运行机制
 
@@ -831,11 +834,11 @@ Redux 除了和 React 一起用外，还支持其它界面库。它体小精悍�
 
 虽然可以手动编写 Redux 存储订阅逻辑，但这样做会变得非常重复。此外，优化 UI 性能需要复杂的逻辑。
 
-订阅`store`、检查更新数据和触发重新渲染的过程可以变得更加通用和可重用。**像 React-Redux 这样的 UI 绑定库处理 store 交互逻辑，因此不必自己编写该代码。**
+订阅**store**、检查更新数据和触发重新渲染的过程可以变得更加通用和可重用。**像 React-Redux 这样的 UI 绑定库处理 store 交互逻辑，因此不必自己编写该代码。**
 
 #### 1.Provider
 
-要想在应用程序中获取`store`中的数据，需要使用 react-redux 提供的`<Provider/>`API 来包裹。
+要想在应用程序中获取**store**中的数据，需要使用 react-redux 提供的**Provider**API 来包裹。
 
 ```js
 //store由redux创建
@@ -855,16 +858,16 @@ root.render(
 
 #### 2.connect()
 
-`connect`函数是 react-redux 提供从 redux 的`store`中读取数据的方法，并在`store`更新时重新读值。
+**connect**函数是 react-redux 提供从 redux 的**store**中读取数据的方法，并在**store**更新时重新读值。
 
-`connect`函数有两个参数，都是可选的：
+**connect**函数有两个参数，都是可选的：
 
-- `mapStateToProps`：每次`store`状态改变时调用。它接收整个存储状态，并应返回该组件所需的数据对象。
-- `mapDispatchToProps`: 这个参数可以是一个函数，也可以是一个对象。
-  - 如果它是一个函数，它将在组件创建时调用一次。它将`dispatch`作为参数接收，并应返回一个对象，其中包含用于`dispatch`调度操作的函数。
+- **mapStateToProps**：每次**store**状态改变时调用。它接收整个存储状态，并应返回该组件所需的数据对象。
+- **mapDispatchToProps**: 这个参数可以是一个函数，也可以是一个对象。
+  - 如果它是一个函数，它将在组件创建时调用一次。它将**dispatch**作为参数接收，并应返回一个对象，其中包含用于**dispatch**调度操作的函数。
   - 如果它是一个充满动作创建者的对象，每个动作创建者都会变成一个 prop 函数，在调用时会自动调度其动作。**注意**：我们建议使用这种“对象速记”形式。
 
-`connect`函数返回一个高级函数（高级组件），该函数接受一个 React 组件，并返回一个的包裹着输入组件的新的 React 组件。所有的动作发起和数据通过组件的`props`传递给输入组件。
+**connect**函数返回一个高级函数（高级组件），该函数接受一个 React 组件，并返回一个的包裹着输入组件的新的 React 组件。所有的动作发起和数据通过组件的**props**传递给输入组件。
 
 ```js
 //示例：
@@ -909,7 +912,7 @@ function connect(mapStateToProps, mapDispatchToProps) {
 }
 ```
 
-`connect()`方法编写起来不够方便，代码过多，Redux 也提供了类似作用的 Hooks 方便在函数式组件中使用，且更加方便。
+**connect()** 方法编写起来不够方便，代码过多，Redux 也提供了类似作用的 Hooks 方便在函数式组件中使用，且更加方便。
 
 - useDispatch()，返回 store 中的 dispatch()方法
 
@@ -924,16 +927,16 @@ function connect(mapStateToProps, mapDispatchToProps) {
 ```js
 //例子
 const { topBanner } = useSelector(state => ({
-        topBanner: state.recommend.topBanner
-    }), shallowEqual)
-    const dispatch = useDispatch()
-    //发送网络请求
-    useEffect(() => {
-        dispatch(getRecommendBannerAction())
-    }, [dispatch])
-    return (
-        <div>{topBanner.length}</div>
-    )
+topBanner: state.recommend.topBanner
+}), shallowEqual)
+const dispatch = useDispatch()
+//发送网络请求
+useEffect(() => {
+dispatch(getRecommendBannerAction())
+}, [dispatch])
+return (
+<div>{topBanner.length}</div>
+)
 })
 ```
 
@@ -941,7 +944,7 @@ const { topBanner } = useSelector(state => ({
 
 “thunk”这个词是一个编程术语，意思是“一段执行一些延迟工作的代码”。与其现在执行一些逻辑，不如编写一个函数体或代码，以便以后执行工作。
 
-特别是对于 Redux，**“thunk”是一种编写函数的模式，其中包含可以与 Redux 存储`dispatch`和`getState`方法**交互的逻辑。
+特别是对于 Redux，**“thunk”是一种编写函数的模式，其中包含可以与 Redux 存储**dispatch**和**getState**方法**交互的逻辑。
 
 使用 thunk 需要将 redux-thunk**中间件**作为配置的一部分添加到 Redux 存储中。
 
@@ -957,7 +960,7 @@ redux-thunk 的一般解决方案：
 //redux-thunk中定义的Action函数
 export const getMultidataAction = (dispatch) => {
   axios({
-    url: 'http://123.207.32.32:8000/home/multidata'
+    url: '<http://123.207.32.32:8000/home/multidata>'
   })
     .then((res) => {
       console.log(res.data.data.recommend);
@@ -983,9 +986,9 @@ const mapDispatchToProps = (dispatch) => {
 
 ```js
 //组件生命周期中调用
-    componentDidMount () {
-        this.props.getMultidata()
-    }
+componentDidMount () {
+this.props.getMultidata()
+}
 ```
 
 ### 6.Redux-saga
@@ -1013,27 +1016,27 @@ import axios from 'axios';
 import { takeEvery, put, all } from 'redux-saga/effects';
 import { FETCH_ABOUT_MULTIDATA } from './home/constants';
 import {
-  changeBannersAction,
-  changeRecommendsAction
+changeBannersAction,
+changeRecommendsAction
 } from './home/actionCreators';
 
-function* fetchAboutMultidata(action) {
-  const res = yield axios.get('http://123.207.32.32:8000/home/multidata');
-  const banners = res.data.data.banner.list;
-  const recommends = res.data.data.recommend.list;
-  // yield put(changeBannersAction(banners))
-  // yield put(changeRecommendsAction(recommends))
-  yield all([
-    yield put(changeBannersAction(banners)),
-    yield put(changeRecommendsAction(recommends))
-  ]);
+function\* fetchAboutMultidata(action) {
+const res = yield axios.get('<http://123.207.32.32:8000/home/multidata>');
+const banners = res.data.data.banner.list;
+const recommends = res.data.data.recommend.list;
+// yield put(changeBannersAction(banners))
+// yield put(changeRecommendsAction(recommends))
+yield all([
+yield put(changeBannersAction(banners)),
+yield put(changeRecommendsAction(recommends))
+]);
 }
 
 //定义一个生成器函数来监听对应类型的action
-function* Mysaga() {
-  //yield takeLatest 依次只能监听一个action
-  //yield takeEvery 每个action都会被执行
-  yield takeEvery(FETCH_ABOUT_MULTIDATA, fetchAboutMultidata);
+function\* Mysaga() {
+//yield takeLatest 依次只能监听一个action
+//yield takeEvery 每个action都会被执行
+yield takeEvery(FETCH_ABOUT_MULTIDATA, fetchAboutMultidata);
 }
 
 export default Mysaga;
@@ -1043,18 +1046,18 @@ JavaScript 补充：generator 函数
 
 ```js
 //生成器函数
-function* foo() {
-    yield 'first';
-    yield 'second';
-    yield 'third';
+function\* foo() {
+yield 'first';
+yield 'second';
+yield 'third';
 }
 //foo返回一个迭代器
 const result = foo()
 //result迭代器每执行一次next()方法，就会执行一个yield后的代码并返回一个对象
-cosnt string1 = result.next()//string1:  {value:'first',done:false}
-cosnt string2 = result.next()//string2:  {value:'second',done:false}
-cosnt string3 = result.next()//string3:  {value:'third',done:false}
-cosnt string4 = result.next()//string4:  {value:undefined,done:true}
+cosnt string1 = result.next()//string1: {value:'first',done:false}
+cosnt string2 = result.next()//string2: {value:'second',done:false}
+cosnt string3 = result.next()//string3: {value:'third',done:false}
+cosnt string4 = result.next()//string4: {value:undefined,done:true}
 ```
 
 ### 7.React 中的状态管理
@@ -1069,26 +1072,27 @@ React 中的状态管理是否全部需要 Redux 来处理？
 
 ### 1.基本使用
 
-`<Link/>`会被渲染成`<a/>`标签。
+**Link**会被渲染成**a**标签。
 
 v6 版本将 Switch 换成了 Routes,更好地处理路径匹配。
 
-React Router v6 introduces a `Routes` component that is kind of like `Switch`, but a lot more powerful. The main advantages of `Routes` over `Switch` are:
+React Router v6 introduces a **Routes** component that is kind of like **Switch**, but a lot more powerful. The main advantages of **Routes** over **Switch** are:
 
-- All `<Route>`s and `<Link>`s inside a `<Routes>` are relative. This leads to leaner and more predictable code in `<Route path>` and `<Link to>`
-- Routes are chosen based on the best match instead of being traversed in order. This avoids bugs due to unreachable routes because they were defined later in your `<Switch>`
-- Routes may be nested in one place instead of being spread out in different components. In small to medium-sized apps, this lets you easily see all your routes at once. In large apps, you can still nest routes in bundles that you load dynamically via `React.lazy`
+- All **Route**s and **Link**s inside a **Routes** are relative. This leads to leaner and more predictable code in **Route path** and **Link to**
+- Routes are chosen based on the best match instead of being traversed in order. This avoids bugs due to unreachable routes because they were defined later in your **witch**
+- Routes may be nested in one place instead of being spread out in different components. In small to medium-sized apps, this lets you easily see all your routes at once. In large apps, you can still nest routes in bundles that you load dynamically via **React.lazy**
 
 ```jsx
 import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
 
- render () {
-    return (
-      <div>
-        <BrowserRouter>
-          <Link to='/'>首页</Link>
-          <Link to='/about'>关于</Link>
-          <Link to='/profile'>我的</Link>
+render () {
+return (
+
+<div>
+<BrowserRouter>
+<Link to='/'>首页</Link>
+<Link to='/about'>关于</Link>
+<Link to='/profile'>我的</Link>
 
           {/** v5版本的写法
             <Route end path="/" component={Home} />
@@ -1104,32 +1108,33 @@ import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
         </BrowserRouter>
       </div>
     )
-  }
+
+}
 ```
 
-`end`属性的作用是在其后代路径匹配时取消当前`<Link>`或`<NavLink/>`的`active`
+**end**属性的作用是在其后代路径匹配时取消当前**Link**或**NavLink**的**active**
 
 #### v6 版本中常用的组件和 Hooks
 
 | 组件名      | 作用           | 说明                                                                  |
 | :---------- | :------------- | :-------------------------------------------------------------------- |
-| `<Routers>` | 一组路由       | 代替原有`<Switch>`，所有子路由都用基础的 Router children 来表示       |
-| `<Router>`  | 基础路由       | Router 是可以嵌套的，解决原有 V5 中严格模式，后面与 V5 区别会详细介绍 |
-| `<Link>`    | 导航组件       | 在实际页面中跳转使用                                                  |
-| `<Outlet/>` | 自适应渲染组件 | 根据实际路由 url 自动选择组件                                         |
+| **Routers** | 一组路由       | 代替原有**Switch**，所有子路由都用基础的 Router children 来表示       |
+| **Router**  | 基础路由       | Router 是可以嵌套的，解决原有 V5 中严格模式，后面与 V5 区别会详细介绍 |
+| **Link**    | 导航组件       | 在实际页面中跳转使用                                                  |
+| **Outlet**  | 自适应渲染组件 | 根据实际路由 url 自动选择组件                                         |
 
-| hooks 名          | 作用                                      | 说明                        |
-| :---------------- | :---------------------------------------- | :-------------------------- |
-| `useParams`       | 返回当前参数                              | 根据路径读取参数            |
-| `useNavigate`     | 返回当前路由                              | 代替原有 V5 中的 useHistory |
-| `useOutlet`       | 返回根据路由生成的 element                |                             |
-| `useLocation`     | 返回当前的 location 对象                  |                             |
-| `useRoutes`       | 同 Routers 组件一样，只不过是在 js 中使用 |                             |
-| `useSearchParams` | 用来匹配 URL 中?后面的搜索参数            |                             |
+| hooks 名            | 作用                                      | 说明                        |
+| :------------------ | :---------------------------------------- | :-------------------------- |
+| **useParams**       | 返回当前参数                              | 根据路径读取参数            |
+| **useNavigate**     | 返回当前路由                              | 代替原有 V5 中的 useHistory |
+| **useOutlet**       | 返回根据路由生成的 element                |                             |
+| **useLocation**     | 返回当前的 location 对象                  |                             |
+| **useRoutes**       | 同 Routers 组件一样，只不过是在 js 中使用 |                             |
+| **useSearchParams** | 用来匹配 URL 中?后面的搜索参数            |                             |
 
 ### 2.重定向
 
-v6 版本将 v5 的`<Redirect/>`替换成`<Navigate/>`并在类组件中使用，在函数式组件中推荐使用`<useNavigate/>`。
+v6 版本将 v5 的**Redirect**替换成**Navigate**并在类组件中使用，在函数式组件中推荐使用**useNavigate**。
 
 ```jsx
 import React, { PureComponent } from 'react';
@@ -1162,7 +1167,7 @@ export default class Category extends PureComponent {
 
 ### 3.路由嵌套
 
-在父组件的路由路径上进行深度匹配要使用`*`，`*`只能放在末尾;对于 NotFound 类路由使用`*`代替。
+在父组件的路由路径上进行深度匹配要使用**\***，**\***只能放在末尾;对于 NotFound 类路由使用**\***代替。
 
 组件内部发生改变，使用·来渲染子路由对应的组件。
 
@@ -1174,7 +1179,7 @@ export default class Category extends PureComponent {
     <Route path="address" element={<Address />} />
     <Route path="walet" element={<Walet />} />
   </Route>
-  <Route path="*" element={<NoMatch />} />
+  <Route path="\*" element={<NoMatch />} />
 </Routes>
 ```
 
@@ -1211,12 +1216,12 @@ export default function Detail() {
 ```jsx
 //App.js
 //字符串形式
-<NavLink to={`/detail?${id}`}>详情</NavLink>
+<NavLink to={**/detail?${id}**}>详情</NavLink>
 //对象形式
 <NavLink to={{
         pathname:'detail',
-        search:`id=${id}`
-    }>详情</NavLink>
+        search:**id=${id}\*\*
+}>详情</NavLink>
 
 <Route path='/detail' element={<Detail />} />
 ```
@@ -1256,11 +1261,11 @@ export default function Detail3() {
 
 ### 6.useRoutes
 
-The `useRoutes` hook is the functional equivalent of `<Routes>`, but it uses JavaScript objects instead of `<Route>` elements to define your routes. These objects have the same properties as normal `<Route>` elements, but they don't require JSX.
+The **useRoutes** hook is the functional equivalent of **Routes**, but it uses JavaScript objects instead of **Route** elements to define your routes. These objects have the same properties as normal **Route** elements, but they don't require JSX.
 
-The return value of `useRoutes` is either a valid React element you can use to render the route tree, or `null` if nothing matched.
+The return value of **useRoutes** is either a valid React element you can use to render the route tree, or **null** if nothing matched.
 
-`userRoutes`是 React-router v6 版本用来替代 v5 版本的`react-router-config`库的一个钩子函数，它接受一个数组，返回一个 React 元素并渲染到路由树中。
+**userRoutes**是 React-router v6 版本用来替代 v5 版本的**react-router-config**库的一个钩子函数，它接受一个数组，返回一个 React 元素并渲染到路由树中。
 
 ```js
 import { useRoutes } from 'react-router-dom';
@@ -1319,15 +1324,15 @@ Hooks 的使用场景几乎可以覆盖所有能使用类组件的地方，它�
 
 ### 3.Hooks——useState()
 
-**`useState`钩子函数解决了在函数式组件中使用 state 的问题**。
+> **useState**钩子函数解决了在函数式组件中使用 state 的问题。
 
-`useState`钩子函数接受一个参数作为 state 的初始化值，返回一个数组。
+**useState**钩子函数接受一个参数作为 state 的初始化值，返回一个数组。
 
 数组包含两个元素，第一个元素是类似类组件的 state，第二个元素是更新 state 的函数。
 
-`initialState`可以是一个直接的数据，也可以是一个函数，该函数返回 state
+**initialState**可以是一个直接的数据，也可以是一个函数，该函数返回 state
 
-`setstate`函数可以直接传入 state，也可以传入一个函数来获取前一次的 state，类似于类组件中的`this.setState`，可以避免合并操作。
+**setstate**函数可以直接传入 state，也可以传入一个函数来获取前一次的 state，类似于类组件中的**this.setState**，可以避免合并操作。
 
 ```js
 const [state, setstate] = useState(initialState);
@@ -1352,13 +1357,13 @@ console.log(state); //['a','b','c','d']
 
 ## 4.Hooks——useEffect()
 
-**`useEffect`钩子函数解决了在函数式组件中使用生命周期的问题。**
+> **useEffect**钩子函数解决了在函数式组件中使用生命周期的问题
 
-`useEffect`钩子函数接受两个参数：
+**useEffect**钩子函数接受两个参数：
 
-参数一：回调函数，在组件渲染时调用，类似于`componentDidMount`生命周期函数。该回调函数返回一个函数，该函数在组件卸载时调用，类似于`componentWillUnmount`生命周期函数。
+参数一：回调函数，在组件渲染时调用，类似于**componentDidMount**生命周期函数。该回调函数返回一个函数，该函数在组件卸载时调用，类似于**componentWillUnmount**生命周期函数。
 
-参数二，数组，该数组保存着`useEffect`钩子函数的依赖 state，只有在该数组中的 state 发生了更新对应的`useEffect`才会执行。
+参数二，数组，该数组保存着**useEffect**钩子函数的依赖 state，只有在该数组中的 state 发生了更新对应的**useEffect**才会执行。
 
 ```js
 useEffect(() => {
@@ -1377,15 +1382,15 @@ useEffect(() => {
 
 ### 5.Hooks——useContext()
 
-**`useContext`钩子函数解决了在函数式组件中使用 React Context 的问题。**
+> **useContext**钩子函数解决了在函数式组件中使用 React Context 的问题。
 
-`useContext`钩子函数接受一个 React Context 作为参数，返回该 Context 传递的 value.
+**useContext**钩子函数接受一个 React Context 作为参数，返回该 Context 传递的 value.
 
 ```jsx
 //App.js
 export const userContext = createContext()
 <userContext.Provider value={{ name: 'codercoin', age: 23 }}>
-     <UseContextDemo />
+<UseContextDemo />
 </userContext.Provider>
 ```
 
@@ -1405,11 +1410,11 @@ export default function UseContextDemo() {
 
 ### 6.Hooks——useReducer()
 
-`useReducer`钩子函数实际上是`useState`的更好替代品，用于处理更加复杂的 state。
+> **useReducer**钩子函数实际上是**useState**的更好替代品，用于处理更加复杂的 state。
 
-`useReducer`接受两个参数，第一个参数是 reducer 函数，第二个是初始化值。
+**useReducer**接受两个参数，第一个参数是 reducer 函数，第二个是初始化值。
 
-返回值为一个数组，第一个元素是 state，第二个元素是`dispatch`函数
+返回值为一个数组，第一个元素是 state，第二个元素是**dispatch**函数
 
 ```js
 import React, { useReducer } from 'react';
@@ -1438,11 +1443,11 @@ export default function UseReducerDemo() {
 
 ### 7.Hooks——useCallback()
 
-`useCallback`钩子函数是用来进行性能优化的，它接受两个参数，第一个参数是回调函数，第二个参数是依赖数组。
+**useCallback**钩子函数是用来进行性能优化的，它接受两个参数，第一个参数是回调函数，第二个参数是依赖数组。
 
-`useCallback`会将传入回调函数的带有记忆的版本返回，该回调函数仅在某个依赖项改变时才会更新。
+**useCallback**会将传入回调函数的带有记忆的版本返回，该回调函数仅在某个依赖项改变时才会更新。
 
-**`useCallback`维护的是函数**
+**useCallback**维护的是函数
 
 ```js
 //依赖counter，counter变化时执行新的回调函数,正常执行
@@ -1452,17 +1457,17 @@ const increment2 = useCallback(() => {
 }, [counter]);
 ```
 
-什么时候使用`useCallback`才能做到性能优化？
+什么时候使用**useCallback**才能做到性能优化？
 
-`useCallback`和`useMemo`实际上就是提供类组件中 shouldComponentMount 的功能，在一个单独组件中使用`useCallback`来对某些操作进行判断执行实际上不能实现性能优化。应该在父组件将函数传给子组件进行回调时，使用 useCallback 对函数进行处理，避免子组件不必要的重新渲染已到达性能优化的目的。
+**useCallback**和**useMemo**实际上就是提供类组件中 shouldComponentMount 的功能，在一个单独组件中使用**useCallback**来对某些操作进行判断执行实际上不能实现性能优化。应该在父组件将函数传给子组件进行回调时，使用 useCallback 对函数进行处理，避免子组件不必要的重新渲染已到达性能优化的目的。
 
 ### 8.Hooks——useMemo()
 
-`useMemo`钩子函数也是用来进行性能优化的，它接受两个参数，第一个参数是回调函数，该回调函数必须返回带有记忆的值，第二个参数是依赖数组。
+**useMemo**钩子函数也是用来进行性能优化的，它接受两个参数，第一个参数是回调函数，该回调函数必须返回带有记忆的值，第二个参数是依赖数组。
 
-`useMemo`会将传入回调函数的返回值的带有记忆的版本返回，该返回值仅在某个依赖项改变时才会更新。
+**useMemo**会将传入回调函数的返回值的带有记忆的版本返回，该返回值仅在某个依赖项改变时才会更新。
 
-**`useMemo`维护的是返回值**
+**useMemo**维护的是返回值。
 
 ```jsx
 import React, { useMemo, useState } from 'react';
@@ -1475,8 +1480,8 @@ function ComputeSum(num) {
   return total;
 }
 /**
- show发生改变，UseMemoComplexDemo重新渲染，counter未改变，因此返回ComputeSum还是同一个，不用重新执行
-*/
+show发生改变，UseMemoComplexDemo重新渲染，counter未改变，因此返回ComputeSum还是同一个，不用重新执行
+\*/
 export default function UseMemoComplexDemo() {
   console.log('UseMemoComplexDemo渲染');
   const [counter, setCounter] = useState(10);
@@ -1501,16 +1506,17 @@ export default function UseMemoComplexDemo() {
 
 ### 9.Hooks——useRef()
 
-`useRef`返回一个 ref 对象，这个对象在组件的整个生命周期里是保持不变的。
+**useRef**返回一个 ref 对象，这个对象在组件的整个生命周期里是保持不变的。
 
-`useRef`的两个常用用法：
+**useRef**的两个常用用法：
 
 - 引用 DOM 元素或者**类组件**
-- 保存一个数据，这个数据在生命周期里保持不变 `const refContainer = useRef(initialValue)`
+- 保存一个数据，这个数据在生命周期里保持不变 **const refContainer = useRef(initialValue)**
 
 ```jsx
 //引用DOM
- const titleRef = useRef()
+const titleRef = useRef()
+
 <h2 ref={titleRef}>useRef引用DOM</h2>
 
 titleRef.current === <h2/>
@@ -1523,24 +1529,24 @@ const refData = useRef(10);
 
 ### 10.Hooks——useLayoutEffect()
 
-`useLayoutEffect`和`useEffect`相似，他们的区别：
+**useLayoutEffect**和**useEffect**相似，他们的区别：
 
-- `useEffect`在组件渲染完成后执行回调函数，不会阻塞组件的渲染
-- `useLayoutEffect`在组件渲染前执行回调函数，会阻塞组件的渲染
+- **useEffect**在组件渲染完成后执行回调函数，不会阻塞组件的渲染
+- **useLayoutEffect**在组件渲染前执行回调函数，会阻塞组件的渲染
 
-一般不使用`useLayoutEffect`,除非特别地业务场景。
+一般不使用**useLayoutEffect**,除非特别地业务场景。
 
 ### 11.Hooks——useImperativeHandle()
 
-`useImperativeHandle`一般配合`forwardRef`使用。
+**useImperativeHandle**一般配合**forwardRef**使用。
 
-为了避免将整个 DOM 暴露给父组件随意使用，`useImperativeHandle`可以控制父组件对子组件 DOM 元素的行为。
+为了避免将整个 DOM 暴露给父组件随意使用，**useImperativeHandle**可以控制父组件对子组件 DOM 元素的行为。
 
-`useImperativeHandle(ref,createHanddle,dependencyList)`
+> **useImperativeHandle(ref,createHanddle,dependencyList)**
 
 **补充：**
 
-`useRef`不能引用函数式组件，`forwardRef`的作用就是在`useRef`不能引用函数式组件的前提下，将`useRef`返回的对象传入到子组件中，实现父组件对子组件 DOM 的引用。
+**useRef**不能引用函数式组件，**forwardRef**的作用就是在**useRef**不能引用函数式组件的前提下，将**useRef**返回的对象传入到子组件中，实现父组件对子组件 DOM 的引用。
 
 ```jsx
 //forwardRef的使用
@@ -1593,7 +1599,7 @@ export default function UseImperativeHandleDemo() {
 
 自定义 Hook 方便开发者自己抽取代码，提高代码的复用性，减少组件内部不必要的代码逻辑，并帮助开发者完成很多复杂的逻辑处理。
 
-\*自定义的 Hook 命名需要以 use 开头\*\*
+> **自定义的 Hook 命名需要以 use 开头**
 
 ```jsx
 //例如在自定义的Hook中使用useContext
