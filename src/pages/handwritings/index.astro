@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 
 const handwritings = await getCollection('handwritings');
-const orderNotes = getOrderCollection<'handwritings'>(handwritings);
+const orderNotes = getOrderCollection(handwritings);
 const pageTitle = "Codercoin's writings";
 ---
 

@@ -6,7 +6,7 @@ import { Icon } from 'astro-icon';
 import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 const notes = await getCollection('notes');
-const orderNotes = getOrderCollection<'notes'>(notes);
+const orderNotes = getOrderCollection(notes);
 const pageTitle = "Codercoin's notes";
 ---
 

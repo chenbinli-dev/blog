@@ -1,0 +1,39 @@
+---
+import MainLayout from '@/layouts/main.layout.astro';
+import Icon from 'astro-icon';
+import { getCollection } from 'astro:content';
+const notes = await getCollection('notes');
+const handwritings = await getCollection('handwritings');
+const tags = [...notes, ...handwritings].reduce(
+  (acc, cur) => {
+    cur.data.tags.forEach((tag) => {
+      if (tag in acc) {
+        acc[tag] += 1;
+      } else {
+        acc[tag] = 1;
+      }
+    });
+    return acc;
+  },
+  {} as Record<string, number>
+);
+const pageTitle = 'Tags';
+---
+
+<MainLayout pageTitle={pageTitle}>
+  <div class="w-full p-4">
+    <ul class="grid grid-cols-5 gap-4">
+      {
+        Object.entries(tags).map(([key, value]) => (
+          <a href={`/tags/${key}`}>
+            <li class="flex justify-center items-center gap-4 rounded p-2 bg-pink-500 text-white cursor-pointer hover:bg-op">
+              <Icon name="tabler:tag" size="18" />
+              <span class="font-semibold">{key}</span>
+              <span>{value}</span>
+            </li>
+          </a>
+        ))
+      }
+    </ul>
+  </div>
+</MainLayout>

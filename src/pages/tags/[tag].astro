@@ -1,0 +1,76 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import MainLayout from '@/layouts/main.layout.astro';
+import type { CollectionsKeys } from '@/content/config';
+import Icon from 'astro-icon';
+import Link from '@/components/Link.astro';
+import dayjs from 'dayjs';
+interface Props {
+  entries: CollectionEntry<CollectionsKeys>[];
+}
+export async function getStaticPaths() {
+  const notesEntries = await getCollection('notes');
+  const handwritingEntries = await getCollection('handwritings');
+  const allEntries = [...notesEntries, ...handwritingEntries];
+  const allUniqueTags = [
+    ...new Set(allEntries.map((entry) => entry.data.tags).flat())
+  ];
+
+  return allUniqueTags.map((tag) => {
+    const filterdEntries = allEntries.filter((entry) =>
+      entry.data.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { entries: filterdEntries }
+    };
+  });
+}
+const { tag } = Astro.params;
+const { entries } = Astro.props;
+---
+
+<MainLayout>
+  <div class="w-full space-y-4">
+    <div class="pt-4 px-4 txet-lg">
+      <button
+        id="goback"
+        class="flex items-center gap-4 border-b-2 border-dashed border-transparent hover:border-pink-500 active:text-pink-500 active:border-transparent"
+        onclick="
+        history.back()
+        "
+      >
+        <Icon
+          name="tabler:chevron-left"
+          size="18"
+          class="group-hover:scale-125"
+        />
+         Back
+      </button>
+    </div>
+    <div class="px-4 font-semibold text-xl space-y-2">
+      <p>
+        Tag: <span class="border-b-2 border-dashed border-pink-500"
+          >#{tag}</span>
+      </p>
+      <p class="text-base opacity-50">All the articles with the tag "{tag}".</p>
+    </div>
+    <ul class="space-y-4 p-4 text-lg">
+      {
+        entries.map(({ data, slug, collection }) => (
+          <li class="flex items-center gap-4 group">
+            <Icon
+              name={collection === 'notes' ? 'tabler:writing' : 'tabler:code'}
+              size="18px"
+              class="text-sm group-hover:animate-pulse group-hover:scale-150 group-hover:text-pink-500"
+            />
+            <Link href={`/${collection}/${slug}`}>{data.title}</Link>
+            <span class="opacity-50">
+              {dayjs(data.pubDateTime).format('YYYY-MM-DD')}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</MainLayout>

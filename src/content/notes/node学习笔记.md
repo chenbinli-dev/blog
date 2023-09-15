@@ -2,7 +2,7 @@
 title: Node learning Note
 author: Codercoin
 pubDateTime: 2023-09-07
-tags: ['Nodejs', 'Learning Note']
+tags: ['Nodejs', 'Note']
 ---
 
 ## DAY1
