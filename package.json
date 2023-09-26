@@ -2,7 +2,7 @@
   "name": "blog",
   "type": "module",
   "author": "Codercoin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
