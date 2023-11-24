@@ -14,6 +14,5 @@ export async function GET(context: AstroConfig) {
       description: data.description,
       link: `/blog/${slug}/`
     })),
-    stylesheet: '/rss/pretty-feed-v3.xsl'
   });
 }
