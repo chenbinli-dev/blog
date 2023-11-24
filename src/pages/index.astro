@@ -1,8 +1,8 @@
 ---
 import MainLayout from '@/layouts/main.layout.astro';
-import { getCollection } from 'astro:content';
 import { getLatestItem } from '@/utils/collection';
 import Icon from 'astro-icon';
+import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 const notes = await getCollection('notes');
 const latestNotes = getLatestItem(notes, 4);
@@ -11,67 +11,27 @@ const latestHandwritings = getLatestItem(handwritings, 4);
 ---
 
 <MainLayout>
-  <div class="container mx-auto flex-1 space-y-16 text-lg">
-    <p class="gap-2 px-4 py-16 italic">
-      Hi! It's codercoin's blog , which i prefer to call it as my e-Book.You can
-      find some notes and handwritings about front-end development in here. Have
-      a good time.😊
-    </p>
-    <div class="px-4 space-y-4">
-      <div
-        class="font-semibold text-xl flex items-center gap-2 border-b pb-2 dark:border-slate-500"
-      >
-        <Icon name="tabler:writing" size="24" />
-         Latest Notes
-      </div>
-      <ul class="flex flex-col justify-center space-y-4 h-full">
+  <div class="container mx-auto flex-1 py-4">
+      <ul class="flex flex-col h-full space-y-4">
         {
-          latestNotes.map(({ data, slug }) => (
-            <div class="space-y-2">
-              <a
-                href={'notes/' + slug}
-                title={data.title}
-                class="text-pink-500 italic border-b-2 border-dashed border-transparent hover:border-pink-500 cursor-pointer"
+          [...latestNotes,...latestHandwritings].map(({ data, slug,collection },index) => (
+          <a
+            href={`${collection}/` + slug}
+            title={data.title}
               >
-                {data.title}
-              </a>
-              <div class="flex items-center gap-2 text-sm opacity-50">
-                <Icon name="tabler:calendar" size="18" />
+            <li class="space-y-2 hover:bg-slate-200 px-4 py-2 group rounded underline-transition cursor-pointer">
+              <div class="flex items-center gap-4 flex-wrap">
+              <span title={data.title} class="text-pink-500 flex-1 text-xl font-semibold text-ellipsis overflow-hidden whitespace-nowrap">{data.title}</span>
+              <div class="flex items-center gap-2 text-sm opacity-50 ml-auto">
+                <Icon name="tabler:calendar" size="18"/>
                 <span>{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>
               </div>
-              <p class="text-base">{data.description || 'no description'}</p>
-            </div>
+              </div>
+              <span class="text-base">{data.description || 'no description'}</span>
+            </li>
+            </a>
           ))
         }
       </ul>
-    </div>
-    <div class="px-4 space-y-4">
-      <div
-        class="font-semibold text-xl flex items-center gap-2 border-b pb-2 dark:border-slate-500"
-      >
-        <Icon name="tabler:code" size="24" />
-         Latest Handwritings
-      </div>
-      <ul class="flex flex-col justify-center space-y-4 h-full">
-        {
-          latestHandwritings.map(({ data, slug }) => (
-            <div class="space-y-2">
-              <a
-                href={'handwritings/' + slug}
-                title={data.title}
-                class="text-pink-500 italic border-b-2 border-dashed border-transparent hover:border-pink-500 cursor-pointer"
-              >
-                {data.title}
-              </a>
-              <div class="flex items-center gap-2 text-sm opacity-50">
-                <Icon name="tabler:calendar" size="18" />
-                <span>{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>
-              </div>
-              <p class="text-base">{data.description || 'no description'}</p>
-            </div>
-          ))
-        }
-      </ul>
-    </div>
   </div>
 </MainLayout>

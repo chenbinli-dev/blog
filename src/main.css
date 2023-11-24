@@ -32,3 +32,15 @@
 ::view-transition-new(root) {
   z-index: 1;
 }
+
+.underline-transition{
+  background: linear-gradient(to right,#ec4899,#ec4899) no-repeat right bottom;
+  background-size: 0px 2px;
+  transition: background-size 1s;
+}
+.underline-transition:hover {
+  background-position: left bottom;
+  background-size: 100% 2px;
+}
+
+
