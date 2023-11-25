@@ -26,9 +26,9 @@ const pageTitle = 'Tags';
       {
         Object.entries(tags).map(([key, value]) => (
           <a href={`/tags/${key}`}>
-            <li class="flex justify-center items-center gap-4 rounded p-2 bg-pink-500 text-white cursor-pointer hover:bg-op">
+            <li class="flex justify-center items-center gap-4 rounded p-2 bg-slate-400 shadow hover:bg-slate-500 border-b-2 border-b-slate-800 active:border-b-0 active:border-t-2 active:border-t-slate-800 text-white cursor-pointer">
               <Icon name="tabler:tag" size="18" />
-              <span class="font-semibold">{key}</span>
+              <span class="font-semibold flex-1 text-ellipsis overflow-hidden whitespace-nowrap text-center">{key}</span>
               <span>{value}</span>
             </li>
           </a>
