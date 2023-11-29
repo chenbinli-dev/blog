@@ -1,6 +1,6 @@
-import { Icon } from '@iconify/react';
-import sunIcon from '@iconify/icons-tabler/sun';
 import moonIcon from '@iconify/icons-tabler/moon';
+import sunIcon from '@iconify/icons-tabler/sun';
+import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 
 const ToggleTheme = () => {
@@ -39,8 +39,8 @@ const ToggleTheme = () => {
           clipPath: isDark ? [...clipPath].reverse() : clipPath
         },
         {
-          duration: 300,
-          easing: 'ease-in',
+          duration: 1000,
+          easing: 'ease-in-out',
           pseudoElement: isDark
             ? '::view-transition-old(root)'
             : '::view-transition-new(root)'
