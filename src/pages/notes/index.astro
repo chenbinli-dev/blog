@@ -15,7 +15,7 @@ const pageTitle = "Codercoin's notes";
     {
       orderNotes.map(({ data, slug }) => (
       <Link href={'/notes/' + slug}>
-        <li class="flex items-center gap-4 group p-4 underline-transition hover:bg-slate-200 rounded">
+        <li class="flex items-center gap-4 group p-4 underline-transition hover:bg-slate-200 dark:hover:bg-slate-800 rounded">
           <Icon
             name="tabler:writing"
             size="18px"
