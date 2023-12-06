@@ -1,10 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
-import type { SearchItem } from './SearchPanel';
 import logo from '@/assets/images/avatar.png';
-import ToggleTheme from './ToggleTheme';
-import SearchButton from './SearchButton.tsx';
 import Icon from 'astro-icon';
+import { getCollection } from 'astro:content';
+import NavMenu from './NavMenu';
+import SearchButton from './SearchButton.tsx';
+import type { SearchItem } from './SearchPanel';
+import ToggleTheme from './ToggleTheme';
 const menu = [
   {
     title: 'Note',
@@ -37,7 +38,7 @@ const pathname = new URL(Astro.request.url).pathname;
   <div
     class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500 h-16"
   >
-    <a href="/" aria-label="Go home">
+    <a href="/" aria-label="Go home" class="max-md:hidden">
       <div class="flex items-center gap-2">
         <img
           src={logo.src}
@@ -55,28 +56,13 @@ const pathname = new URL(Astro.request.url).pathname;
         >
       </div>
     </a>
-    <div class="flex items-center gap-8">
+    <div class="flex items-center gap-8 max-md:w-full">
       <SearchButton searchContentList={searchContentList} client:only />
-      <nav class="flex gap-8">
-        {
-          menu.map((item) => (
-            <a
-              href={item.url}
-              class={`hover:text-pink-500 ${
-                pathname.includes(item.url)
-                  ? 'underline underline-offset-4 decoration-wavy decoration-pink-500'
-                  : undefined
-              }`}
-            >
-              {item.title}
-            </a>
-          ))
-        }
-      </nav>
+      <NavMenu pathname={pathname} client:only/>
       <a
         href={`${Astro.site}/rss.xml`}
         aria-label="rss"
-        class="cursor-pointer hover:scale-110 hover:text-pink-500"
+        class="cursor-pointer hover:scale-110 hover:text-pink-500 max-md:hidden"
       >
         <Icon name="tabler:rss" size="18" />
       </a>

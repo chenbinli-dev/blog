@@ -64,7 +64,7 @@ const ToggleTheme = () => {
     <button
       name="theme-switch"
       aria-label="Switch Theme"
-      className="cursor-pointer hover:scale-110 hover:text-pink-500"
+      className="cursor-pointer hover:scale-110 hover:text-pink-500 max-md:absolute max-md:right-8"
       onClick={handleSwitchTheme}
     >
       <Icon icon={isDark ? moonIcon : sunIcon} fontSize={20} />

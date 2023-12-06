@@ -22,7 +22,7 @@ const pageTitle = "Codercoin's notes";
             class="text-sm group-hover:animate-pulse group-hover:scale-150 group-hover:text-pink-500"
           />
           <span>{data.title}</span>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 max-md:hidden">
             {data.tags.map((tag) => (
               <span class="text-xs bg-slate-400 text-black px-2 py-1 rounded hover:bg-pink-500 hover:text-white cursor-pointer">
                 #{tag}

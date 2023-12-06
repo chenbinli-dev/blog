@@ -22,7 +22,7 @@ const pageTitle = 'Tags';
 
 <MainLayout pageTitle={pageTitle}>
   <div class="w-full p-4">
-    <ul class="grid grid-cols-5 gap-4">
+    <ul class="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
       {
         Object.entries(tags).map(([key, value]) => (
           <a href={`/tags/${key}`}>

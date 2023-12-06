@@ -22,7 +22,7 @@ const SearchButton = ({ searchContentList }: Props) => {
   return (
     <div
       id="search-input"
-      className="flex w-40 items-center cursor-pointer justify-between rounded-full border-2 bg-transparent px-2 py-1 dark:border-slate-300"
+      className="flex w-40 cursor-pointer items-center justify-between rounded-full border-2 bg-transparent px-2 py-1 dark:border-slate-300 max-md:mx-auto"
       onClick={openModal}
     >
       <Icon icon={searchIcon} fontSize={18} className="text-black" />
