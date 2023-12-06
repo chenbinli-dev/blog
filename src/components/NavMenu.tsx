@@ -68,15 +68,6 @@ const NavMenu: React.FC<Props> = ({ pathname }) => {
           show ? 'max-md:w-1/2' : 'max-md:w-0'
         }`}
       >
-        <a
-          href="/"
-          aria-label="Go home"
-          className={`hover:text-pink-500 max-md:flex max-md:justify-center max-md:p-4 max-md:hover:bg-slate-300 max-md:focus:bg-slate-300 ${
-            show ? 'block' : 'hidden'
-          }`}
-        >
-          Home
-        </a>
         {menu.map((item) => (
           <a
             key={item.url}

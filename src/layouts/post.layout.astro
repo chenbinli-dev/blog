@@ -40,7 +40,7 @@ const next = content[currentIndex + 1]?.slug;
       <div class="text-3xl font-semibold dark:text-pink-500 italic">
         {frontmatter.title}
       </div>
-      <div class="flex items-center gap-4 text-slate-500">
+      <div class="flex items-center gap-4 text-slate-500 max-md:hidden">
         <span class="flex items-center gap-2 border-b hover:border-pink-500"
           ><Icon name="tabler:clock" size="18" />
           {dayjs(frontmatter.pubDateTime).format('YYYY-MM-DD')} # {

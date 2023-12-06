@@ -14,26 +14,28 @@ const pageTitle = "Codercoin's notes";
   <ul class="space-y-4 text-lg w-full">
     {
       orderNotes.map(({ data, slug }) => (
-      <Link href={'/notes/' + slug}>
-        <li class="flex items-center gap-4 group p-4 underline-transition hover:bg-slate-200 dark:hover:bg-slate-800 rounded">
-          <Icon
-            name="tabler:writing"
-            size="18px"
-            class="text-sm group-hover:animate-pulse group-hover:scale-150 group-hover:text-pink-500"
-          />
-          <span>{data.title}</span>
-          <div class="flex items-center gap-2 max-md:hidden">
-            {data.tags.map((tag) => (
-              <span class="text-xs bg-slate-400 text-black px-2 py-1 rounded hover:bg-pink-500 hover:text-white cursor-pointer">
-                #{tag}
-              </span>
-            ))}
-          </div>
-          <span class="opacity-50 ml-auto">
-            {dayjs(data.pubDateTime).format('YYYY-MM-DD')}
-          </span>
-        </li>
-      </Link>
+        <Link href={'/notes/' + slug}>
+          <li class="flex items-center gap-4 group p-4 underline-transition hover:bg-slate-200 dark:hover:bg-slate-800 rounded">
+            <Icon
+              name="tabler:writing"
+              size="18px"
+              class="text-sm group-hover:animate-pulse group-hover:scale-150 group-hover:text-pink-500"
+            />
+            <span title={data.title} class="text-ellipsis whitespace-nowrap overflow-hidden">
+              {data.title}
+            </span>
+            <div class="flex items-center gap-2 max-md:hidden">
+              {data.tags.map((tag) => (
+                <span class="text-xs bg-slate-400 text-black px-2 py-1 rounded hover:bg-pink-500 hover:text-white cursor-pointer">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+            <span class="opacity-50 ml-auto max-md:text-[12px]">
+              {dayjs(data.pubDateTime).format('YYYY-MM-DD')}
+            </span>
+          </li>
+        </Link>
       ))
     }
   </ul>

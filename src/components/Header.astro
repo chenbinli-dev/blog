@@ -38,7 +38,7 @@ const pathname = new URL(Astro.request.url).pathname;
   <div
     class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500 h-16"
   >
-    <a href="/" aria-label="Go home" class="max-md:hidden">
+    <a href="/" aria-label="Go home">
       <div class="flex items-center gap-2">
         <img
           src={logo.src}
@@ -47,18 +47,18 @@ const pathname = new URL(Astro.request.url).pathname;
           height="40"
           class="rounded-full"
         />
-        <span class="text-lg font-extrabold hover:text-pink-500"
+        <span class="text-lg font-extrabold hover:text-pink-500 max-md:hidden"
           >Codercoin's</span
         >
         <span
-          class="px-1 bg-pink-500 dark:text-black rounded text-white text-sm hover:-rotate-12"
+          class="px-1 bg-pink-500 dark:text-black rounded text-white text-sm hover:-rotate-12 max-md:hidden"
           >Book</span
         >
       </div>
     </a>
     <div class="flex items-center gap-8 max-md:w-full">
       <SearchButton searchContentList={searchContentList} client:only />
-      <NavMenu pathname={pathname} client:only/>
+      <NavMenu pathname={pathname} client:only />
       <a
         href={`${Astro.site}/rss.xml`}
         aria-label="rss"
