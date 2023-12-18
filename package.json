@@ -13,6 +13,7 @@
     "lint": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\""
   },
   "dependencies": {
+    "@astrojs/mdx": "^2.0.1",
     "@astrojs/react": "^3.0.0",
     "@astrojs/rss": "^3.0.0",
     "@astrojs/tailwind": "^5.0.0",
