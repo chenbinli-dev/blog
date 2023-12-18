@@ -1,0 +1,435 @@
+---
+title: Iterator and Generator
+author: Codercoin
+pubDateTime: 2023-12-18
+tags: ['Javascript', 'Iterator', 'Generator']
+description: Introduction of JavaScript Iterator and Generator
+---
+
+## 迭代器 （`Iterator`）
+
+JS中定义的普通的对象是不可迭代的，也就是普通`for`循环对它是无效的，但是ES6引入了迭代器，这就使得可以将它变成可迭代的。迭代器分为同步和异步两种。
+
+### 1. 同步迭代器
+
+```javascript
+const a = {
+
+	x: 0,
+	
+	y: 1
+}
+
+// TypeError: a is not iterable
+
+for(const item of a){
+
+	console.log(item)
+	
+}
+```
+
+通过自定义迭代器来实现对象a的遍历：
+
+```javascript
+a[Symbol.iterator] = function () {
+
+  const orderedValues = Object.values(this).sort((a, b) => a - b);
+  
+  let i = 0;
+  
+  return {
+  
+    next: () => ({
+    
+      done: i >= orderedValues.length,
+      
+      value: orderedValues[i++],
+      
+    }),
+    
+  };
+  
+};
+
+// Result: 0,1
+
+for (const key of a) {
+
+  console.log(key);
+  
+}
+```
+
+**Note**: 任何具有`Symbol.iterator`键的结构都是可迭代的。由此可见，`for...of`本质上就是调用待遍历结构的迭代器对象的`next()`方法来返回下一个值。
+
+迭代器对象就是符合迭代器协议的对象，必须含有`next()`方法。
+
+**使用场景：**
+
+在没有随机访问的集合（如数组）中，迭代器的性能比普通迭代更好，因为它可以根据当前位置索引检索元素，但是对于无序集合，差异不大。如果需要未封装良好的自定义数据结构提供原生迭代功能，就需要考虑迭代器。（例如`immutable.js`中使用迭代器为自定义对象，如`Map`）。
+
+### 2. 异步迭代器
+
+异步迭代器对象的实现`Symbol.asyncIterator`键的对象：
+
+```javascript
+a[Symbol.asyncIterator] = function () {
+
+  let count = 0
+  
+  return {
+  
+    next() {
+    
+      count ++ ;
+      
+      if(count <= 3) {
+      
+        return Promise.resolve({value:count,done:false})
+        
+      }
+      
+      return Promise.resolve({value:count,done:true})
+      
+    }
+    
+  }
+  
+}
+
+const go = a[Symbol.asyncIterator]()
+
+go.next().then(item => console.log(item)) // { value: 1, done: false }
+
+go.next().then(item => console.log(item)) // { value: 2, done: false }
+
+go.next().then(item => console.log(item)) // { value: 3, done: true }
+
+// use for await...of 
+
+async function consumer () {
+
+  for await (const item of a){
+
+    console.log(item)
+
+  }
+
+}
+
+consumer() // 1,2,3
+
+```
+
+## 生成器 （`Generator`）
+
+
+### 1. 是什么玩意？
+
+常规的函数只能返回一个单一值或者不返回任何值，而生成器可以流式地返回多个值，它可以和迭代器完美配合从而轻松地创建数据流。
+
+要得到一个生成器需要使用生成器函数（`generator function`）:
+
+```javascript
+function* getGenerator() {
+
+  yield 1;
+
+  yield 2;
+
+  return 3;
+
+}
+
+const generator = getGenerator()
+
+```
+
+生成器函数和常规的函数行为不同，它们被调用时其内部代码不会被执行，而是返回一个特殊的对象`Generator Object`,该对象的主要方法就是`next()`。当其`next()`方法被调用时，会执行生成器函数内部最近的一个`yield`语句，如果`yield`后面没有值就默认为`undefined`，然后函数执行暂停，并将`yield`产生的值返回。下一次调用`next()`时，代码就会恢复执行并执行下一个`yield`语句。
+
+`next()`方法的返回值始终都是相同的结构，是一个只有以下两个属性的对象：
+
+- value  —— `yield`产出的值。
+- done  —— `generator`函数当前的执行状态，如果全部执行完毕则为`true`，否者为`false`。
+
+上面的`generator`执行结果如下：
+
+```javascript
+const v1 = generator.next();
+
+console.log(v1); // { value: 1, done: false }
+
+const v2 = generator.next();
+
+console.log(v2); // { value: 2, done: false }
+
+const v3 = generator.next();
+
+console.log(v3); // { value: 3, done: true }
+```
+
+执行完成后如果继续调用`next()`方法不会有任何的意义，始终都是返回一个相同的对象`{value:undefined,done:true}`。
+
+**关于写法：`function* f(...)`和`function *f(...)`两种都可以，通常偏向于第一种，因为星号描述的是函数的种类而不是名称，因而要和`function`关键字贴合。**
+
+### 2. 和迭代器的关系？
+
+当看到`next()`方法时就可以知道生成器是可以迭代的。
+
+```javascript
+function* get() {
+
+  yield 1;
+
+  yield 2;
+
+  return 3;
+
+}
+
+const generator = get();
+
+// 结果是 1,2
+for (const item of generator) {
+
+    console.log(item)
+
+}
+```
+
+使用`for...of`的写法相比于每次调用`next()`方法更加优雅，但是对比结果可以发现缺少了一个`3`，这是因为当`done`为`true`时，`for...of`会忽略掉最后一个`value`，因此想要获取所有的结果只需要将生成器函数中`return`修改为`yield`。
+
+又因为`generator`是可迭代的，所以它可以使用`iterator`的相关功能，例如：
+
+```javascript
+function* get() {
+
+  yield 1;
+
+  yield 2;
+
+  yield 3;
+
+}
+
+const res = [...get()]; // [1,2,3]
+```
+
+### 3. 使用生成器进行迭代
+
+对一个普通对象添加`[Symbol.iterator]`属性可以将它变成可迭代对象（`Iterable Object`），它的原理就是给`[Symbol.iterator]`键赋值一个函数，该函数返回一个具有`next()`方法的对象，这个对象的行为和生成器对象一致，所以在此基础上面，我们可以使用生成器来简化代码。例如：
+
+```javascript
+const a = {
+
+  x: 0,
+
+  y: 1,
+
+};
+
+a[Symbol.iterator] = function* () {
+
+  const sorted = Object.values(this).sort((a, b) => a - b);
+
+  for (let i = 0; i < sorted.length; i++) {
+
+    yield sorted[i];
+
+  }
+
+};
+
+// 结果是： 0,1
+for (const value of a) {
+
+  console.log(value);
+
+}
+
+console.log([...a]) // [0,1]
+
+```
+
+>**顺便提一道常见的高频面试题**
+
+问： 以下代码会报错吗？可以实现吗？可以的话原理是什么？
+
+```javascript
+const [a,b] = {x,y}
+```
+
+这个问题的本质就是需要了解解构的原理是什么？其实解构的本质就是迭代对象，可以进行解构操作的结构肯定是可迭代的，参考上面的生成器就可以实现左右两边数据类型不同的解构操作。
+
+### 3. 生成器组合
+
+`generator composition`是`generator`的一个特殊功能，它允许透明地将`generator`彼此嵌入（`embed`）到一起。也就是说，`yield`语句后也可以是一个生成器函数，它会将函数执行**委托**给它语句中的生成器函数，并将产生的值透明地转发到外部，就和外部的生成器函数直接调用`yield`产生值一样。
+
+例如：定义一个生成器函数，它接受`start`和`end`两个参数，用于生成两个参数之间的数字。但是有一个需求就是要根据不同的区间得到不同的结果。在常规函数中要合并其他多个函数的结果就需要先调用它们，再保存它们的结果，最后合并。对于生成器的组合使用来说实现更加方便。
+
+```javascript
+function* generateSquence(start, end) {
+
+  for (let i = start; i <= end; i++) {
+
+    yield i;
+
+  }
+
+}
+
+function* generatePasswordCode() {
+
+  yield* generateSquence(48, 57);
+
+  yield* generateSquence(65, 90);
+
+  yield* generateSquence(97, 122);
+
+}
+
+let str = "";
+
+for (const code of generatePasswordCode()) {
+
+  str += String.fromCharCode(code);
+
+}
+
+console.log(str); // 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+```
+
+上面代码中`generatePasswordCode`函数和下面直接使用`yield`是等价的：
+
+```js
+function* generatePasswordCode() {
+
+   // yield* generateSequence(48, 57);
+
+   for (let i = 48; i <= 57; i++) yield i;
+
+   // yield* generateSequence(65, 90);
+
+   for (let i = 65; i <= 90; i++) yield i;
+
+   // yield* generateSequence(97, 122);
+
+   for (let i = 97; i <= 122; i++) yield i;
+
+}
+```
+
+
+### 4. `yield`是双向的
+
+虽然`generator`和可迭代对象类似，都是用来流式地生成值，但是`generator`更加强大和灵活。因为`yield`是双向路：它不仅可以向外部返回结果，而且还可以将外部的值传递到`generator`内部。也就是说在调用`next(arg)`时可以给它传递参数`arg`，而参数`arg`就会变成`yield`的结果。
+
+```js
+function* gen() {
+
+  const result = yield "2+2=?";
+
+  console.log(result);
+
+}
+
+const g = gen();
+
+const q = g.next().value;
+
+console.log(q); // "2+2=?"
+
+g.next(4); // 4
+```
+
+执行过程： 第一次调用`next()`时，应该是不带参数的，如果有则会被忽略，函数执行第一个`yield`语句并返回结果，`generator`执行暂停。返回的结果赋值给常量`q`并打印。第二次执行`next()`，函数恢复执行，此时`next()`有参数`4`，它变成`yield`的结果赋值给`result`并打印。
+
+### 5. `generator.throw`
+
+外部不仅可以传递普通值给`generator`作为`yield`结果，它也可以抛出一个`Error`，因为`Error`本身也是一种结果。我们可以通过`generator.throw(error)`来将错误传递给`generator`，它会被抛到对应`yield`的那一行。
+
+```js
+function* gen() {
+
+  try {
+
+    const result = yield "2+2=?";
+
+    console.log(result);
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+}
+
+const g = gen();
+
+const q = g.next(4).value;
+
+console.log(q); // "2+2=?"
+
+g.throw(new Error("this is a error")); // Error: this is a error
+```
+
+当然，如果`generator`内部没有捕获`Error`的话那么就会像其他异常一样“掉出”调用代码，那么可以在外部使用`try...catch`捕获到。如果没有处理这个`Error`的话，那么整个程序就会终止执行。
+
+```js
+function* gen() {
+
+  const result = yield "2+2=?";
+
+  console.log(result);
+
+}
+
+const g = gen();
+
+const q = g.next(4).value;
+
+console.log(q); // "2+2=?"
+
+try {
+
+  g.throw(new Error("this is a error"));
+
+} catch (error) {
+
+  console.log(error); // Error: this is a error
+
+}
+```
+
+### 6. `generator.return`
+
+`generator.return(value)`方法会完成`generator`的执行并返回给定的`value`。通常我们不会使用它，因为大多数情况下我们需要获取所有的返回值。
+
+```js
+function* gen() {
+
+  yield 1;
+
+  yield 2;
+
+  yield 3;
+
+}
+
+const g = gen();
+
+const v1 = g.next();
+
+console.log(v1); // { value: 1, done: false }
+
+const v2 = g.return("finish");
+
+console.log(v2);  // { value: 'finish', done: true }
+
+const v3 = g.next();
+
+console.log(v3); // { value: undefined, done: true }
+
+```
