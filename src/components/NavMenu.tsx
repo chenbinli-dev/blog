@@ -49,9 +49,7 @@ const NavMenu: React.FC<Props> = ({ pathname }) => {
       <button
         title="menu"
         aria-label="Menu"
-        className={`cursor-pointer hover:scale-110 hover:text-pink-500 max-md:absolute max-md:right-20 max-md:block md:hidden ${
-          show ? 'text-pink-500' : 'text-black'
-        }`}
+        className={`cursor-pointer hover:scale-110 hover:text-pink-500 dark:text-slate-300 max-md:absolute max-md:right-20 max-md:block md:hidden`}
         onClick={openMenu}
       >
         <Icon icon={menu2} fontSize={20} />
