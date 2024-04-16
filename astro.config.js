@@ -6,6 +6,9 @@ import { remarkReadingTime } from './remark-reading-time.mjs';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://blog-codercoin.vercel.app',
+  prefetch: {
+    prefetchAll: true
+  },
   // Enable React to support React JSX components.
   integrations: [
     react(),
