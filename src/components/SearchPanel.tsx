@@ -75,7 +75,7 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
             : 'animate-out fade-out-0 slide-out-to-top'
         }`}
       >
-        <div className="border-primary flex items-center gap-2 rounded border-2 p-2">
+        <div className="flex items-center gap-2 rounded border-2 border-primary p-2">
           <Icon icon={searchIcon} fontSize={20} />
           <input
             ref={searchInputRef}
@@ -95,7 +95,7 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
                 href={`/${item.collection}/${item.slug}`}
                 onClick={handleLinkClick}
               >
-                <div className="hover:border-primary cursor-pointer space-y-1 rounded border-2 border-dashed p-2">
+                <div className="cursor-pointer space-y-1 rounded border-2 p-2 hover:border-primary">
                   <div
                     title={item.title}
                     className="cursor-pointer italic"

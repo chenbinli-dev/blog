@@ -49,7 +49,7 @@ const NavMenu: React.FC<Props> = ({ pathname }) => {
       <button
         title="menu"
         aria-label="Menu"
-        className={`cursor-pointer hover:scale-110 hover:text-pink-500 dark:text-slate-300 max-md:absolute max-md:right-20 max-md:block md:hidden`}
+        className={`cursor-pointer hover:scale-110 hover:text-primary max-md:absolute max-md:right-20 max-md:block md:hidden dark:text-slate-300`}
         onClick={openMenu}
       >
         <Icon icon={menu2} fontSize={20} />
@@ -70,9 +70,9 @@ const NavMenu: React.FC<Props> = ({ pathname }) => {
           <a
             key={item.url}
             href={item.url}
-            className={`hover:text-pink-500 max-md:flex max-md:justify-center max-md:p-4 max-md:hover:bg-slate-300 max-md:focus:bg-slate-300 ${
+            className={`hover:text-primary max-md:flex max-md:justify-center max-md:p-4 max-md:hover:bg-slate-300 max-md:focus:bg-slate-300 ${
               pathname.includes(item.url)
-                ? 'underline decoration-pink-500 decoration-wavy underline-offset-4 max-md:bg-slate-300 max-md:decoration-transparent'
+                ? 'underline decoration-primary decoration-wavy underline-offset-4 max-md:bg-slate-300 max-md:decoration-transparent'
                 : ''
             }`}
             onClick={handleClick}

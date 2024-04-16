@@ -1,5 +1,5 @@
-import type { CollectionEntry } from 'astro:content';
 import type { CollectionsKeys } from '@/content/config.ts';
+import type { CollectionEntry } from 'astro:content';
 /**
  * Get latest item of collection
  * @param collection
@@ -11,10 +11,10 @@ export function getLatestItem(
   num: number
 ) {
   if (num > collection.length) return collection;
-  const sortedCollection = [...collection].sort(
+  collection.sort(
     (a, b) => b.data.pubDateTime.getTime() - a.data.pubDateTime.getTime()
   );
-  return sortedCollection.slice(0, num);
+  return collection.slice(0, num);
 }
 /**
  * Sortings collection
