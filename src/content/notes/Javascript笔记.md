@@ -2,7 +2,7 @@
 title: Javascript note
 author: Codercoin
 pubDateTime: 2023-09-07
-tags: ['Javascript', 'Note']
+tags: ['Javascript']
 ---
 
 ## 1.事件循环（Event Loop）

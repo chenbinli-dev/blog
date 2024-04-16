@@ -2,7 +2,7 @@
 title: Implement of changing this
 author: Codercoin
 pubDateTime: 2023-09-13
-tags: ['Javascript', 'Handwriting','Function', 'this',]
+tags: ['Javascript']
 description: One of Common interview questions
 ---
 

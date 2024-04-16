@@ -35,7 +35,7 @@ const { entries } = Astro.props;
     <div class="pt-4 px-4 txet-lg">
       <button
         id="goback"
-        class="flex items-center gap-4 border-b-2 border-dashed border-transparent hover:border-pink-500 active:text-pink-500 active:border-transparent"
+        class="flex items-center gap-4 border-b-2 border-dashed border-transparent hover:border-primary active:text-primary active:border-transparent"
         onclick="
         history.back()
         "
@@ -50,7 +50,7 @@ const { entries } = Astro.props;
     </div>
     <div class="px-4 font-semibold text-xl space-y-2">
       <p>
-        Tag: <span class="border-b-2 border-dashed border-pink-500"
+        Tag: <span class="border-b-2 border-dashed border-primary"
           >#{tag}</span>
       </p>
       <p class="text-base opacity-50">All the articles with the tag "{tag}".</p>
@@ -62,7 +62,7 @@ const { entries } = Astro.props;
             <Icon
               name={collection === 'notes' ? 'tabler:writing' : 'tabler:code'}
               size="18px"
-              class="text-sm group-hover:animate-pulse group-hover:scale-150 group-hover:text-pink-500"
+              class="text-sm group-hover:animate-pulse group-hover:scale-150 group-hover:text-primary"
             />
             <Link href={`/${collection}/${slug}`}>{data.title}</Link>
             <span class="opacity-50">

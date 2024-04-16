@@ -1,10 +1,10 @@
 ---
 import type { PostFrontmatter } from '@/content/_schema';
-import MainLayout from './main.layout.astro';
 import { Icon } from 'astro-icon';
+import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { getCollection } from 'astro:content';
+import MainLayout from './main.layout.astro';
 dayjs.extend(relativeTime);
 interface Props {
   frontmatter: PostFrontmatter;
@@ -20,39 +20,23 @@ const next = content[currentIndex + 1]?.slug;
 
 <MainLayout>
   <div class="p-4 space-y-4 w-full">
-    <div class="pt-4 txet-lg">
-      <button
-        id="goback"
-        class="flex items-center gap-4 border-b-2 border-dashed border-transparent hover:border-pink-500 active:text-pink-500 active:border-transparent"
-        onclick="
-        history.back()
-        "
-      >
-        <Icon
-          name="tabler:chevron-left"
-          size="18"
-          class="group-hover:scale-125"
-        />
-         Back
-      </button>
-    </div>
-    <div class="space-y-4 pb-8">
-      <div class="text-3xl font-semibold dark:text-pink-500 italic">
+    <div class="space-y-4 pb-4">
+      <div class="text-3xl font-semibold dark:text-primary italic">
         {frontmatter.title}
       </div>
       <div class="flex items-center gap-4 text-slate-500">
-        <span class="flex items-center gap-2 border-b hover:border-pink-500"
+        <span class="flex items-center gap-2"
           ><Icon name="tabler:clock" size="18" />
           {dayjs(frontmatter.pubDateTime).format('YYYY-MM-DD')} # {
             dayjs(frontmatter.pubDateTime).fromNow()
           }</span
         >
-        <span class="flex items-center gap-2 border-b hover:border-pink-500"
+        <span class="flex items-center gap-2"
           ><Icon name="tabler:user" size="18" /> Written by {
             frontmatter.author
           }</span
         >
-        <span class="flex items-center gap-2 border-b hover:border-pink-500"
+        <span class="flex items-center gap-2"
           ><Icon name="tabler:eye" size="18" /> You need {
             frontmatter?.minutesRead
           }</span
@@ -61,7 +45,7 @@ const next = content[currentIndex + 1]?.slug;
       <div class="flex gap-4">
         {
           frontmatter.tags.map((tag) => (
-            <span class="flex items-center gap-2 bg-slate-400 rounded py-1 px-2 text-sm hover:bg-pink-500 hover:text-white cursor-pointer">
+            <span class="flex items-center gap-2 bg-slate-400 dark:bg-slate-700 rounded py-1 px-2 text-sm hover:bg-primary text-white cursor-pointer">
               <Icon name="tabler:tag" size="18" />
               {tag}
             </span>
@@ -72,25 +56,36 @@ const next = content[currentIndex + 1]?.slug;
     <article class="prose lg:prose-xl prose-slate max-w-none dark:prose-invert">
       <slot />
     </article>
-    <div class="flex gap-4 font-semibold">
-      <a
+    <div class="grid grid-cols-2 gap-4 font-semibold">
+      {
+        previous &&  <a
         href={`/${collection}/${previous}`}
-        class={`flex-1 flex items-center gap-8 py-4 rounded border-dashed border-2 border-transparent hover:text-pink-500 hover:border-pink-500 cursor-pointer ${
+        class={`flex-1 rounded p-2 border-2 shadow-sm dark:border-slate-500 hover:text-primary hover:border-primary cursor-pointer ${
           !previous && 'pointer-events-none cursor-none'
         }`}
       >
-        <Icon name="tabler:chevron-left" size="20" />
-        {previous || 'No more'}
+        <div class="flex items-center gap-4">
+          <Icon name="tabler:chevron-left" size="20" />
+           <span>Prev</span>
+        </div>
+        <div class="text-ellipsis overflow-hidden whitespace-nowrap">{previous}</div> 
       </a>
-      <a
+      }
+      {
+        next &&  <a
         href={`/${collection}/${next}`}
-        class={`flex-1 flex justify-end items-center gap-8 py-4 rounded border-dashed border-2 border-transparent hover:text-pink-500 hover:border-pink-500 cursor-pointer ${
+        class={`flex-1 p-2 rounded border-2 shadow-sm dark:border-slate-500 hover:text-primary hover:border-primary cursor-pointer ${
           !next && 'pointer-events-none cursor-none'
         }`}
       >
-        {next || 'No more'}
+      <div class="flex justify-end items-center gap-4">
+        <span>Next</span>
         <Icon name="tabler:chevron-right" size="20" />
+      </div>
+      <div class="text-ellipsis overflow-hidden whitespace-nowrap text-end">{next}</div>
       </a>
+      }
+     
     </div>
   </div>
 </MainLayout>

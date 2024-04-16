@@ -2,7 +2,7 @@
 title: Vue Learning Note
 author: Codercoin
 pubDateTime: 2023-09-07
-tags: ['Vue', 'Note']
+tags: ['Vue']
 ---
 
 ## DAY1

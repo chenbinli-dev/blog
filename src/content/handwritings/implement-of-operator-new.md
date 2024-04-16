@@ -2,7 +2,7 @@
 title: Implement of operator new
 author: Codercoin
 pubDateTime: 2023-09-13
-tags: ['Javascript', 'Handwriting', 'new']
+tags: ['Javascript']
 description: One of Common interview questions , we need understand the operator new how to work.
 ---
 

@@ -2,7 +2,7 @@
 title: React Learning Note Version 1.0
 author: Codercoin
 pubDateTime: 2023-09-07
-tags: ['React', 'Note']
+tags: ['React']
 ---
 
 ## jsx 语法

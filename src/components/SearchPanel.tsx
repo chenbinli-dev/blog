@@ -1,10 +1,10 @@
 import type { PostFrontmatter } from '@/content/_schema';
-import Fuse from 'fuse.js';
-import { useMemo, useState, type ChangeEvent, useRef, useEffect } from 'react';
-import dayjs from 'dayjs';
-import { Icon } from '@iconify/react';
 import calendarIcon from '@iconify/icons-tabler/calendar';
 import searchIcon from '@iconify/icons-tabler/search';
+import { Icon } from '@iconify/react';
+import dayjs from 'dayjs';
+import Fuse from 'fuse.js';
+import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 export type SearchItem = {
   title: string;
   description?: string;
@@ -72,10 +72,10 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
         className={`container mx-auto mt-16 max-w-4xl space-y-4 rounded bg-white p-4 duration-300 dark:bg-slate-700 ${
           show
             ? 'animate-in slide-in-from-bottom'
-            : 'animate-out slide-out-to-top fade-out-0'
+            : 'animate-out fade-out-0 slide-out-to-top'
         }`}
       >
-        <div className="flex items-center gap-2 rounded border-2 border-pink-500 p-2">
+        <div className="border-primary flex items-center gap-2 rounded border-2 p-2">
           <Icon icon={searchIcon} fontSize={20} />
           <input
             ref={searchInputRef}
@@ -95,7 +95,7 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
                 href={`/${item.collection}/${item.slug}`}
                 onClick={handleLinkClick}
               >
-                <div className="cursor-pointer space-y-1 rounded border-2 border-dashed p-2 hover:border-pink-500">
+                <div className="hover:border-primary cursor-pointer space-y-1 rounded border-2 border-dashed p-2">
                   <div
                     title={item.title}
                     className="cursor-pointer italic"

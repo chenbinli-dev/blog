@@ -1,6 +1,6 @@
-import { Icon } from '@iconify/react';
 import arrowBigUp from '@iconify/icons-tabler/arrow-big-up';
-import { useEffect, useMemo, useState } from 'react';
+import { Icon } from '@iconify/react';
+import { useEffect, useState } from 'react';
 const BackToTop = () => {
   const [isShow, setIsShow] = useState(false);
   const handleClick = () => {
@@ -24,7 +24,7 @@ const BackToTop = () => {
     <button
       id="back-to-top"
       aria-label="Back to Top"
-      className={`fixed bottom-10 right-40 rounded-full border-2 border-dashed bg-slate-200 p-2 hover:border-pink-500 hover:text-pink-500 dark:bg-slate-800 max-md:hidden ${
+      className={`hover:border-primary hover:text-primary fixed bottom-10 right-40 rounded-full border-2 border-dashed bg-slate-200 p-2 dark:bg-slate-800 max-md:hidden ${
         isShow ? 'visible' : 'invisible'
       }`}
       onClick={handleClick}

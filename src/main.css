@@ -12,7 +12,7 @@
   display: block;
 }
 .highlight {
-  color: #ec4899;
+  color: #a855f7;
   font-weight: 600;
 }
 ::view-transition-old(root),
@@ -34,7 +34,7 @@
 }
 
 .underline-transition{
-  background: linear-gradient(to right,#ec4899,#ec4899) no-repeat right bottom;
+  background: linear-gradient(to right,#faf5ff,#a855f7) no-repeat right bottom;
   background-size: 0px 2px;
   transition: background-size 1s;
 }

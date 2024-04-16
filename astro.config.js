@@ -1,12 +1,17 @@
-import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
+import { defineConfig } from 'astro/config';
 import { remarkReadingTime } from './remark-reading-time.mjs';
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blog.codercoin.top',
+  site: 'https://blog-codercoin.vercel.app',
   // Enable React to support React JSX components.
-  integrations: [react(), tailwind()],
+  integrations: [
+    react(),
+    tailwind({
+      configFile: 'tailwind.config.js'
+    })
+  ],
   markdown: {
     remarkPlugins: [remarkReadingTime]
   }

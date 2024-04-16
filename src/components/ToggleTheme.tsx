@@ -1,6 +1,6 @@
-import { Icon } from '@iconify/react';
-import sunIcon from '@iconify/icons-tabler/sun';
 import moonIcon from '@iconify/icons-tabler/moon';
+import sunIcon from '@iconify/icons-tabler/sun';
+import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 
 const ToggleTheme = () => {
@@ -39,8 +39,8 @@ const ToggleTheme = () => {
           clipPath: isDark ? [...clipPath].reverse() : clipPath
         },
         {
-          duration: 300,
-          easing: 'ease-in',
+          duration: 500,
+          easing: 'ease-in-out',
           pseudoElement: isDark
             ? '::view-transition-old(root)'
             : '::view-transition-new(root)'
@@ -64,7 +64,7 @@ const ToggleTheme = () => {
     <button
       name="theme-switch"
       aria-label="Switch Theme"
-      className="cursor-pointer hover:scale-110 hover:text-pink-500"
+      className="cursor-pointer hover:scale-110 hover:text-primary"
       onClick={handleSwitchTheme}
     >
       <Icon icon={isDark ? moonIcon : sunIcon} fontSize={20} />
