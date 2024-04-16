@@ -2,6 +2,7 @@
 import logo from '@/assets/images/avatar.png';
 import Icon from 'astro-icon';
 import { getCollection } from 'astro:content';
+import NavMenu from './NavMenu';
 import SearchButton from './SearchButton.tsx';
 import type { SearchItem } from './SearchPanel';
 import ToggleTheme from './ToggleTheme';
@@ -55,24 +56,9 @@ const pathname = new URL(Astro.request.url).pathname;
         >
       </div>
     </a>
-    <div class="flex items-center gap-8">
+    <div class="flex items-center gap-8 max-md:w-full">
       <SearchButton searchContentList={searchContentList} client:only />
-      <nav class="flex gap-8">
-        {
-          menu.map((item) => (
-            <a
-              href={item.url}
-              class={`hover:text-primary ${
-                pathname.includes(item.url)
-                  ? 'underline underline-offset-4 decoration-wavy decoration-primary'
-                  : undefined
-              }`}
-            >
-              {item.title}
-            </a>
-          ))
-        }
-      </nav>
+      <NavMenu pathname={pathname} client:only />
       <a
         href={`${Astro.site}/rss.xml`}
         aria-label="rss"
