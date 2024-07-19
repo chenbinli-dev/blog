@@ -1,8 +1,8 @@
 import type { PostFrontmatter } from '@/content/_schema';
-import calendarIcon from '@iconify/icons-tabler/calendar';
+import articleIcon from '@iconify/icons-tabler/article';
+import deleteIcon from '@iconify/icons-tabler/backspace';
 import searchIcon from '@iconify/icons-tabler/search';
 import { Icon } from '@iconify/react';
-import dayjs from 'dayjs';
 import Fuse from 'fuse.js';
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 export type SearchItem = {
@@ -17,11 +17,10 @@ interface SearchResult {
   refIndex: number;
 }
 interface Props {
-  show: boolean;
   closeModal: () => void;
   searchContentList: SearchItem[];
 }
-const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
+const SearchPanel = ({ searchContentList, closeModal }: Props) => {
   const [input, setInput] = useState<string>('');
   const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
   const modalContainerRef = useRef<HTMLDivElement | null>(null);
@@ -40,8 +39,7 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
   );
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-    const result = fuse.search(e.target.value);
-    setSearchResult(result);
+    setSearchResult(() => fuse.search(e.target.value));
   };
   const handleLinkClick = () => {
     setInput('');
@@ -56,24 +54,26 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
       closeModal();
     }
   };
+  const handleClean = () => {
+    if (input) {
+      setInput('');
+      setSearchResult([]);
+    }
+  };
   useEffect(() => {
-    show && searchInputRef.current?.focus();
-  }, [show]);
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, []);
   return (
     <div
       ref={modalContainerRef}
       id="modal-container"
-      className={`fixed left-0 top-0 z-10 h-full w-full overflow-auto bg-black bg-opacity-40 dark:bg-opacity-10 ${
-        show ? 'visible' : 'invisible'
-      }`}
+      className="fixed left-0 top-0 z-10 h-full w-full overflow-auto bg-black bg-opacity-40 dark:bg-opacity-10"
     >
       <div
         id="modal"
-        className={`container mx-auto mt-16 max-w-4xl space-y-4 rounded bg-white p-4 duration-300 dark:bg-slate-700 ${
-          show
-            ? 'animate-in slide-in-from-bottom'
-            : 'animate-out fade-out-0 slide-out-to-top'
-        }`}
+        className="container mx-auto mt-16 max-w-4xl space-y-4 rounded bg-white p-4 duration-300 dark:bg-slate-700"
       >
         <div className="flex items-center gap-2 rounded border-2 border-primary p-2">
           <Icon icon={searchIcon} fontSize={20} />
@@ -81,47 +81,61 @@ const SearchPanel = ({ searchContentList, show, closeModal }: Props) => {
             ref={searchInputRef}
             name="search-input"
             type="text"
+            autoFocus
+            autoComplete="off"
             className="w-full border-none bg-transparent outline-none focus:outline-none dark:text-white"
             value={input}
             onChange={handleInput}
-            placeholder="Please enter two characters at least."
+            placeholder="Search for..."
+          />
+          <Icon
+            icon={deleteIcon}
+            fontSize={20}
+            className={input ? 'hover:scale-110' : 'opacity-50'}
+            onClick={handleClean}
           />
         </div>
-        <ul className="flex flex-col gap-2">
-          {searchResult.length > 0 ? (
-            searchResult.map(({ item, refIndex }) => (
+        {searchResult.length > 0 ? (
+          <ul className="flex flex-col gap-2">
+            {searchResult.map(({ item, refIndex }) => (
               <a
                 key={refIndex}
                 href={`/${item.collection}/${item.slug}`}
                 onClick={handleLinkClick}
               >
-                <div className="cursor-pointer space-y-1 rounded border-2 p-2 hover:border-primary">
-                  <div
-                    title={item.title}
-                    className="cursor-pointer italic"
-                    dangerouslySetInnerHTML={{
-                      __html: item.title.replaceAll(
-                        new RegExp(input, 'gi'),
-                        (match) => `<em class="highlight">${match}</em>`
-                      )
-                    }}
-                  ></div>
-                  <div className="flex items-center gap-2 text-sm opacity-50">
-                    <Icon icon={calendarIcon} fontSize={18} />
-                    <span>
-                      {dayjs(item.data.pubDateTime).format('YYYY-MM-DD')}
-                    </span>
+                <div className="cursor-pointer items-center rounded border-2 p-2 hover:border-primary">
+                  <div className="flex items-center gap-2">
+                    <Icon icon={articleIcon} fontSize={20} />
+                    <div
+                      title={item.title}
+                      className="cursor-pointer text-xl"
+                      dangerouslySetInnerHTML={{
+                        __html: item.title.replaceAll(
+                          new RegExp(input, 'gi'),
+                          (match) => `<span class="highlight">${match}</span>`
+                        )
+                      }}
+                    ></div>
                   </div>
-                  <p className="text-base">
-                    {item.description || 'no description'}
-                  </p>
+                  {item.description && (
+                    <div
+                      className="mt-2 text-sm"
+                      dangerouslySetInnerHTML={{
+                        __html: item.description.replaceAll(
+                          new RegExp(input, 'gi'),
+                          (match) =>
+                            `<span class="highlight description">${match}</span>`
+                        )
+                      }}
+                    ></div>
+                  )}
                 </div>
               </a>
-            ))
-          ) : (
-            <p>No records</p>
-          )}
-        </ul>
+            ))}
+          </ul>
+        ) : input !== '' ? (
+          <div className="text-center">No results for "{input}"</div>
+        ) : null}
       </div>
     </div>
   );

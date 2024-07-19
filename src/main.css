@@ -15,8 +15,10 @@
   display: block;
 }
 .highlight {
-  color: #a855f7;
-  font-weight: 600;
+  background-color: #a855f7;
+  padding: 1px;
+  border-radius: 1px;
+  color:white;
 }
 ::view-transition-old(root),
 ::view-transition-new(root) {
