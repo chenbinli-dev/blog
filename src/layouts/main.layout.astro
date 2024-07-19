@@ -57,7 +57,7 @@ const { pageTitle = "Codercoin'book" } = Astro.props;
       <slot />
     </main>
     <Footer/>
-    <BackToTop client:only />
+    <BackToTop client:only="react" />
     <Social />
   </body>
 </html>

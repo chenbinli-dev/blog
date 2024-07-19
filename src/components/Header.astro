@@ -57,8 +57,8 @@ const pathname = new URL(Astro.request.url).pathname;
       </div>
     </a>
     <div class="flex items-center gap-8 max-md:w-full">
-      <SearchButton searchContentList={searchContentList} client:only />
-      <NavMenu pathname={pathname} client:only />
+      <SearchButton searchContentList={searchContentList} client:only="react" />
+      <NavMenu pathname={pathname} client:only="react" />
       <a
         href={`${Astro.site}/rss.xml`}
         aria-label="rss"
@@ -66,7 +66,7 @@ const pathname = new URL(Astro.request.url).pathname;
       >
         <Icon name="tabler:rss" size="18" />
       </a>
-      <ToggleTheme client:only />
+      <ToggleTheme client:only="react" />
     </div>
   </div>
 </header>
