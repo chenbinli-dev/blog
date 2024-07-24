@@ -4,23 +4,23 @@ import { getLatestItem } from '@/utils/collection';
 import Icon from 'astro-icon';
 import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
-const notes = await getCollection('notes');
-const handwritings = await getCollection('handwritings');
-const latestPosts = getLatestItem([...notes,...handwritings], 10);
+const blogs = await getCollection('blogs');
+const latestPosts = getLatestItem(blogs, 3);
+
 ---
 
 <MainLayout>
   <div class="container mx-auto flex-1 py-4">
       <ul class="flex flex-col h-full space-y-4">
         {
-          latestPosts.map(({ data, slug,collection },index) => (
+          latestPosts.map(({ data, slug,collection }) => (
           <a
             href={`${collection}/` + slug}
             title={data.title}
               >
-            <li class="space-y-2 hover:bg-slate-200 dark:hover:bg-slate-900 px-4 py-2 group rounded underline-transition cursor-pointer">
+            <li class="space-y-2 hover:bg-slate-200 dark:hover:bg-slate-900 px-4 py-2 group rounded border-b hover:shadow-lg cursor-pointer">
               <div class="flex items-center gap-4 flex-wrap">
-              <span title={data.title} class="text-primary flex-1 text-xl font-semibold text-ellipsis overflow-hidden whitespace-nowrap">{data.title}</span>
+              <span title={data.title} class="flex-1 text-xl font-semibold text-ellipsis overflow-hidden whitespace-nowrap">{data.title}</span>
               <div class="flex items-center gap-2 text-sm opacity-50 ml-auto">
                 <Icon name="tabler:calendar" size="18"/>
                 <span>{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>

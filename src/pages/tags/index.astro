@@ -2,9 +2,8 @@
 import MainLayout from '@/layouts/main.layout.astro';
 import Icon from 'astro-icon';
 import { getCollection } from 'astro:content';
-const notes = await getCollection('notes');
-const handwritings = await getCollection('handwritings');
-const tags = [...notes, ...handwritings].reduce(
+const blogs = await getCollection('blogs');
+const tags =blogs.reduce(
   (acc, cur) => {
     cur.data.tags.forEach((tag) => {
       if (tag in acc) {

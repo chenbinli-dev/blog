@@ -1,8 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import type { PostFrontmatter } from '@/content/_schema';
 import PostLayout from '@/layouts/post.layout.astro';
+import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('handwritings');
+  const blogEntries = await getCollection('blogs');
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry }
@@ -10,13 +11,10 @@ export async function getStaticPaths() {
 }
 const { slug } = Astro.params;
 const { entry } = Astro.props;
+
 const { Content, remarkPluginFrontmatter } = await entry.render();
 ---
 
-<PostLayout
-  frontmatter={remarkPluginFrontmatter}
-  slug={slug}
-  collection={entry.collection}
->
+<PostLayout frontmatter={remarkPluginFrontmatter as PostFrontmatter} slug={slug} collection={entry.collection}>
   <Content />
 </PostLayout>

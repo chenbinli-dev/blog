@@ -7,12 +7,8 @@ interface Props {
 }
 const menu = [
   {
-    title: 'Note',
-    url: '/notes'
-  },
-  {
-    title: 'Handwriting',
-    url: '/handwritings'
+    title: 'Blogs',
+    url: '/blogs'
   },
   {
     title: 'Tags',

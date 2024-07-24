@@ -1,0 +1,41 @@
+---
+import Link from '@/components/Link.astro';
+import MainLayout from '@/layouts/main.layout.astro';
+import { getOrderCollection } from '@/utils/collection';
+import { getCollection } from 'astro:content';
+import dayjs from 'dayjs';
+const blogs = await getCollection('blogs');
+const orderNotes = getOrderCollection(blogs);
+const pageTitle = 'Blogs';
+---
+
+<MainLayout pageTitle={pageTitle}>
+  <ul class="space-y-4 text-lg w-full">
+    {
+      orderNotes.map(({ data, slug }) => (
+       
+          <li class="flex items-center gap-4 group p-4 border-b hover:bg-slate-200 hover:shadow-lg dark:hover:bg-slate-900 rounded">
+            <div class="flex flex-col gap-4 flex-1">
+              <span class="opacity-50 text-sm">
+                {dayjs(data.pubDateTime).format('YYYY-MM-DD')}
+              </span>
+              <Link href={'/blogs/' + slug} class="max-w-[50%] text-ellipsis overflow-hidden whitespace-nowrap">
+                {data.title}
+              </Link>
+              <div class="flex items-center gap-2">
+              {data.tags.map((tag) => (
+                <span class="opacity-50 underline text-sm hover:text-primary cursor-pointer">
+                  # {tag}
+                </span>
+              ))}
+            </div>
+            </div>
+            <div
+              class={`w-40 h-20 rounded-lg ${data.imageUrl ? `bg-[url(${data.imageUrl})]` : 'bg-gradient-to-tr from-blue-300 to-purple-400'}`}
+            ></div>
+          </li>
+      
+      ))
+    }
+  </ul>
+</MainLayout>

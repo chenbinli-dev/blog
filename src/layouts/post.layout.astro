@@ -5,10 +5,11 @@ import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import MainLayout from './main.layout.astro';
+import type { CollectionsKeys } from '@/content/config';
 dayjs.extend(relativeTime);
 interface Props {
   frontmatter: PostFrontmatter;
-  collection: 'notes' | 'handwritings';
+  collection: CollectionsKeys;
   slug?: string;
 }
 const { frontmatter, collection, slug } = Astro.props;

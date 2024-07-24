@@ -1,7 +1,46 @@
 ---
+import { Icon } from 'astro-icon';
 import dayjs from 'dayjs';
+import Link from './Link.astro';
 ---
 
-<footer class="container mx-auto max-w-4xl py-4 text-center">
-  @ 2023-{dayjs().get('year')}  Codercoin all rights reserved
+<footer class="container mx-auto border-t max-w-4xl py-4 flex items-center gap-4">
+  <span class="font-semibold">© 2023-{dayjs().get('year')}</span>
+    
+  <Link href="https://codercoin.vercel.app/" label="Protiflio">
+  
+      <Icon
+        name="tabler:user"
+        size="22"
+        class="hover:scale-110 transition-all duration-300 ease-in-out"
+      />
+  
+  </Link>
+  <Link href="https://github.com/chenbinli-dev" label="Github">
+  
+      <Icon
+        name="tabler:brand-github"
+        size="22"
+        class="hover:scale-110 transition-all duration-300 ease-in-out"
+      />
+   
+  </Link>
+  <Link href="https://twitter.com/mozlilove" label="Twitter">
+ 
+      <Icon
+        name="tabler:brand-twitter"
+        size="22"
+        class="hover:scale-110 transition-all duration-300 ease-in-out"
+      />
+  
+  </Link>
+  <Link href="https://space.bilibili.com/164577534" label="Bilibili">
+ 
+      <Icon
+        name="ri:bilibili-line"
+        size="22"
+        class="hover:scale-110 transition-all duration-300 ease-in-out"
+      />
+  
+  </Link>
 </footer>

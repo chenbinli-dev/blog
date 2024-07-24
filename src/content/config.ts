@@ -7,8 +7,7 @@ const postCollection = defineCollection({
 });
 
 export const collections = {
-  notes: postCollection,
-  handwritings: postCollection
+  blogs: postCollection
 };
 
-export type CollectionsKeys = 'notes' | 'handwritings';
+export type CollectionsKeys = 'blogs';

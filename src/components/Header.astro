@@ -1,28 +1,15 @@
 ---
 import logo from '@/assets/images/avatar.png';
 import Icon from 'astro-icon';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import NavMenu from './NavMenu';
 import SearchButton from './SearchButton.tsx';
 import type { SearchItem } from './SearchPanel';
 import ToggleTheme from './ToggleTheme';
-const menu = [
-  {
-    title: 'Note',
-    url: '/notes'
-  },
-  {
-    title: 'Handwriting',
-    url: '/handwritings'
-  },
-  {
-    title: 'Tags',
-    url: '/tags'
-  }
-];
-const notes = await getCollection('notes');
-const handwritings = await getCollection('handwritings');
-const searchContentList: SearchItem[] = [...notes, ...handwritings].map(
+
+const blogs = await getCollection('blogs');
+const searchContentList: SearchItem[] = blogs.map(
   ({ data, collection, slug }) => ({
     title: data.title,
     description: data.description,
@@ -39,26 +26,19 @@ const pathname = new URL(Astro.request.url).pathname;
     class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500 h-16"
   >
     <a href="/" aria-label="Go home">
-      <div class="flex items-center gap-2">
-        <img
-          src={logo.src}
+        <Image
+          src={logo}
           width="40"
           alt="codercoin_logo"
           height="40"
           class="rounded-full"
+          loading="eager"
         />
-        <span class="text-lg font-extrabold hover:text-primary"
-          >Codercoin's</span
-        >
-        <span
-          class="px-1 bg-primary dark:text-black rounded text-white text-sm hover:-rotate-12"
-          >Book</span
-        >
-      </div>
     </a>
-    <div class="flex items-center gap-8 max-md:w-full">
+  
       <SearchButton searchContentList={searchContentList} client:only="react" />
-      <NavMenu pathname={pathname} client:only="react" />
+      <div class="flex items-center gap-8">
+          <NavMenu pathname={pathname} client:only="react" />
       <a
         href={`${Astro.site}/rss.xml`}
         aria-label="rss"
@@ -67,6 +47,8 @@ const pathname = new URL(Astro.request.url).pathname;
         <Icon name="tabler:rss" size="18" />
       </a>
       <ToggleTheme client:only="react" />
-    </div>
+      </div>
+    
+  
   </div>
 </header>

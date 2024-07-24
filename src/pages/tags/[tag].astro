@@ -9,15 +9,13 @@ interface Props {
   entries: CollectionEntry<CollectionsKeys>[];
 }
 export async function getStaticPaths() {
-  const notesEntries = await getCollection('notes');
-  const handwritingEntries = await getCollection('handwritings');
-  const allEntries = [...notesEntries, ...handwritingEntries];
+  const blogEntries = await getCollection('blogs');
   const allUniqueTags = [
-    ...new Set(allEntries.map((entry) => entry.data.tags).flat())
+    ...new Set(blogEntries.map((entry) => entry.data.tags).flat())
   ];
 
   return allUniqueTags.map((tag) => {
-    const filterdEntries = allEntries.filter((entry) =>
+    const filterdEntries = blogEntries.filter((entry) =>
       entry.data.tags.includes(tag)
     );
     return {
@@ -59,11 +57,6 @@ const { entries } = Astro.props;
       {
         entries.map(({ data, slug, collection }) => (
           <li class="flex items-center gap-4 group">
-            <Icon
-              name={collection === 'notes' ? 'tabler:writing' : 'tabler:code'}
-              size="18px"
-              class="text-sm group-hover:animate-pulse group-hover:scale-150 group-hover:text-primary"
-            />
             <Link href={`/${collection}/${slug}`}>{data.title}</Link>
             <span class="opacity-50">
               {dayjs(data.pubDateTime).format('YYYY-MM-DD')}

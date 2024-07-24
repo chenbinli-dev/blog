@@ -8,7 +8,8 @@ export const postSchema = z
     postSlug: z.string().optional(),
     tags: z.array(z.string()).default(['others']),
     minutesRead: z.string().optional(),
-    description: z.string().optional()
+    description: z.string().optional(),
+    imageUrl: z.string().optional()
   })
   .strict();
 export type PostFrontmatter = z.infer<typeof postSchema>;
