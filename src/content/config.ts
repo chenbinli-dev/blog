@@ -1,9 +1,9 @@
 import { defineCollection } from 'astro:content';
-import { postSchema } from './_schema';
+import { genPostSchema } from './_schema';
 
 const postCollection = defineCollection({
   type: 'content',
-  schema: postSchema
+  schema: ({ image }) => genPostSchema(image)
 });
 
 export const collections = {

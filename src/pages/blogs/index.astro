@@ -1,7 +1,9 @@
 ---
+import defaultBg from '@/assets/images/default_bg.png';
 import Link from '@/components/Link.astro';
 import MainLayout from '@/layouts/main.layout.astro';
 import { getOrderCollection } from '@/utils/collection';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 const blogs = await getCollection('blogs');
@@ -30,9 +32,7 @@ const pageTitle = 'Blogs';
               ))}
             </div>
             </div>
-            <div
-              class={`w-40 h-20 rounded-lg ${data.imageUrl ? `bg-[url(${data.imageUrl})]` : 'bg-gradient-to-tr from-blue-300 to-purple-400'}`}
-            ></div>
+            <Image src={data.cover ? data.cover : defaultBg} alt={data.coverAlt ?? "Cover"} loading="eager" width={120} height={100} class="rounded"/>
           </li>
       
       ))
