@@ -1,11 +1,11 @@
 ---
 import type { PostFrontmatter } from '@/content/_schema';
+import type { CollectionsKeys } from '@/content/config';
 import { Icon } from 'astro-icon';
 import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import MainLayout from './main.layout.astro';
-import type { CollectionsKeys } from '@/content/config';
 dayjs.extend(relativeTime);
 interface Props {
   frontmatter: PostFrontmatter;
@@ -20,43 +20,36 @@ const next = content[currentIndex + 1]?.slug;
 ---
 
 <MainLayout>
-  <div class="p-4 space-y-4 w-full">
-    <div class="space-y-4 pb-4">
+  <div class="py-4 space-y-4 w-full">
+    <div class="space-y-4">
       <div class="text-3xl font-semibold dark:text-primary italic">
         {frontmatter.title}
       </div>
-      <div class="flex items-center gap-4 text-slate-500">
-        <span class="flex items-center gap-2"
-          ><Icon name="tabler:clock" size="18" />
-          {dayjs(frontmatter.pubDateTime).format('YYYY-MM-DD')} # {
-            dayjs(frontmatter.pubDateTime).fromNow()
-          }</span
+      <div class="flex gap-8 items-center text-slate-500">
+        <span 
+          >
+          {dayjs(frontmatter.pubDateTime).format('YYYY-MM-DD')}</span
         >
-        <span class="flex items-center gap-2"
-          ><Icon name="tabler:user" size="18" /> Written by {
-            frontmatter.author
-          }</span
-        >
-        <span class="flex items-center gap-2"
-          ><Icon name="tabler:eye" size="18" /> You need {
+        <div class="flex items-center gap-2"
+          ><Icon name="tabler:clock" size="20" /> {
             frontmatter?.minutesRead
-          }</span
+          }</div
         >
-      </div>
-      <div class="flex gap-4">
-        {
-          frontmatter.tags.map((tag) => (
-            <span class="flex items-center gap-2 bg-slate-400 dark:bg-slate-700 rounded py-1 px-2 text-sm hover:bg-primary text-white cursor-pointer">
-              <Icon name="tabler:tag" size="18" />
-              {tag}
-            </span>
-          ))
-        }
       </div>
     </div>
     <article class="prose lg:prose-xl prose-slate max-w-none dark:prose-invert">
       <slot />
     </article>
+    <div class="flex gap-4">
+      {
+        frontmatter.tags.map((tag) => (
+          <span class="flex items-center gap-2 rounded py-1 px-2 underline underline-offset-4 text-sm hover:shadow-lg cursor-pointer">
+            #
+            {tag}
+          </span>
+        ))
+      }
+    </div>
     <div class="grid grid-cols-2 gap-4 font-semibold">
       {
         previous &&  <a

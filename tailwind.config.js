@@ -10,23 +10,27 @@ export default {
         primary: colors.purple[500]
       },
       fontFamily: {
-        sans: ['Harmoney_Sans-Regular', ...defaultTheme.fontFamily.sans]
+        sans: [
+          'Monaspace Neon',
+          'Harmoney_Sans-Regular',
+          ...defaultTheme.fontFamily.sans
+        ]
       },
-      typography: ({theme}) => ({
+      typography: ({ theme }) => ({
         DEFAULT: {
           css: {
             code: {
               paddingRight: theme('padding[2]'),
-              paddingLeft: theme('padding[2]'),
+              paddingLeft: theme('padding[2]')
             },
             'code::before': {
-              content: 'normal',
+              content: 'normal'
             },
             'code::after': {
-              content: 'normal',
-            },
+              content: 'normal'
+            }
           }
-        },
+        }
       })
     }
   },

@@ -1,5 +1,5 @@
 ---
-import logo from '@/assets/images/avatar.png';
+import logo from '@/assets/images/logo.png';
 import Icon from 'astro-icon';
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
@@ -23,7 +23,7 @@ const pathname = new URL(Astro.request.url).pathname;
 
 <header class="w-full">
   <div
-    class="container mx-auto max-w-4xl flex items-center justify-between p-4 border-b dark:border-slate-500 h-16"
+    class="container mx-auto max-w-4xl flex items-center justify-between py-4 border-b dark:border-slate-500 h-16"
   >
     <a href="/" aria-label="Go home">
         <Image
@@ -31,6 +31,7 @@ const pathname = new URL(Astro.request.url).pathname;
           width="40"
           alt="codercoin_logo"
           height="40"
+          quality="max"
           class="rounded-full"
           loading="eager"
         />
