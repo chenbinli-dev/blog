@@ -5,30 +5,33 @@ import { getCollection } from 'astro:content';
 import dayjs from 'dayjs';
 const blogs = await getCollection('blogs');
 const latestPosts = getLatestItem(blogs, 3);
-
 ---
 
 <MainLayout>
   <div class="container mx-auto flex-1 py-4">
-      <ul class="flex flex-col h-full space-y-4">
-        {
-          latestPosts.map(({ data, slug,collection }) => (
-          <a
-            href={`${collection}/` + slug}
-            title={data.title}
-              >
-            <li class="space-y-2 hover:bg-slate-200 dark:hover:bg-slate-900 px-4 py-2 group rounded border-b hover:shadow-lg cursor-pointer">
-              <div class="flex items-center gap-4 flex-wrap">
-              <span title={data.title} class="flex-1 text-xl font-semibold text-ellipsis overflow-hidden whitespace-nowrap">{data.title}</span>
-              <div class="flex items-center gap-2 text-sm opacity-50 ml-auto">             
-                <span class="h-5">{dayjs(data.pubDateTime).format('YYYY-MM-DD')}</span>
-              </div>
-              </div>
-              <span class="text-base">{data.description || 'no description'}</span>
-            </li>
-            </a>
-          ))
-        }
-      </ul>
+    <ul class="flex flex-col h-full space-y-4">
+      {
+        latestPosts.map(({ data, slug, collection }) => (
+          <li class="space-y-2 hover:bg-slate-200 dark:hover:bg-slate-900 px-4 py-2 group rounded border-b hover:shadow-lg cursor-pointer">
+            <div class="flex items-center gap-4 flex-wrap">
+              <a href={`${collection}/` + slug} title={data.title}>
+                <span
+                  title={data.title}
+                  class="flex-1 text-xl font-semibold text-ellipsis overflow-hidden whitespace-nowrap underline-offset-4 hover:underline"
+                >
+                  {data.title}
+                </span>
+              </a>
+              <span class="h-5 text-sm opacity-70 ml-auto">
+                {dayjs(data.pubDateTime).format('YYYY-MM-DD')}
+              </span>
+            </div>
+            <span class="text-base">
+              {data.description || 'no description'}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </MainLayout>

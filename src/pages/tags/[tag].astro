@@ -52,7 +52,7 @@ const { entries } = Astro.props;
         entries.map(({ data, slug, collection }) => (
           <li class="flex items-center gap-4 group border-b py-2 hover:shadow-lg cursor-pointer">
             <Link href={`/${collection}/${slug}`}>{data.title}</Link>
-            <span class="opacity-50">
+            <span class="opacity-70">
               {dayjs(data.pubDateTime).format('YYYY-MM-DD')}
             </span>
           </li>

@@ -2,7 +2,7 @@
 import MainLayout from '@/layouts/main.layout.astro';
 import { getCollection } from 'astro:content';
 const blogs = await getCollection('blogs');
-const tags =blogs.reduce(
+const tags = blogs.reduce(
   (acc, cur) => {
     cur.data.tags.forEach((tag) => {
       if (tag in acc) {
@@ -20,18 +20,23 @@ const pageTitle = 'Tags';
 
 <MainLayout pageTitle={pageTitle}>
   <div class="w-full p-4">
-    <ul class="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
+    <div class="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
       {
         Object.entries(tags).map(([key, value]) => (
           <a href={`/tags/${key}`}>
-            <li class="flex justify-center items-center gap-4 rounded hover:shadow-lg outline outline-1 shadow hover:scale-105 transition-all duration-200 ease-linear p-2 cursor-pointer">
+            <div class="flex justify-center items-center gap-4 rounded hover:shadow-lg outline outline-1 shadow hover:scale-105 transition-all duration-200 ease-linear p-2 cursor-pointer">
               #
-              <span class="font-semibold flex-1 text-ellipsis overflow-hidden whitespace-nowrap text-center" title={key}>{key}</span>
+              <span
+                class="font-semibold flex-1 text-ellipsis overflow-hidden whitespace-nowrap text-center"
+                title={key}
+              >
+                {key}
+              </span>
               <span>{value}</span>
-            </li>
+            </div>
           </a>
         ))
       }
-    </ul>
+    </div>
   </div>
 </MainLayout>
