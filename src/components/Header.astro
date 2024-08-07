@@ -25,21 +25,19 @@ const pathname = new URL(Astro.request.url).pathname;
   <div
     class="container mx-auto max-w-4xl flex items-center justify-between py-4 border-b dark:border-slate-500 h-16"
   >
-    <a href="/" aria-label="Go home">
-        <Image
-          src={logo}
-          width="40"
-          alt="codercoin_logo"
-          height="40"
-          quality="max"
-          class="rounded-full"
-          loading="eager"
-        />
+    <a href="/" aria-label="Go home" class="w-10 h-10">
+      <Image
+        src={logo}
+        alt="codercoin_logo"
+        quality="max"
+        class="rounded-full"
+        loading="eager"
+      />
     </a>
-  
-      <SearchButton searchContentList={searchContentList} client:only="react" />
-      <div class="flex items-center gap-8">
-          <NavMenu pathname={pathname} client:only="react" />
+
+    <SearchButton searchContentList={searchContentList} client:only="react" />
+    <div class="flex items-center gap-8">
+      <NavMenu pathname={pathname} client:only="react" />
       <a
         href={`${Astro.site}/rss.xml`}
         aria-label="rss"
@@ -48,8 +46,6 @@ const pathname = new URL(Astro.request.url).pathname;
         <Icon name="tabler:rss" size="18" />
       </a>
       <ToggleTheme client:only="react" />
-      </div>
-    
-  
+    </div>
   </div>
 </header>
